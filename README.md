@@ -24,4 +24,5 @@ ps1_ray.log, Econ 672, Program Analysis & Evaluation
 4. Evaluation with observational data: While in last question we analyzed data from ﬁctitious job applicants, we will now analyze data on real-life individuals. We will use data drawn from the U.S. Current Population Survey (CPS), a large on-going labor market study conducted by the Bureau of Labor Statistics; our dataset will include data on 8,891 black and white individuals living in Boston and Chicago in 2001.
 
 datacase2.log, Econ 670, Financial Economics
+
 Used data on dividend-adjusted price of 10 stocks and the S&P 500 index and the risk-free rate from Yahoo (finance.yahoo.com).
