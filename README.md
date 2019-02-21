@@ -1,6 +1,10 @@
 # Stata
 These Stata files are samples created in the MPS Economics program at UMD.
 
+ProblemSet1Econ645.log, Econ 645, Empirical Analysis III
+
+These data are from the 1980 US Census. This particular sample was provided by Bill Evans and is a subset of the data used in his 1998 AER paper with Josh Angrist entitled “Children and Their Parents’ Labor Supply: Evidence from Exogenous Variation in Family Size.”  The file contains data on 254,654 women between ages 21-35 who have at least two kids. 
+
 ps2_ray.log, Econ 672, Program Analysis & Evaluation
 
 1. Propensity score matching: In this section, we will use a dataset based on a study on maternal smoking and birthweight to work through an example of propensity score matching. Load in the data using the command: webuse cattaneo2, clear.
