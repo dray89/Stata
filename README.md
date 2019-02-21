@@ -9,7 +9,7 @@ ps2_ray.log, Econ 672, Program Analysis & Evaluation
 
 3. Diﬀerences-in-diﬀerences: For this question, we will use data collected by David Card and Alan Krueger on fast food restaurants in New Jersey (NJ) and eastern Pennsylvania (PA) during two interview waves in March and November/December of 1992. On April 1, 1992 New Jersey raised its minimum wage from $4.25 to $5.05. The minimum in Pennsylvania remained at the federal level of $4.25. We will use this data to analyze the impact of the minimum wage increase in New Jersey on employment in the fast food industry
 
-Regression Discontinuity: Based on Lingsheng Meng (2013) “Evaluating China’s poverty alleviation program: A regression discontinuity approach,” Journal of Public Economics 101:1-11. In 1994, China implemented a poverty alleviation program, called the 8-7 Plan, in various counties nationwide. Program participation was largely determined by whether a county’s pre-program rural income per capita fell below the poverty line. 
+4. Regression Discontinuity: Based on Lingsheng Meng (2013) “Evaluating China’s poverty alleviation program: A regression discontinuity approach,” Journal of Public Economics 101:1-11. In 1994, China implemented a poverty alleviation program, called the 8-7 Plan, in various counties nationwide. Program participation was largely determined by whether a county’s pre-program rural income per capita fell below the poverty line. 
 
 ps1_ray.log, Econ 672, Program Analysis & Evaluation
 
