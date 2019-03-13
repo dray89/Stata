@@ -5,7 +5,7 @@ ProblemSet1Econ645.log, Econ 645, Empirical Analysis III
 
 These data are from the 1980 US Census. This particular sample was provided by Bill Evans and is a subset of the data used in his 1998 AER paper with Josh Angrist entitled “Children and Their Parents’ Labor Supply: Evidence from Exogenous Variation in Family Size.”  The file contains data on 254,654 women between ages 21-35 who have at least two kids. 
 
-ps2_ray.log, Econ 672, Program Analysis & Evaluation
+ps2_ray_Program Analysis.log, Econ 672, Program Analysis & Evaluation
 
 1. Propensity score matching: In this section, we will use a dataset based on a study on maternal smoking and birthweight to work through an example of propensity score matching. Load in the data using the command: webuse cattaneo2, clear.
 
@@ -15,7 +15,7 @@ ps2_ray.log, Econ 672, Program Analysis & Evaluation
 
 4. Regression Discontinuity: Based on Lingsheng Meng (2013) “Evaluating China’s poverty alleviation program: A regression discontinuity approach,” Journal of Public Economics 101:1-11. In 1994, China implemented a poverty alleviation program, called the 8-7 Plan, in various counties nationwide. Program participation was largely determined by whether a county’s pre-program rural income per capita fell below the poverty line. 
 
-ps1_ray.log, Econ 672, Program Analysis & Evaluation
+ps1_ray_Program Analysis.log, Econ 672, Program Analysis & Evaluation
 
 2. Selection bias: In this exercise, we will work through how random assignment can address selection bias. Download the dataset ps1selectiondta.dta from the course website. This is “fake” dataset, with information about the experience level of 4,000 individuals who are all employed as widget-makers, a variable called randomassignment that is randomly 1 or 0 for each observation, and a random error term u. The intervention is a training program for improving the number of widgets each individual can produce each day.
 
