@@ -23,10 +23,10 @@ ps1_ray_Program Analysis.log, Econ 672, Program Analysis & Evaluation
 
 4. Evaluation with observational data: While in last question we analyzed data from ﬁctitious job applicants, we will now analyze data on real-life individuals. We will use data drawn from the U.S. Current Population Survey (CPS), a large on-going labor market study conducted by the Bureau of Labor Statistics; our dataset will include data on 8,891 black and white individuals living in Boston and Chicago in 2001.
 
-datacase2.log, Econ 670, Financial Economics
+datacase2_Financial Economics.log, Econ 670, Financial Economics
 
 Used data on dividend-adjusted price of 10 stocks and the S&P 500 index and the risk-free rate from Yahoo (finance.yahoo.com).
 
-Groupproject_EmpiricalAnalysisI.log, Econ 643, Empirical Analysis I
+Groupproject_Empirical Analysis I.log, Econ 643, Empirical Analysis I
 
 We obtained the data from the World Bank Development Research website. This data was originally collected and analyzed for a journal article titled “Gross Capital Flows: Dynamics and Crises” by Sergio Schukler, Tatiana Brandao, Fernando Broner, and Altor Erce. They obtained through the balance of payments from the International Financial Statistics of the International Monetary Fund from 1970 to 2009 for 183 countries. The data is classified into three groups based on country’s income levels as measured in GNI per capita as of the year 2005. Groupproject_EmpiricalAnalysisI.docx is the accompanying research summary of the group project for Empirical Analysis I.
