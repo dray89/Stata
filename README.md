@@ -1,6 +1,10 @@
 # Stata
 These Stata files are samples created in the MPS Economics program at UMD.
 
+ProblemSet2Econ645.log, Econ 645, Empirical Analysis III
+
+Guns.dta is a balanced panel of annual data on 50 US states, plus the District of Columbia spanning 1977 through 1999. Each observation is fora given state in a given year. There are a total of 51 states × 23 years = 1,173 observations. These data were provided by Professor John Donohue of Stanford University andwere used in his paper with Ian Ayres: “Shooting Down the ‘More Guns Less Crime’ Hypothesis” Stanford Law Review, 2003, Vol. 55, 1193-1312.
+
 ProblemSet1Econ645.log, Econ 645, Empirical Analysis III
 
 These data are from the 1980 US Census. This particular sample was provided by Bill Evans and is a subset of the data used in his 1998 AER paper with Josh Angrist entitled “Children and Their Parents’ Labor Supply: Evidence from Exogenous Variation in Family Size.”  The file contains data on 254,654 women between ages 21-35 who have at least two kids. 
