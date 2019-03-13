@@ -26,3 +26,7 @@ ps1_ray.log, Econ 672, Program Analysis & Evaluation
 datacase2.log, Econ 670, Financial Economics
 
 Used data on dividend-adjusted price of 10 stocks and the S&P 500 index and the risk-free rate from Yahoo (finance.yahoo.com).
+
+Groupproject_EmpiricalAnalysisI.log, Econ 643, Empirical Analysis I
+
+We obtained the data from the World Bank Development Research website. This data was originally collected and analyzed for a journal article titled “Gross Capital Flows: Dynamics and Crises” by Sergio Schukler, Tatiana Brandao, Fernando Broner, and Altor Erce. They obtained through the balance of payments from the International Financial Statistics of the International Monetary Fund from 1970 to 2009 for 183 countries. The data is classified into three groups based on country’s income levels as measured in GNI per capita as of the year 2005. Groupproject_EmpiricalAnalysisI.docx is the accompanying research summary of the group project for Empirical Analysis I.
