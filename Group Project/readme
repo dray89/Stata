@@ -1,0 +1,83 @@
+Capital_Inflows.log, Econ 643, Empirical Analysis I
+
+We obtained the data from the World Bank Development Research website. This data was originally collected and analyzed for a 
+journal article titled “Gross Capital Flows: Dynamics and Crises” by Sergio Schukler, Tatiana Brandao, Fernando Broner, and Altor Erce. 
+
+They obtained through the balance of payments from the International Financial Statistics of the International Monetary Fund from 
+1970 to 2009 for 183 countries. The data is classified into three groups based on country’s income levels as measured in GNI per 
+capita as of the year 2005. Groupproject_EmpiricalAnalysisI.docx is the accompanying research summary of the group project for 
+Empirical Analysis I.
+
+Debra Ray
+Katia Murrugarra
+Yagmur Basak Lazarus
+Sergio Von Horoch 
+Econ 643 Fall
+
+Issue: 
+We have noticed that there is a high positive correlation between capital inflows and nominal GDP (67%). Countries that receive 
+higher capital inflows from foreign agents tend to have higher nominal GDP. Knowing this, we were curious if capital inflows by 
+foreign agents differ between high income and lower-middle income countries.
+
+Hypotheses to be tested:
+H0: There is no difference in average capital inflows from foreign agents between low and high-income countries. 
+Ha: There is a statistically significant difference in average capital inflows from foreign agents between high and low-income countries. 
+
+We are testing this hypothesis because there are differences between the groups of countries that imply one may receive higher 
+capital inflows from foreign agents than the other group. High-income countries may receive more capital inflows from foreign agents 
+than lower-middle income countries receive.
+
+Data Description:
+We obtained the data from the World Bank Development Research website. This data was originally collected and analyzed for a 
+journal article titled “Gross Capital Flows: Dynamics and Crises” by Sergio Schukler, Tatiana Brandao, Fernando Broner, and Altor Erce. 
+They obtained through the balance of payments from the International Financial Statistics of the International Monetary Fund from 1970 
+to 2009 for 183 countries. The data is classified into three groups based on country’s income levels as measured in GNI per capita as of 
+the year 2005. To test our hypothesis, we chose the year 2008 because most of the data for each country on capital inflows from foreign 
+agents was available in the dataset for that year.
+
+Below we provide definitions of terms we used to test our hypothesis:
+
+•    Lower-middle income: Countries a with GNI per capita < 7,500 $ (26 % of the entire sample size). 
+•    High Income: Countries with GNI per capita > 15,000 $ (38 % of the entire sample size).
+•    CIF: Capital inflows by foreign agents. It is the net purchases of domestic assets by non-residents.
+
+The data used for this statistical test can be found at the following URL: 
+http://econ.worldbank.org/WBSITE/EXTERNAL/EXTDEC/EXTRESEARCH/0,,contentMDK:23407813~pagePK:64214825~piPK:64214943~theSitePK:469382,00.html
+
+Methods:
+To conduct the statistical analysis, we took 30 samples without replacement from countries categorized as high income. 
+We ran the test 50 times and saved the means. We repeated the same process for lower-middle income countries. 
+We recorded the results from each group in separate files and then merged those documents into one data file. 
+From that data file, we ran a test comparing the means of those results to determine whether high-income countries or lower-middle 
+income countries had higher levels of capital inflows from foreign agents. If we reject the null hypothesis that there is no difference 
+in capital inflows by foreign agents between high income and lower-middle income countries, the hypothesis t-test will conclude that 
+there is a significant difference between the average capital inflows by foreign agents. If we fail to reject the null hypothesis, the 
+hypothesis will fail to show that there is a difference in average foreign capital inflow between countries in these two income groups.
+
+Results:
+The t-test shows a t-value of 9.0416 with 50.0705 degrees of freedom corresponding to a p-value of approximately zero indicating a 
+highly statistically significant difference between the two means of capital inflows by foreign agents. Based on the t-test, 
+high-income countries have on average greater capital inflows from foreign agents than lower-middle income countries. 
+We have rejected the null hypothesis. There is a significant difference between the two means. 
+ 
+This bar graph shows the difference between the two groups visually. The y-axis charts the mean capital inflow in millions. While the 
+average of the lower-middle income group is less than $10 Billion, the mean of high-income countries surpasses $30 Billion.
+ 
+Discussion: 
+We started by questioning whether there is a difference in foreign capital inflow between high income and lower-middle income countries. To test this, we went to the world bank database and pulled out data that we argued would be relevant for our test.  To answer our initial question, we conducted a t-test using 30 samples without replacement from high income and lower income countries fifty times. Finally, we rejected our null hypothesis that there is no difference in the capital inflows from foreign agents between high income and lower income countries. 
+Before testing for the differences between these capital inflows, we determined there was a correlation between foreign capital inflows 
+and nominal GDP. GDP is equal to the sum of spending by consumers, investment by businesses, government spending, and net exports. Since 
+the correlation indicates that foreign capital inflows may be related to GDP and there are statistically significant differences between 
+the foreign capital inflows between these two groups, it is logical to conclude that foreign capital inflows could potentially increase 
+spending power by domestic agents leading to higher GDP. Nevertheless, these results don’t necessarily indicate any cause and effect 
+relationship between the two variables. It could be that foreign investors feel safer investing in high-income countries without capital 
+inflows being a predictor of wealth. One drawback from foreign capital inflows is the effect on the exchange rate. Foreign capital 
+inflows have the potential to appreciate the exchange rate of the receiver’s currency if there is not a counteracting effect from 
+outflows. This appreciation could affect the export market negatively while decreasing the import prices, which would be reflected in 
+net exports. Nevertheless, it seems for high-income countries, there is a muted influence by looking at GDP. We can keep this in mind 
+during further exploration into this topic. Foreign agents can invest capital in another country in many ways. They can invest in real 
+estate, businesses, or grant loans to the government. Further analysis could break down these different types of foreign capital inflows 
+to test for differences between these two groups of countries. The analysis could also extend to how various forms of investment affect 
+the wealth of a country. It would also be interesting to see where the money changes hands after being invested in determining the 
+effect the capital has on different sectors of the economy. To do this, we would need to determine where the money was initially 
+invested and what effect it had on those segments of the economy.
