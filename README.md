@@ -1,15 +1,15 @@
 # Stata
 These Stata files are samples created in the MPS Economics program at UMD.
 
-ProblemSet2Econ645.log, Econ 645, Empirical Analysis III
+Fixed_or_Random_Effects.log, Econ 645, Empirical Analysis III
 
 Guns.dta is a balanced panel of annual data on 50 US states, plus the District of Columbia spanning 1977 through 1999. Each observation is for a given state in a given year. There are a total of 51 states × 23 years = 1,173 observations. These data were provided by Professor John Donohue of Stanford University andwere used in his paper with Ian Ayres: “Shooting Down the ‘More Guns Less Crime’ Hypothesis” Stanford Law Review, 2003, Vol. 55, 1193-1312.
 
-ProblemSet1Econ645.log, Econ 645, Empirical Analysis III
+IVRegression.log, Econ 645, Empirical Analysis III
 
 These data are from the 1980 US Census. This particular sample was provided by Bill Evans and is a subset of the data used in his 1998 AER paper with Josh Angrist entitled “Children and Their Parents’ Labor Supply: Evidence from Exogenous Variation in Family Size.”  The file contains data on 254,654 women between ages 21-35 who have at least two kids. 
 
-ps2_ray_Program Analysis.log, Econ 672, Program Analysis & Evaluation
+PSmatch.log, Econ 672, Program Analysis & Evaluation
 
 1. Propensity score matching: In this section, we will use a dataset based on a study on maternal smoking and birthweight to work through an example of propensity score matching. Load in the data using the command: webuse cattaneo2, clear.
 
@@ -19,7 +19,7 @@ ps2_ray_Program Analysis.log, Econ 672, Program Analysis & Evaluation
 
 4. Regression Discontinuity: Based on Lingsheng Meng (2013) “Evaluating China’s poverty alleviation program: A regression discontinuity approach,” Journal of Public Economics 101:1-11. In 1994, China implemented a poverty alleviation program, called the 8-7 Plan, in various counties nationwide. Program participation was largely determined by whether a county’s pre-program rural income per capita fell below the poverty line. 
 
-ps1_ray_Program Analysis.log, Econ 672, Program Analysis & Evaluation
+treatment_effects.log, Econ 672, Program Analysis & Evaluation
 
 2. Selection bias: In this exercise, we will work through how random assignment can address selection bias. Download the dataset ps1selectiondta.dta from the course website. This is “fake” dataset, with information about the experience level of 4,000 individuals who are all employed as widget-makers, a variable called randomassignment that is randomly 1 or 0 for each observation, and a random error term u. The intervention is a training program for improving the number of widgets each individual can produce each day.
 
@@ -27,10 +27,6 @@ ps1_ray_Program Analysis.log, Econ 672, Program Analysis & Evaluation
 
 4. Evaluation with observational data: While in last question we analyzed data from ﬁctitious job applicants, we will now analyze data on real-life individuals. We will use data drawn from the U.S. Current Population Survey (CPS), a large on-going labor market study conducted by the Bureau of Labor Statistics; our dataset will include data on 8,891 black and white individuals living in Boston and Chicago in 2001.
 
-datacase2_Financial Economics.log, Econ 670, Financial Economics
+Plotting_Beta.log, Econ 670, Financial Economics
 
 Used data on dividend-adjusted price of 10 stocks and the S&P 500 index and the risk-free rate from Yahoo (finance.yahoo.com).
-
-Groupproject_Empirical Analysis I.log, Econ 643, Empirical Analysis I
-
-We obtained the data from the World Bank Development Research website. This data was originally collected and analyzed for a journal article titled “Gross Capital Flows: Dynamics and Crises” by Sergio Schukler, Tatiana Brandao, Fernando Broner, and Altor Erce. They obtained through the balance of payments from the International Financial Statistics of the International Monetary Fund from 1970 to 2009 for 183 countries. The data is classified into three groups based on country’s income levels as measured in GNI per capita as of the year 2005. Groupproject_EmpiricalAnalysisI.docx is the accompanying research summary of the group project for Empirical Analysis I.
