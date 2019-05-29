@@ -1,0 +1,431 @@
+﻿------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\faith\Downloads\ps2_ray.log
+  log type:  text
+ opened on:  20 Feb 2019, 12:57:08
+. 
+. /* Question 3: Difference in Differences
+> 
+> (a) Calculate the average starting wage (wage_st) separately for restaurants in NJ and PA, 
+> for each interview wave. */
+. 
+. use "C:\Users\faith\Downloads\ps2_dd.dta", clear
+
+. 
+. sort state
+
+. by state: sum wage_st1 wage_st2
+
+------------------------------------------------------------------------------------------------
+-> state = 0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+    wage_st1 |         66    4.653636    .3604042       4.25        5.5
+    wage_st2 |         66    4.618788     .359245       4.25       6.25
+
+------------------------------------------------------------------------------------------------
+-> state = 1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+    wage_st1 |        285    4.612982    .3439956       4.25       5.75
+    wage_st2 |        285    5.082141    .1066519          5       5.75
+
+
+. 
+. 
+. /*i. Calculate the diﬀerence in the average wages between the second 
+> and ﬁrst interviews. */
+. 
+. scalar wagediffpa = 4.618788 - 4.653636
+
+. scalar wagediffnj = 5.082141 - 4.612982
+
+. 
+. /*ii. Next, calculate the diﬀerence between NJ and PA of the time diﬀerences 
+> you just computed. */
+. 
+. scalar didwage =wagediffnj - wagediffpa
+
+. di didwage
+.504007
+
+. 
+. /*iii. What is the interpretation of such a diﬀerence-in-diﬀerences estimate of 
+> the wage eﬀect? What do your estimates tell you? 
+> 
+> These estimates say that the difference in nj wages over this time period were 
+> larger than the diff in pa wages over the same time period although it isn't clear 
+> within what range we expect these estimates can be extended to the population without
+> standard errors from which to calculate confidence intervals.*/
+. 
+. /*iv. Under what conditions does this provide a valid estimate of the causal impact of a 
+> minimum wage increase on wages in the fast food industry? 
+> 
+> In order for a difference-in-difference estimator to provide a valid estimate of 
+> the causal impact of a minimum wage increase on wages, the wage trends in both the 
+> treatment and control groups need to be the same in the pre-treatment period (Parallel 
+> Trends Assumption).
+> 
+> (b) 
+> 
+> i. First, calculate the diﬀerence in FTE employment between the second and ﬁrst interviews. 
+> */
+. 
+. sort state
+
+. by state: sum fte1 fte2
+
+------------------------------------------------------------------------------------------------
+-> state = 0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+        fte1 |         66    20.11364    12.16562        4.5       67.5
+        fte2 |         66    18.09848    7.918076          6      38.25
+
+------------------------------------------------------------------------------------------------
+-> state = 1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+        fte1 |        285    17.27544    8.872235          3         80
+        fte2 |        285    17.56228    8.403964        3.5       55.5
+
+
+. 
+. scalar ftediffpa= 18.09848 -20.11364
+
+. scalar ftediffnj = 17.56228 - 17.27544
+
+. 
+. /*
+> ii. Next, calculate the diﬀerence between NJ and PA of the time diﬀerences you just computed
+> . 
+> */
+. 
+. scalar didemp= ftediffnj - ftediffpa
+
+. di didemp
+2.302
+
+. 
+. /*
+> iii. What is the interpretation of such a diﬀerence-in-diﬀerences estimate of the employment
+>  eﬀect? 
+> What do your estimates tell you? 
+> 
+> This estimate says that employment in NJ fell but not by as much as PA employment increased.
+> 
+>  */
+. /*v. Under what conditions does this provide a valid estimate of the causal impact of a minimu
+> m 
+> wage increase on relative employment in the fast food industry? 
+> 
+> The Parallel Trends Assumption must hold. The employment trend in the posttreatment period nee
+> ds
+> to be the same for both the treatment and control groups. 
+> 
+> (c)  i. To run a regression of this speciﬁcation, we need to reshape the data so each observa
+> tion is
+>  at the restaurant-time level (known as a long dataset), rather than the restaurant level
+>  (known as a wide dataset). Run the following command to do this: */
+.  
+.  reshape long empft emppt wage_st fte, i(storeid) j(period) 
+(note: j = 1 2)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                      351   ->     702
+Number of variables                  15   ->      12
+j variable (2 values)                     ->   period
+xij variables:
+                          empft1 empft2   ->   empft
+                          emppt1 emppt2   ->   emppt
+                      wage_st1 wage_st2   ->   wage_st
+                              fte1 fte2   ->   fte
+-----------------------------------------------------------------------------
+
+. 
+. /*
+>  ii. Now estimate DD regressions on wages and employment using this regression 
+> speciﬁcation. */
+. 
+. 
+. regress wage_st period##state
+
+      Source |       SS           df       MS      Number of obs   =       702
+-------------+----------------------------------   F(3, 698)       =    156.91
+       Model |  36.1932033         3  12.0644011   Prob > F        =    0.0000
+    Residual |   53.668587       698  .076889093   R-squared       =    0.4028
+-------------+----------------------------------   Adj R-squared   =    0.4002
+       Total |  89.8617903       701  .128190856   Root MSE        =    .27729
+
+------------------------------------------------------------------------------
+     wage_st |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    2.period |  -.0348485   .0482698    -0.72   0.471    -.1296199    .0599229
+     1.state |  -.0406539   .0378784    -1.07   0.284    -.1150232    .0337153
+             |
+period#state |
+        2 1  |   .5040066   .0535681     9.41   0.000     .3988326    .6091805
+             |
+       _cons |   4.653636   .0341319   136.34   0.000     4.586623     4.72065
+------------------------------------------------------------------------------
+
+. regress fte period##state
+
+      Source |       SS           df       MS      Number of obs   =       702
+-------------+----------------------------------   F(3, 698)       =      1.87
+       Model |   450.83442         3   150.27814   Prob > F        =    0.1334
+    Residual |  56108.8427       698  80.3851614   R-squared       =    0.0080
+-------------+----------------------------------   Adj R-squared   =    0.0037
+       Total |  56559.6771       701  80.6842754   Root MSE        =    8.9658
+
+------------------------------------------------------------------------------
+         fte |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    2.period |  -2.015152   1.560741    -1.29   0.197    -5.079462    1.049159
+     1.state |  -2.838198   1.224749    -2.32   0.021    -5.242831   -.4335642
+             |
+period#state |
+        2 1  |   2.301994   1.732057     1.33   0.184    -1.098672    5.702659
+             |
+       _cons |   20.11364   1.103611    18.23   0.000     17.94684    22.28043
+------------------------------------------------------------------------------
+
+. di "didwage = " didwage " didemp = " didemp
+didwage = .504007 didemp = 2.302
+
+. 
+. /*
+> How do the results compare to the straight-forward diﬀerences in means you 
+> found in parts 3a and 3b? */
+. 
+. /*The results are the same. The coefficient on the straight-forward differences 
+> in means is smaller than the regression. 
+> 
+> 
+> The standard error is larger in the employment regression than the wage regression
+> and statistically insignifcant at the .1 level whereas the wage regression has a smaller confi
+> dence 
+> interval, smaller standard error, and is significant at the .01 confidence level.*/
+. 
+. /*
+> iii. Repeat the two regressions, entering a dummy variable for whether the restaurant is compa
+> nyowned 
+> (“co-owned,” as opposed to franchised) and dummy variables for the four chains in the dataset 
+> (Burger King, KFC, Roy Rogers, and Wendy’s). You can either use i.chain in the regression comm
+> and 
+> to have Stata create the dummies for you, or you can manually create them and include them 
+> separately in the regression command. */
+. 
+. regress wage_st period##state i.chain
+
+      Source |       SS           df       MS      Number of obs   =       702
+-------------+----------------------------------   F(6, 695)       =     83.34
+       Model |  37.6015332         6  6.26692221   Prob > F        =    0.0000
+    Residual |  52.2602571       695  .075194615   R-squared       =    0.4184
+-------------+----------------------------------   Adj R-squared   =    0.4134
+       Total |  89.8617903       701  .128190856   Root MSE        =    .27422
+
+------------------------------------------------------------------------------
+     wage_st |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    2.period |  -.0348485   .0477349    -0.73   0.466    -.1285705    .0588735
+     1.state |  -.0400389   .0375331    -1.07   0.286    -.1137308     .033653
+             |
+period#state |
+        2 1  |   .5040066   .0529746     9.51   0.000     .3999972     .608016
+             |
+       chain |
+          2  |   .0401246    .027767     1.45   0.149    -.0143926    .0946419
+          3  |   .0863116   .0263113     3.28   0.001     .0346524    .1379708
+          4  |   .1210661   .0331026     3.66   0.000     .0560729    .1860592
+             |
+       _cons |   4.607763   .0356898   129.11   0.000      4.53769    4.677836
+------------------------------------------------------------------------------
+
+. regress fte period##state i.chain
+
+      Source |       SS           df       MS      Number of obs   =       702
+-------------+----------------------------------   F(6, 695)       =     30.22
+       Model |  11702.3477         6  1950.39129   Prob > F        =    0.0000
+    Residual |  44857.3294       695    64.54292   R-squared       =    0.2069
+-------------+----------------------------------   Adj R-squared   =    0.2001
+       Total |  56559.6771       701  80.6842754   Root MSE        =    8.0339
+
+------------------------------------------------------------------------------
+         fte |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    2.period |  -2.015152   1.398516    -1.44   0.150    -4.760974    .7306706
+     1.state |  -2.093199   1.099628    -1.90   0.057     -4.25219     .065792
+             |
+period#state |
+        2 1  |   2.301994   1.552024     1.48   0.138    -.7452244    5.349212
+             |
+       chain |
+          2  |  -10.48123   .8135038   -12.88   0.000    -12.07845   -8.884013
+          3  |  -1.891648   .7708566    -2.45   0.014    -3.405135   -.3781614
+          4  |  -1.447926   .9698253    -1.49   0.136    -3.352064    .4562131
+             |
+       _cons |   22.37294   1.045622    21.40   0.000     20.31999     24.4259
+------------------------------------------------------------------------------
+
+. 
+. /*
+> iv. Do the results change when you enter the restaurant-speciﬁc covariates?
+> Would you have expected the results to change? 
+> Explain why or why not. 
+> 
+> The coefficients and standard errors remain close to the same on the treatment and period
+> variables. The adjusted R2 increased in the wage regression and the residual decreased 
+> in both regressions. The F-stat decreased in the wage regression but increased in the emp
+> regression. The constant decreased in the wage regression, increased in the empl regression. 
+> 
+> 
+> I would expect the results to change if the restaurant chains were correlated to the 
+> period or state variable. If they were correlated, in the regression without i.chain, 
+> the correlated variable would also be an endogenous variable, correlated with the error 
+> term, and have a bias included in the regression coefficient. Since restaurant chains
+> are "as good as randomly assigned" to states, periods, employment, and wages, the coeff.
+> on treatment, period, or state do not change. Instead, the effect is included in the 
+> regression residual and the constant.
+> 
+> 
+> */
+. 
+. /*
+> v. Suppose that it turned out that some counties in PA had new regulations that the restaurant
+> s 
+> were trying to comply with exactly during this time period. How would that bias the 
+> results you have just found? (Hint: Recall that a basic assumption behind the simple 
+> implementation of DiD is that other characteristics are constant over time.)
+> 
+> PA, as the control variable, serves as the counterfactual for NJ. If those regulations 
+> are correlated with wages and/or employment, and is missing from the regression, the 
+> counterfactual would bias the estimate of the treatment effect negatively if the regulations
+> negatively impact employment given that the coefficient on the treatment effect is positive. M
+> inimum
+> wage laws may prevent the regulations from putting downward pressure on wages. 
+> If the regulations were to increase wages, then the treatment effect might be 
+> understated in the regression.
+> 
+> */ 
+. 
+. /*
+> i. Would you expect the DD assumptions to be satisﬁed more easily for the within-NJ 
+> comparison, than for the NJ vs. PA comparison? Why? 
+> 
+> On the one hand, within NJ comparison might homogenize the regulatory environment,
+> preventing a need to control for it in a regression aslong as NJ doesn't change
+> any other regulations impacting wages and employment or the federal govt doesn't
+> change regulations to which restaurants must adhere. 
+> 
+> On the other hand, the restaurants may not be randomly assigned at the city level or
+> county level. 
+> 
+> */
+. 
+. /*
+> ii. Construct an indicator variable low wage st that equals 1 for restaurants paying 
+> less than $5.00 before the minimum wage increase. Use the following commands to create 
+> the variable, and also make the variable carry over into the post period observation for 
+> each restaurant, and verify that the mean of low wage st is 0.77:*/
+. 
+. gen low_wage_st1 = wage_st<5 if period==1
+(351 missing values generated)
+
+. by storeid, sort: egen low_wage_st = max(low_wage_st1) 
+
+. 
+. sum low_wage_st if state ==1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ low_wage_st |        570    .7684211    .4222119          0          1
+
+. 
+. /*
+> iii. Estimate DD regressions for wages and employment using this speciﬁcation 
+> (comparing high and low-wage restaurants in NJ, before and after the minimum wage increase). 
+> */
+. 
+. regress wage_st period##low_wage_st i.chain
+
+      Source |       SS           df       MS      Number of obs   =       702
+-------------+----------------------------------   F(6, 695)       =    163.65
+       Model |  52.6177789         6  8.76962982   Prob > F        =    0.0000
+    Residual |  37.2440114       695  .053588506   R-squared       =    0.5855
+-------------+----------------------------------   Adj R-squared   =    0.5820
+       Total |  89.8617903       701  .128190856   Root MSE        =    .23149
+
+------------------------------------------------------------------------------------
+           wage_st |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------------+----------------------------------------------------------------
+          2.period |  -.0715729   .0347021    -2.06   0.040    -.1397064   -.0034394
+     1.low_wage_st |  -.6354263   .0285549   -22.25   0.000    -.6914905   -.5793621
+                   |
+period#low_wage_st |
+              2 1  |   .5974509    .040166    14.87   0.000     .5185897    .6763122
+                   |
+             chain |
+                2  |   .0315813   .0234291     1.35   0.178     -.014419    .0775816
+                3  |   .0518233   .0223409     2.32   0.021     .0079595    .0956872
+                4  |   .0560874   .0281431     1.99   0.047     .0008318    .1113431
+                   |
+             _cons |    5.06824   .0275451   184.00   0.000     5.014158    5.122321
+------------------------------------------------------------------------------------
+
+. regress fte period##low_wage_st i.chain
+
+      Source |       SS           df       MS      Number of obs   =       702
+-------------+----------------------------------   F(6, 695)       =     30.94
+       Model |  11922.7413         6  1987.12356   Prob > F        =    0.0000
+    Residual |  44636.9357       695  64.2258068   R-squared       =    0.2108
+-------------+----------------------------------   Adj R-squared   =    0.2040
+       Total |  56559.6771       701  80.6842754   Root MSE        =    8.0141
+
+------------------------------------------------------------------------------------
+               fte |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------------+----------------------------------------------------------------
+          2.period |  -2.662921   1.201364    -2.22   0.027     -5.02166   -.3041826
+     1.low_wage_st |  -2.465933   .9885524    -2.49   0.013    -4.406841   -.5250262
+                   |
+period#low_wage_st |
+              2 1  |   3.371891   1.390521     2.42   0.016     .6417644    6.102017
+                   |
+             chain |
+                2  |  -10.60387   .8111008   -13.07   0.000    -12.19638   -9.011373
+                3  |  -2.020964    .773429    -2.61   0.009    -3.539502   -.5024265
+                4  |  -1.544638   .9742954    -1.59   0.113    -3.457553    .3682773
+                   |
+             _cons |   22.58431   .9535948    23.68   0.000     20.71204    24.45658
+------------------------------------------------------------------------------------
+
+. 
+. /*
+> What is the relative impact of the minimum wage on starting wages and employment within NJ? 
+> 
+> The regression shows both an increase in employment (3.529) and wages (.597). Wages is
+> still significant at the .01 confidence level. Because the coefficient on employment increased
+>  more
+> than the standard error, the significance of the coefficient on employment increased and 
+> is significant at the .05 confidence level although still insignificant at the .01 confidence 
+> level.
+> 
+> iv. How do your within-NJ estimates compare to those obtained in part (c) for the NJ-PA compar
+> ison?
+> The treatment effects of the minimum wage on starting wages and employment are larger in the
+> within NJ regression than in the PA-NJ regression. Both regressions show a positive effect on 
+> employment and wages.
+> 
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\faith\Downloads\ps2_ray.log
+  log type:  text
+ closed on:  20 Feb 2019, 12:57:23
+------------------------------------------------------------------------------------------------
+ 
