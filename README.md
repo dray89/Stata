@@ -1,5 +1,5 @@
 # Stata
-These Stata files are samples created in the MPS Economics program at UMD.
+Sample Stata Files
 
 Fixed_or_Random_Effects.log, Econ 645, Empirical Analysis III
 
