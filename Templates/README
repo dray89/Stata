@@ -1,4 +1,14 @@
-Templates
+Stata templates for new projects
 
-Testing.do
+form_test.do
+* Mis-specification / Functional Form Tests
+* Test that nonlinearities are correctly identified in the functional form
+* Mizon-Richard Test: Nest both functional forms together in one model and conduct F-test
+* Davidson-Mackinnon Test: Nest the fitted values of the nonlinear functional form in the linear model and conduct F-test
+* Ramsey (RESET) Functional Form Test: Tests whether a nonlinear functional form has statistical power in explaining the dependent variable
 
+htsk_test.do
+* Test for presence of heteroskedasticity
+* Conditional Variance Test
+* Beusch Pagen Test for HTSK
+* LM Test for HTSK
