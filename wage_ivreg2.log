@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:\Users\rayde\Documents\wage_ivreg2.log
   log type:  text
- opened on:  31 May 2019, 18:18:57
+ opened on:  31 May 2019, 18:25:25
 
 . 
 . ********************************************************************************
@@ -98,13 +98,9 @@ F-stat: 26.293331 Adj-R2: .05610849 RMSE: 2.1374236
 . 
 . **** F-stat in regression including both brthord and siblings lower than siblings alone
 . **** Adj R2 not improved with regression including both brthord and sibs
+. 
 . qui {
-lwage (educ=brthord) - Chi-2: 16.667099 Adj-R2: .RMSE: .42101197
 lwage sibs (educ = brthord) - Chi-2: 21.871187 Adj-R2: .RMSE: .42623075
-lwage (educ = sibs) - Chi-2: 19.197011 Adj-R2: .RMSE: .41835716
-
-. **** including no other regressors other than the instrumental variable results in missing r2
-. qui {
 lwage black tenure (educ= brthord sibs) - Chi-2: 86.911625 Adj-R2: .11636863 RMSE: .38952533
 lwage black tenure (educ= sibs) - Chi-2: 84.339064 Adj-R2: .14263238 RMSE: .38369282
 
@@ -112,27 +108,27 @@ lwage black tenure (educ= sibs) - Chi-2: 84.339064 Adj-R2: .14263238 RMSE: .3836
 . **** More instruments than endogenous variables; 
 . **** Inside parenth, the variables are excluded in the 2nd stage but included in the first stage*
 . 
-. estimates table e1 e2 e3 e4 e5, stat(chi2 r2_a rmse) star(.1 .01 .001)
+. estimates table e1 e2 e3, stat(chi2 r2_a rmse) star(.1 .01 .001)
 
-----------------------------------------------------------------------------------------------
-    Variable |      e1              e2              e3              e4              e5        
--------------+--------------------------------------------------------------------------------
-        educ |  .13064483***    .13699413*      .12723152***    .10039772***    .08705182**   
-        sibs |                  .00211076                                                     
-       black |                                                 -.17147144***     -.185081***  
-      tenure |                                                  .01550297***     .0152837***  
-       _cons |   5.030397***    4.9385273***    5.0764966***    5.3451431***    5.5285241***  
--------------+--------------------------------------------------------------------------------
-        chi2 |  16.667099       21.871187       19.197011       86.911625       84.339064     
-        r2_a |          .               .               .       .11636863       .14263238     
-        rmse |  .42101197       .42623075       .41835716       .38952533       .38369282     
-----------------------------------------------------------------------------------------------
-                                                          legend: * p<.1; ** p<.01; *** p<.001
+--------------------------------------------------------------
+    Variable |      e1              e2              e3        
+-------------+------------------------------------------------
+        educ |  .13699413*      .10039772***    .08705182**   
+        sibs |  .00211076                                     
+       black |                 -.17147144***     -.185081***  
+      tenure |                  .01550297***     .0152837***  
+       _cons |  4.9385273***    5.3451431***    5.5285241***  
+-------------+------------------------------------------------
+        chi2 |  21.871187       86.911625       84.339064     
+        r2_a |          .       .11636863       .14263238     
+        rmse |  .42623075       .38952533       .38369282     
+--------------------------------------------------------------
+                          legend: * p<.1; ** p<.01; *** p<.001
 
 . **** The significance of education decreases slightly in magnitude and significance using only sibs as instrumen
 > t
 . 
-. ivregress 2sls lwage black tenure (educ= brthord sibs) if e(sample)
+. ivregress 2sls lwage black tenure (educ= brthord sibs) 
 
 Instrumental variables (2SLS) regression          Number of obs   =        852
                                                   Wald chi2(3)    =      86.91
@@ -645,5 +641,5 @@ Excluded instruments: IQ black
       name:  <unnamed>
        log:  C:\Users\rayde\Documents\wage_ivreg2.log
   log type:  text
- closed on:  31 May 2019, 18:19:01
+ closed on:  31 May 2019, 18:25:29
 ------------------------------------------------------------------------------------------------------------------
