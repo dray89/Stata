@@ -9,6 +9,10 @@ Dofiles
 
 Collection of Dofiles
 
+Templates
+
+Collection of reusable dofile templates
+
 Fixed_or_Random_Effects.log, Econ 645, Empirical Analysis III
 
 Guns.dta is a balanced panel of annual data on 50 US states, plus the District of Columbia spanning 1977 through 1999. Each observation is for a given state in a given year. There are a total of 51 states × 23 years = 1,173 observations. These data were provided by Professor John Donohue of Stanford University andwere used in his paper with Ian Ayres: “Shooting Down the ‘More Guns Less Crime’ Hypothesis” Stanford Law Review, 2003, Vol. 55, 1193-1312.
