@@ -1,13 +1,8 @@
---------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
       name:  <unnamed>
        log:  C:\Users\rayde\Documents\wage_ivreg2.log
   log type:  text
- opened on:  31 May 2019, 17:51:16
-
-. 
-end of do-file
-
-. do "C:\Users\rayde\AppData\Local\Temp\STD02000000.tmp"
+ opened on:  31 May 2019, 18:18:57
 
 . 
 . ********************************************************************************
@@ -134,7 +129,8 @@ lwage black tenure (educ= sibs) - Chi-2: 84.339064 Adj-R2: .14263238 RMSE: .3836
 ----------------------------------------------------------------------------------------------
                                                           legend: * p<.1; ** p<.01; *** p<.001
 
-. **** The significance of education decreases slightly in magnitude and significance using only sibs as instrument
+. **** The significance of education decreases slightly in magnitude and significance using only sibs as instrumen
+> t
 . 
 . ivregress 2sls lwage black tenure (educ= brthord sibs) if e(sample)
 
@@ -463,7 +459,7 @@ Excluded instruments: sibs brthord
 . **** Underidentification Test: Reject the null that the model is underidentified
 . **** Weak Identification: Greater than 10% Critical Value, thus instrument relevant
 . 
-. ivreg2 lwage married south urban (educ = sibs black)
+. ivreg2 lwage married south urban exper (educ = sibs)
 
 IV (2SLS) estimation
 --------------------
@@ -472,43 +468,44 @@ Estimates efficient for homoskedasticity only
 Statistics consistent for homoskedasticity only
 
                                                       Number of obs =      935
-                                                      F(  4,   930) =    30.62
+                                                      F(  5,   929) =    25.40
                                                       Prob > F      =   0.0000
-Total (centered) SS     =  165.6562832                Centered R2   =  -0.0240
-Total (uncentered) SS   =  43133.48095                Uncentered R2 =   0.9961
-Residual SS             =   169.624178                Root MSE      =    .4259
+Total (centered) SS     =  165.6562832                Centered R2   =   0.1479
+Total (uncentered) SS   =  43133.48095                Uncentered R2 =   0.9967
+Residual SS             =  141.1601609                Root MSE      =    .3886
 
 ------------------------------------------------------------------------------
        lwage |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
 -------------+----------------------------------------------------------------
-        educ |   .1446765   .0248444     5.82   0.000     .0959823    .1933706
-     married |   .2758404   .0461155     5.98   0.000     .1854558    .3662251
-       south |  -.0978541   .0312946    -3.13   0.002    -.1591904   -.0365179
-       urban |   .1359503   .0319971     4.25   0.000      .073237    .1986635
-       _cons |   4.519918   .3450866    13.10   0.000     3.843561    5.196276
+        educ |   .1275131   .0283106     4.50   0.000     .0720252    .1830009
+     married |   .2242662   .0414068     5.42   0.000     .1431103     .305422
+       south |  -.1089633    .029072    -3.75   0.000    -.1659434   -.0519832
+       urban |   .1533016   .0290146     5.28   0.000     .0964339    .2101692
+       exper |   .0304665   .0070488     4.32   0.000     .0166511    .0442819
+       _cons |   4.436176   .4596389     9.65   0.000       3.5353    5.337051
 ------------------------------------------------------------------------------
-Underidentification test (Anderson canon. corr. LM statistic):          61.978
-                                                   Chi-sq(2) P-val =    0.0000
+Underidentification test (Anderson canon. corr. LM statistic):          49.905
+                                                   Chi-sq(1) P-val =    0.0000
 ------------------------------------------------------------------------------
-Weak identification test (Cragg-Donald Wald F statistic):               32.976
-Stock-Yogo weak ID test critical values: 10% maximal IV size             19.93
-                                         15% maximal IV size             11.59
-                                         20% maximal IV size              8.75
-                                         25% maximal IV size              7.25
+Weak identification test (Cragg-Donald Wald F statistic):               52.381
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
 Source: Stock-Yogo (2005).  Reproduced by permission.
 ------------------------------------------------------------------------------
-Sargan statistic (overidentification test of all instruments):           8.735
-                                                   Chi-sq(1) P-val =    0.0031
+Sargan statistic (overidentification test of all instruments):           0.000
+                                                 (equation exactly identified)
 ------------------------------------------------------------------------------
 Instrumented:         educ
-Included instruments: married south urban
-Excluded instruments: sibs black
+Included instruments: married south urban exper
+Excluded instruments: sibs
 ------------------------------------------------------------------------------
 
 . **** Underidentification Test: Reject the null that the model is underidentified
 . **** Weak Identification: Greater than 10% Critical Value, thus instrument relevant
 .  
-. ivreg2 lwage married south urban black (educ = brthord) 
+. ivreg2 lwage married south urban black exper (educ = brthord) 
 
 IV (2SLS) estimation
 --------------------
@@ -517,26 +514,27 @@ Estimates efficient for homoskedasticity only
 Statistics consistent for homoskedasticity only
 
                                                       Number of obs =      852
-                                                      F(  5,   846) =    28.95
+                                                      F(  6,   845) =    24.31
                                                       Prob > F      =   0.0000
-Total (centered) SS     =  146.8160646                Centered R2   =   0.1328
+Total (centered) SS     =  146.8160646                Centered R2   =   0.1385
 Total (uncentered) SS   =  39483.86273                Uncentered R2 =   0.9968
-Residual SS             =  127.3182734                Root MSE      =    .3866
+Residual SS             =  126.4803458                Root MSE      =    .3853
 
 ------------------------------------------------------------------------------
        lwage |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
 -------------+----------------------------------------------------------------
-        educ |   .1095803    .031908     3.43   0.001     .0470417    .1721188
-     married |   .2533516   .0488105     5.19   0.000     .1576847    .3490185
-       south |  -.0743956    .029577    -2.52   0.012    -.1323654   -.0164257
-       urban |   .1700036   .0328227     5.18   0.000     .1056722     .234335
-       black |  -.1619256   .0542311    -2.99   0.003    -.2682166   -.0556346
-       _cons |   5.006607   .4456927    11.23   0.000     4.133065    5.880149
+        educ |   .1383167   .0397462     3.48   0.001     .0604155    .2162179
+     married |    .226789   .0466243     4.86   0.000     .1354071     .318171
+       south |  -.0674412   .0299357    -2.25   0.024    -.1261141   -.0087682
+       urban |   .1732902   .0323531     5.36   0.000     .1098792    .2367011
+       black |  -.1598989   .0543856    -2.94   0.003    -.2664927   -.0533052
+       exper |   .0322649   .0095446     3.38   0.001     .0135578     .050972
+       _cons |   4.262981   .6510725     6.55   0.000     2.986902     5.53906
 ------------------------------------------------------------------------------
-Underidentification test (Anderson canon. corr. LM statistic):          31.521
+Underidentification test (Anderson canon. corr. LM statistic):          25.549
                                                    Chi-sq(1) P-val =    0.0000
 ------------------------------------------------------------------------------
-Weak identification test (Cragg-Donald Wald F statistic):               32.501
+Weak identification test (Cragg-Donald Wald F statistic):               26.122
 Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
                                          15% maximal IV size              8.96
                                          20% maximal IV size              6.66
@@ -547,14 +545,14 @@ Sargan statistic (overidentification test of all instruments):           0.000
                                                  (equation exactly identified)
 ------------------------------------------------------------------------------
 Instrumented:         educ
-Included instruments: married south urban black
+Included instruments: married south urban black exper
 Excluded instruments: brthord
 ------------------------------------------------------------------------------
 
 . **** Underidentification Test: Reject the null that the model is underidentified
 . **** Weak Identification: F-stat Greater than 10% Critical Value, thus instrument relevant
 . 
-. ivreg2 lwage married south urban (educ = sibs black) 
+. ivreg2 lwage married south urban exper (educ = sibs black) 
 
 IV (2SLS) estimation
 --------------------
@@ -563,42 +561,43 @@ Estimates efficient for homoskedasticity only
 Statistics consistent for homoskedasticity only
 
                                                       Number of obs =      935
-                                                      F(  4,   930) =    30.62
+                                                      F(  5,   929) =    25.76
                                                       Prob > F      =   0.0000
-Total (centered) SS     =  165.6562832                Centered R2   =  -0.0240
-Total (uncentered) SS   =  43133.48095                Uncentered R2 =   0.9961
-Residual SS             =   169.624178                Root MSE      =    .4259
+Total (centered) SS     =  165.6562832                Centered R2   =   0.0291
+Total (uncentered) SS   =  43133.48095                Uncentered R2 =   0.9963
+Residual SS             =   160.840998                Root MSE      =    .4148
 
 ------------------------------------------------------------------------------
        lwage |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
 -------------+----------------------------------------------------------------
-        educ |   .1446765   .0248444     5.82   0.000     .0959823    .1933706
-     married |   .2758404   .0461155     5.98   0.000     .1854558    .3662251
-       south |  -.0978541   .0312946    -3.13   0.002    -.1591904   -.0365179
-       urban |   .1359503   .0319971     4.25   0.000      .073237    .1986635
-       _cons |   4.519918   .3450866    13.10   0.000     3.843561    5.196276
+        educ |   .1654324   .0278624     5.94   0.000     .1108232    .2200417
+     married |   .2261633   .0441953     5.12   0.000     .1395421    .3127844
+       south |  -.0944356    .030707    -3.08   0.002    -.1546202   -.0342509
+       urban |    .145645   .0308811     4.72   0.000     .0851193    .2061708
+       exper |   .0390559   .0070418     5.55   0.000     .0252542    .0528576
+       _cons |    3.82498   .4529348     8.44   0.000     2.937244    4.712716
 ------------------------------------------------------------------------------
-Underidentification test (Anderson canon. corr. LM statistic):          61.978
+Underidentification test (Anderson canon. corr. LM statistic):          58.708
                                                    Chi-sq(2) P-val =    0.0000
 ------------------------------------------------------------------------------
-Weak identification test (Cragg-Donald Wald F statistic):               32.976
+Weak identification test (Cragg-Donald Wald F statistic):               31.086
 Stock-Yogo weak ID test critical values: 10% maximal IV size             19.93
                                          15% maximal IV size             11.59
                                          20% maximal IV size              8.75
                                          25% maximal IV size              7.25
 Source: Stock-Yogo (2005).  Reproduced by permission.
 ------------------------------------------------------------------------------
-Sargan statistic (overidentification test of all instruments):           8.735
-                                                   Chi-sq(1) P-val =    0.0031
+Sargan statistic (overidentification test of all instruments):          10.501
+                                                   Chi-sq(1) P-val =    0.0012
 ------------------------------------------------------------------------------
 Instrumented:         educ
-Included instruments: married south urban
+Included instruments: married south urban exper
 Excluded instruments: sibs black
 ------------------------------------------------------------------------------
 
 . **** Overidentification detected
 . 
-. ivreg2 lwage married south urban (educ = black) 
+. ivreg2 lwage married urban exper (educ = IQ black) 
 
 IV (2SLS) estimation
 --------------------
@@ -607,37 +606,37 @@ Estimates efficient for homoskedasticity only
 Statistics consistent for homoskedasticity only
 
                                                       Number of obs =      935
-                                                      F(  4,   930) =    20.35
+                                                      F(  4,   930) =    42.96
                                                       Prob > F      =   0.0000
-Total (centered) SS     =  165.6562832                Centered R2   =  -0.5819
-Total (uncentered) SS   =  43133.48095                Uncentered R2 =   0.9939
-Residual SS             =  262.0515883                Root MSE      =    .5294
+Total (centered) SS     =  165.6562832                Centered R2   =   0.0894
+Total (uncentered) SS   =  43133.48095                Uncentered R2 =   0.9965
+Residual SS             =  150.8520198                Root MSE      =    .4017
 
 ------------------------------------------------------------------------------
        lwage |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
 -------------+----------------------------------------------------------------
-        educ |   .2257372   .0459968     4.91   0.000      .135585    .3158893
-     married |   .3070022   .0587977     5.22   0.000     .1917608    .4222436
-       south |  -.0643749    .041367    -1.56   0.120    -.1454528     .016703
-       urban |   .1121612   .0410095     2.74   0.006     .0317841    .1925384
-       _cons |   3.405977   .6351656     5.36   0.000     2.161076    4.650879
+        educ |   .1444016    .014146    10.21   0.000     .1166759    .1721273
+     married |   .2224594    .042782     5.20   0.000     .1386083    .3063105
+       urban |   .1616083   .0294389     5.49   0.000      .103909    .2193075
+       exper |   .0341329   .0044123     7.74   0.000     .0254849    .0427809
+       _cons |   4.124793    .232775    17.72   0.000     3.668563    4.581024
 ------------------------------------------------------------------------------
-Underidentification test (Anderson canon. corr. LM statistic):          27.934
-                                                   Chi-sq(1) P-val =    0.0000
+Underidentification test (Anderson canon. corr. LM statistic):         211.779
+                                                   Chi-sq(2) P-val =    0.0000
 ------------------------------------------------------------------------------
-Weak identification test (Cragg-Donald Wald F statistic):               28.641
-Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
-                                         15% maximal IV size              8.96
-                                         20% maximal IV size              6.66
-                                         25% maximal IV size              5.53
+Weak identification test (Cragg-Donald Wald F statistic):              136.018
+Stock-Yogo weak ID test critical values: 10% maximal IV size             19.93
+                                         15% maximal IV size             11.59
+                                         20% maximal IV size              8.75
+                                         25% maximal IV size              7.25
 Source: Stock-Yogo (2005).  Reproduced by permission.
 ------------------------------------------------------------------------------
-Sargan statistic (overidentification test of all instruments):           0.000
-                                                 (equation exactly identified)
+Sargan statistic (overidentification test of all instruments):          17.459
+                                                   Chi-sq(1) P-val =    0.0000
 ------------------------------------------------------------------------------
 Instrumented:         educ
-Included instruments: married south urban
-Excluded instruments: black
+Included instruments: married urban exper
+Excluded instruments: IQ black
 ------------------------------------------------------------------------------
 
 . **** Reject null of underidentification, F-stat greater than 10% Critical Value
@@ -646,5 +645,5 @@ Excluded instruments: black
       name:  <unnamed>
        log:  C:\Users\rayde\Documents\wage_ivreg2.log
   log type:  text
- closed on:  31 May 2019, 17:51:50
---------------------------------------------------------------------------------------------------------------------
+ closed on:  31 May 2019, 18:19:01
+------------------------------------------------------------------------------------------------------------------
