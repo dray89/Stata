@@ -5,13 +5,13 @@ Fixed_or_Random_Effects.log, Econ 645, Empirical Analysis III
 
 Guns.dta is a balanced panel of annual data on 50 US states, plus the District of Columbia spanning 1977 through 1999. Each observation is for a given state in a given year. There are a total of 51 states × 23 years = 1,173 observations. These data were provided by Professor John Donohue of Stanford University andwere used in his paper with Ian Ayres: “Shooting Down the ‘More Guns Less Crime’ Hypothesis” Stanford Law Review, 2003, Vol. 55, 1193-1312.
 
-IVRegression.log, Econ 645, Empirical Analysis III
-
-These data are from the 1980 US Census. This particular sample was provided by Bill Evans and is a subset of the data used in his 1998 AER paper with Josh Angrist entitled “Children and Their Parents’ Labor Supply: Evidence from Exogenous Variation in Family Size.”  The file contains data on 254,654 women between ages 21-35 who have at least two kids. 
-
 psmatch.log, Econ 672, Program Analysis & Evaluation
 
 Propensity score matching: In this section, we will use a dataset based on a study on maternal smoking and birthweight to work through an example of propensity score matching. Load in the data using the command: webuse cattaneo2, clear.
+
+IVRegression.log, Econ 645, Empirical Analysis III
+
+These data are from the 1980 US Census. This particular sample was provided by Bill Evans and is a subset of the data used in his 1998 AER paper with Josh Angrist entitled “Children and Their Parents’ Labor Supply: Evidence from Exogenous Variation in Family Size.”  The file contains data on 254,654 women between ages 21-35 who have at least two kids. 
 
 IVregression2.log, Econ 672, Program Analysis & Evaluation
 
