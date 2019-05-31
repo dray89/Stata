@@ -66,7 +66,11 @@ We have rejected the null hypothesis. There is a significant difference between 
  
 Discussion: 
 
-We started by questioning whether there is a difference in foreign capital inflow between high income and lower-middle income countries. To test this, we went to the world bank database and pulled out data that we argued would be relevant for our test.  To answer our initial question, we conducted a t-test using 30 samples without replacement from high income and lower income countries fifty times. Finally, we rejected our null hypothesis that there is no difference in the capital inflows from foreign agents between high income and lower income countries. 
+We started by questioning whether there is a difference in foreign capital inflow between high income and lower-middle income countries. 
+To test this, we went to the world bank database and pulled out data that we argued would be relevant for our test.  
+To answer our initial question, we conducted a t-test using 30 samples without replacement from high income and lower income countries fifty times. 
+Finally, we rejected our null hypothesis that there is no difference in the capital inflows from foreign agents between high income and lower income countries. 
+
 Before testing for the differences between these capital inflows, we determined there was a correlation between foreign capital inflows 
 and nominal GDP. GDP is equal to the sum of spending by consumers, investment by businesses, government spending, and net exports. Since 
 the correlation indicates that foreign capital inflows may be related to GDP and there are statistically significant differences between 
