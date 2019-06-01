@@ -20,3 +20,9 @@ missing_data.do
 * Remodel with an indicator variable for the missing values
 * Variable Generation, Math Computation
 * Rectangularize Dataset
+
+outlier_var.do
+* Outliers
+* Detect Outliers
+* Cook's D
+* Run Outlier Robust Regression
