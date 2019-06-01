@@ -12,3 +12,9 @@ htsk_test.do
 * Conditional Variance Test
 * Beusch Pagen Test for HTSK
 * LM Test for HTSK
+
+missing_data.do
+* Missing Data
+* Remodel with an indicator variable for the missing values
+* Variable Generation, Math Computation
+* Rectangularize Dataset
