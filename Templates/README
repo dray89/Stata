@@ -10,8 +10,10 @@ form_test.do
 htsk_test.do
 * Test for presence of heteroskedasticity
 * Conditional Variance Test
-* Beusch Pagen Test for HTSK
-* LM Test for HTSK
+* Beusch Pagen Test for Heteroskedasticity
+* LM Test for Heteroskedasticity
+* Information Matrix Test
+* Szroeter's Rank Test for Heteroskedasticity
 
 missing_data.do
 * Missing Data
