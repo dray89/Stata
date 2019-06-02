@@ -12,7 +12,8 @@
 cap log close 
 log using filename.log, replace
 
-load_prog
+**** Personal ado install
+load
 
 **** Define ID & Time Variables
 
