@@ -36,8 +36,6 @@ outlier_var.do
 * Cook's D
 * Run Outlier Robust Regression
 
-load_programs.do 
-* Creates a command to run multiple do files at once.
-
-LM_program.do 
-* Creates a command to calculate LM test for htsk
+Program Folder
+* load.ado: Creates a command to run multiple do files at once / load multiple project specific programs at once.
+* LM_program.do: Creates a command to calculate LM test for htsk
