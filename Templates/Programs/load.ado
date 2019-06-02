@@ -7,6 +7,7 @@
 ****     net query
 ****     net set from PERSONAL (*** all CAPS)
 ****     net link C:\ado\personal
+****     net install load
 ****     (Test Command) load
 *****************************************************
 
