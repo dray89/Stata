@@ -1,5 +1,14 @@
 Stata templates for new projects
 
+panel_temp.do
+* Panel Data Template
+* Fixed Effects 
+* Fixed Effects with Cluster Robust Standard Errors
+* Random Effects
+* Between Effects
+* ML Random Effects
+* Population Average Effects
+
 form_test.do
 * Mis-specification / Functional Form Tests
 * Test that nonlinearities are correctly identified in the functional form
@@ -26,3 +35,9 @@ outlier_var.do
 * Detect Outliers
 * Cook's D
 * Run Outlier Robust Regression
+
+load_programs.do 
+* Creates a command to run multiple do files at once.
+
+LM_program.do 
+* Creates a command to calculate LM test for htsk
