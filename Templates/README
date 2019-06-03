@@ -41,3 +41,4 @@ LM_program.do
 
 Program Folder
 * load.ado: Creates a command to run multiple do files at once / load multiple project specific programs at once.
+* LM_program.do: Creates a command to calculate LM test for htsk
