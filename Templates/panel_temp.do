@@ -12,9 +12,6 @@
 cap log close 
 log using filename.log, replace
 
-**** Personal ado install
-load
-
 **** Define ID & Time Variables
 
 global id = " "
@@ -37,12 +34,9 @@ local model5 = " "
 local replace "replace"
 forval mod = 1/5 {
             cap drop fe*
-            xtreg ${dep} `model`mod'', fe
-            estimates store fe_`mod'
-			regsave using "panel_results.csv", addlabel(fe`mod') `replace'
+            eststo fe_`mod': xtreg ${dep} `model`mod'', fe
             predict fe`mod', resid
             stderr fe`mod'
-            local replace "append"
 
              }
 			 
@@ -52,9 +46,7 @@ forval mod = 1/5 {
 
 forval mod = 1/5 {
             cap drop fe*_cl
-            xtreg ${dep} `model`mod'', fe vce(cluster stateid)
-            estimates store fe_`mod'_cl
-			regsave using "panel_results.csv", addlabel(fe`mod'_cl) append
+            eststo fe_`mod'_cl: xtreg ${dep} `model`mod'', fe vce(cluster stateid)
             predict fe`mod'_cl, resid
             stderr fe`mod'_cl
 
@@ -66,12 +58,9 @@ forval mod = 1/5 {
 
 forval mod = 1/5 {
             cap drop re*
-            xtreg ${dep} `model`mod'', re
-            estimates store re_`mod'
-			regsave using "panel_results.csv", addlabel(re`mod') append
+            eststo re_`mod': xtreg ${dep} `model`mod'', re
             predict re`mod', stdp
             stderr re`mod'
-            local replace "append"
 
              }
 ********************************************************************************
@@ -80,12 +69,10 @@ forval mod = 1/5 {
   
   forval mod = 1/5 {
             cap drop be*
-            xtreg ${dep} `model`mod'', be
-            estimates store be_`mod'
-			regsave using "panel_results.csv", addlabel(be`mod') append
+            eststo be_`mod': xtreg ${dep} `model`mod'', be
             predict be`mod', stdp
             stderr be`mod'
-            local replace "append"
+
 
              }
 ********************************************************************************
@@ -94,12 +81,9 @@ forval mod = 1/5 {
   
     forval mod = 1/5 {
             cap drop mle*
-            xtreg ${dep} `model`mod'', mle
-            estimates store mle_`mod'
-			regsave using "panel_results.csv", addlabel(mle`mod') append
+            eststo mle_`mod': xtreg ${dep} `model`mod'', mle
             predict mle`mod', stdp
             stderr mle`mod'
-            local replace "append"
 
              }
   
@@ -109,15 +93,20 @@ forval mod = 1/5 {
   
     forval mod = 1/5 {
             cap drop pa*
-            xtreg ${dep} `model`mod'', pa
-            estimates store pa_`mod'
-			regsave using "panel_results.csv", addlabel(pa`mod') append
+            eststo pa_`mod': xtreg ${dep} `model`mod'', pa
             predict pa`mod', stdp
             stderr pa`mod'
            
 
              }
-  
+
+local replace "replace"
+forval mod = 1/10 {
+	estimates table fe_`mod' re_`mod', stats(r2_a r2_w r2_b r2_o F rmse chi2) star(.05 .01 .001)
+	esttab fe_`mod' re_`mod' using guns.csv, `replace' scalars(r2_a r2_w r2_b r2_o F rmse chi2) mtitles(fe_`mod' fe_`mod'_cl re_`mod' ols_`mod')
+	local replace "append"
+	}
+	
 ********************************************************************************
 * Manual Hausman Test
 * https://www.stata.com/support/faqs/statistics/between-estimator/
