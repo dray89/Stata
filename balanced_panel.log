@@ -15,7 +15,10 @@
 . **** in Stanford Law Review, 2003, Vol. 55, 1193 - 1312.
 . ********************************************************************************
 . 
-. **** On average, FE models are more likely to underpredict violent crime in states with Shall 
+. **** On average, FE models are more likely to underpredict violent crime in states with "shall" before 1995.
+. **** After 1995, a large drop in actual values makes it more likely that the model will overpredict "shall" 
+. **** Models 4 - 8 capture more variation in crime rates by year than models 1 - 3 and 9, likely due to percent population composition variables.
+
 . **** Avg standard error in the FE regressions are lower than RE and OLS
 . **** Avg standard error in the FE regressions are lowest with no difference between cluster and unclustered errors
 . **** OLS has the highest average standard errors
