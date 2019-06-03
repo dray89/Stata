@@ -13,9 +13,11 @@ Templates
 
 Collection of reusable dofile templates
 
-Fixed_or_Random_Effects.log, Econ 645, Empirical Analysis III
+balanced_panel.log
 
-Guns.dta is a balanced panel of annual data on 50 US states, plus the District of Columbia spanning 1977 through 1999. Each observation is for a given state in a given year. There are a total of 51 states × 23 years = 1,173 observations. These data were provided by Professor John Donohue of Stanford University andwere used in his paper with Ian Ayres: “Shooting Down the ‘More Guns Less Crime’ Hypothesis” Stanford Law Review, 2003, Vol. 55, 1193-1312.
+Model Validation of “Shooting Down the ‘More Guns Less Crime’ Hypothesis” Stanford Law Review, 2003, Vol. 55, 1193-1312 by Professor John Donohue of Stanford University with Ian Ayres.
+
+Guns.dta is a balanced panel of annual data on 50 US states, plus the District of Columbia spanning 1977 through 1999. Each observation is for a given state in a given year. There are a total of 51 states × 23 years = 1,173 observations. These data were provided by Professor John Donohue of Stanford University used in his paper with Ian Ayres: “Shooting Down the ‘More Guns Less Crime’ Hypothesis” Stanford Law Review, 2003, Vol. 55, 1193-1312.
 
 psmatch.log, Econ 672, Program Analysis & Evaluation
 
