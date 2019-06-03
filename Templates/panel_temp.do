@@ -106,7 +106,42 @@ forval mod = 1/10 {
 	esttab fe_`mod' re_`mod' using guns.csv, `replace' scalars(r2_a r2_w r2_b r2_o F rmse chi2) mtitles(fe_`mod' fe_`mod'_cl re_`mod' ols_`mod')
 	local replace "append"
 	}
+
 	
+**** Residual Analysis
+forval mod = 1/10 {
+
+stderr fe`mod' fe`mod'_cl  re`mod' ols`mod'
+
+matrix define stderr`mod' = (fe`mod', fe`mod'_cl,  re`mod' ,ols`mod' )
+
+}
+
+forval mod = 1/10 {
+
+lmtest fe`mod' ${model`mod'}
+lmtest fe`mod'_cl ${model`mod'}
+lmtest re`mod' ${model`mod'}
+lmtest ols`mod' ${model`mod'}
+
+matrix define pvalues`mod' = (pfe`mod', pfe`mod'_cl, pre`mod', pols`mod')
+
+}
+
+matrix pvalues = pvalues1\pvalues2\pvalues3\pvalues4\pvalues5
+matrix rownames pvalues = pvalues1 pvalues2 pvalues3 pvalues4 pvalues5
+matrix colnames pvalues =  FE FE_Cluster RE OLS
+
+putexcel set "output.csv", sheet(pvalues) modify
+putexcel A1 = matrix(pvalues), names nformat(number_d2)
+
+matrix stderr = stderr1\stderr2\stderr3\stderr4\stderr5
+matrix rownames stderr = stderr1 stderr2 stderr3 stderr4 stderr5
+matrix colnames stderr =  FE FE_Cluster RE OLS
+
+putexcel set "output.csv", sheet(stderr) modify
+putexcel A1 = matrix(stderr), names nformat(number_d2)
+
 ********************************************************************************
 * Manual Hausman Test
 * https://www.stata.com/support/faqs/statistics/between-estimator/
