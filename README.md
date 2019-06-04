@@ -13,6 +13,13 @@ Templates
 
 Collection of reusable dofile templates
 
+unbalanced_panel.log
+
+Income_Democracy.dta: The effect of democracy on income
+
+Unbalanced panel data on 195 countries from 1960 - 2000. From "Income & Democracy"
+By Prof. Daron Acemoglu, Published in American Economic Review, 2008, 98:3: 808-842
+
 balanced_panel.log
 
 Model Validation of “Shooting Down the ‘More Guns Less Crime’ Hypothesis” Stanford Law Review, 2003, Vol. 55, 1193-1312 by Professor John Donohue of Stanford University with Ian Ayres.
