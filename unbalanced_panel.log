@@ -4,7 +4,12 @@
   log type:  text
  opened on:   4 Jun 2019, 10:38:45
 
-. 
+********************************************************************************
+**** Income_Democracy.dta: The effect of democracy on income
+**** Unbalanced panel data on 195 countries from 1960 - 2000. From "Income & Democracy"
+**** By Prof. Daron Acemoglu, Published in American Economic Review, 2008, 98:3: 808-842
+********************************************************************************
+
 . load
 loaded LM_program.do
 loaded stderr_prog.do
