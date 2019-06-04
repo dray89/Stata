@@ -32,4 +32,4 @@ Using race as an IV for education in wage estimation model
 
 Instructional dataset, N=935, cross-sectional data on wages Accompanying 
 Introductory Econometrics: A Modern Approach, Jeffrey M. Wooldridge, South-Western 
-College Publishing, (c) 2000 Datasets also accessible from http://wooldridge.swcollege.com.
+College Publishing, (c) 2000 Datasets also accessible from wooldridge.swcollege.com.
