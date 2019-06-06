@@ -15,8 +15,9 @@
 . **** in Stanford Law Review, 2003, Vol. 55, 1193 - 1312.
 . ********************************************************************************
 . 
-. **** On average, FE models are more likely to overpredict violent crime in states with "shall" before 1995.
-. **** After 1995, a large drop in actual values makes it more likely that the model will overpredict "shall" 
+. **** On average, FE models are overall more likely to underpredict violent crime before 1995.
+. **** After 1995, a large drop in actual values makes it more likely that the model will overpredict "shall". 
+. **** On a "by shall" basis, the models are more likely to overpredict violent crime in states with "shall".
 . **** Models 4 - 8 capture more variation in crime rates by year than models 1 - 3 and 9, likely due to percent population composition variables.
 . **** The models fail to find a statistically significant relationship between "shall" and violent crime.
 
