@@ -113,7 +113,7 @@ forval mod = 1/10 {
 
 stderr fe`mod' fe`mod'_cl  re`mod' ols`mod'
 
-matrix define stderr`mod' = (fe`mod', fe`mod'_cl,  re`mod' ,ols`mod' )
+matrix define stderr`mod' = (fe`mod', fe`mod'_cl,  re`mod' , ols`mod' )
 
 }
 
