@@ -1,0 +1,265 @@
+------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\faith\Documents\LogFiles\ProblemSet1.log
+  log type:  text
+ opened on:  21 Feb 2019, 13:59:42
+
+. use fertility.dta, clear
+
+. 
+. /* Explore the data.
+> a. What is the average age of a mom in this dataset?
+> 30.39327 
+> b. How many weeks did a mom work on average in 1979?
+> 19.01833
+> c. What fraction of moms did not work at all in 1979?
+> 47.18
+> d. How many weeks did a mom work, conditional on having worked, in 1979?
+> 36.00466 
+> e. What fraction of moms have at least two kids?
+> 38.06 
+> f. What fraction of moms have same gendered first two kids?
+> 50.56
+> */
+. 
+. summarize agem1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       agem1 |    254,654    30.39327    3.386447         21         35
+
+. sum weeksm1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     weeksm1 |    254,654    19.01833    21.86728          0         52
+
+. gen nowork = (weeksm1==0)
+
+. tab nowork
+
+     nowork |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |    134,513       52.82       52.82
+          1 |    120,141       47.18      100.00
+------------+-----------------------------------
+      Total |    254,654      100.00
+
+. 
+. summarize weeksm1 if nowork == 0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     weeksm1 |    134,513    36.00466    17.13699          1         52
+
+. tab morekids
+
+  =1 if mom |
+   had more |
+than 2 kids |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |    157,742       61.94       61.94
+          1 |     96,912       38.06      100.00
+------------+-----------------------------------
+      Total |    254,654      100.00
+
+. tab samesex
+
+  =1 if 1st |
+   two kids |
+   same sex |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |    125,909       49.44       49.44
+          1 |    128,745       50.56      100.00
+------------+-----------------------------------
+      Total |    254,654      100.00
+
+. 
+. /*8. Estimate a naïve regression of weeks worked on the dummy for having more than two kids.
+> */
+. 
+. regress weeksm1 morekids
+
+      Source |       SS           df       MS      Number of obs   =   254,654
+-------------+----------------------------------   F(1, 254652)    =   3696.02
+       Model |  1742078.14         1  1742078.14   Prob > F        =    0.0000
+    Residual |   120027337   254,652  471.338679   R-squared       =    0.0143
+-------------+----------------------------------   Adj R-squared   =    0.0143
+       Total |   121769415   254,653  478.177816   Root MSE        =     21.71
+
+------------------------------------------------------------------------------
+     weeksm1 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    morekids |  -5.386996   .0886093   -60.79   0.000    -5.560667   -5.213324
+       _cons |   21.06843   .0546629   385.42   0.000     20.96129    21.17557
+------------------------------------------------------------------------------
+
+. 
+. /*
+> a. On average, do women with more than two children work less than women with two children? 
+> Explain using the regression results.  
+> 
+> Yes; the coefficient is negative. Pvalue = 0.  
+> 
+> b. Now add controls for race and age of the mother.  */
+. 
+. regress weeksm1 morekids black hispan othrace agem1
+
+      Source |       SS           df       MS      Number of obs   =   254,654
+-------------+----------------------------------   F(5, 254648)    =   2330.78
+       Model |  5328869.45         5  1065773.89   Prob > F        =    0.0000
+    Residual |   116440546   254,648  457.260791   R-squared       =    0.0438
+-------------+----------------------------------   Adj R-squared   =    0.0437
+       Total |   121769415   254,653  478.177816   Root MSE        =    21.384
+
+------------------------------------------------------------------------------
+     weeksm1 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    morekids |  -6.230418   .0881296   -70.70   0.000     -6.40315   -6.057687
+       black |   11.66424   .1921723    60.70   0.000     11.28759    12.04089
+      hispan |    .466093   .1793652     2.60   0.009      .114542    .8176439
+     othrace |   2.142125   .2030385    10.55   0.000     1.744175    2.540075
+       agem1 |   .8378841   .0126208    66.39   0.000     .8131476    .8626207
+       _cons |  -4.834514   .3854049   -12.54   0.000    -5.589898   -4.079131
+------------------------------------------------------------------------------
+
+. 
+. /* Interpret the coefficient on morekids.
+> 
+> After adding controls, the coefficient becomes larger in absolute value and the tscore
+> increases. The standard error decreases somewhat but not by much. */
+. 
+. /*9. Why is OLS inappropriate for estimating the causal effect of fertility (morekids) on labo
+> r supply
+> (weeksm1)
+> 
+> Because morekids may be endogenous in the model and correlated with the error term. 
+> 
+> */
+. 
+. /*10. Angrist and Evans propose using an indicator for whether the mother’s first two children
+>  are of the
+> same gender (samesex) an instrument for morekids
+> a. Estimate a first stage regression of morekids on samesex (as well as the other regressors w
+> e added in part (3).
+> */
+. 
+. reg morekids samesex black hispan othrace agem1
+
+      Source |       SS           df       MS      Number of obs   =   254,654
+-------------+----------------------------------   F(5, 254648)    =   1262.09
+       Model |  1451.65094         5  290.330189   Prob > F        =    0.0000
+    Residual |  58579.1858   254,648  .230039843   R-squared       =    0.0242
+-------------+----------------------------------   Adj R-squared   =    0.0242
+       Total |  60030.8368   254,653  .235735832   Root MSE        =    .47962
+
+------------------------------------------------------------------------------
+    morekids |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     samesex |   .0680081    .001901    35.77   0.000     .0642821    .0717341
+       black |   .1005237   .0043058    23.35   0.000     .0920844    .1089629
+      hispan |   .1512258   .0040119    37.69   0.000     .1433625    .1590892
+     othrace |   .0275069   .0045537     6.04   0.000     .0185817    .0364321
+       agem1 |   .0153898   .0002814    54.68   0.000     .0148382    .0159415
+       _cons |  -.1395319   .0086985   -16.04   0.000    -.1565808    -.122483
+------------------------------------------------------------------------------
+
+. 
+. /*11. Generate a new variable called xhat that is the predicted value of morekids based on the
+> regression you estimated in (6).*/
+. predict xhat, xb
+
+. 
+. /*
+> b. Explain why samesex is a valid instrument.
+> 
+>         Samesex is a valid instrument for morekids because it is correlated to morekids and no
+> t with the error.
+> 
+> c. Is samesex a weak or strong instrument? */
+. test samesex
+
+ ( 1)  samesex = 0
+
+       F(  1,254648) = 1279.81
+            Prob > F =    0.0000
+
+. corr morekids samesex
+(obs=254,654)
+
+             | morekids  samesex
+-------------+------------------
+    morekids |   1.0000
+     samesex |   0.0695   1.0000
+
+
+. 
+. /*Same sex is not strongly correlated with morekids but it is statistically different from zer
+> o. */
+. 
+. 
+. /*12. Now estimate the second stage regression of weeks worked on xhat and the additional age 
+> and
+> race variables.
+> a. Save your second-stage output to your outreg2 file.
+> b. Compare the coefficient on xhat to the one on morekids from the OLS regression.
+> It is less negative.
+> */
+. reg weeksm1 black hispan othrace agem1 xhat
+
+      Source |       SS           df       MS      Number of obs   =   254,654
+-------------+----------------------------------   F(5, 254648)    =   1309.96
+       Model |  3053483.45         5  610696.689   Prob > F        =    0.0000
+    Residual |   118715932   254,648  466.196208   R-squared       =    0.0251
+-------------+----------------------------------   Adj R-squared   =    0.0251
+       Total |   121769415   254,653  478.177816   Root MSE        =    21.592
+
+------------------------------------------------------------------------------
+     weeksm1 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       black |   11.62327   .2311475    50.29   0.000     11.17023    12.07632
+      hispan |   .4041803   .2623734     1.54   0.123    -.1100647    .9184252
+     othrace |   2.130962   .2078505    10.25   0.000     1.723581    2.538343
+       agem1 |   .8315975    .023108    35.99   0.000     .7863065    .8768886
+        xhat |  -5.821051   1.258374    -4.63   0.000    -8.287432   -3.354671
+       _cons |  -4.791894   .4105101   -11.67   0.000    -5.596482   -3.987305
+------------------------------------------------------------------------------
+
+. 
+. /*13. We can carry out the steps in (7) – (9) in a single line of code using the ivregress com
+> mand. And
+> while we get the same coefficient both ways, the standard errors are calculated correctly by
+> ivregress.
+> a. Use ivregress to replicate the results you got when you manually performed 2SLS
+> (including additional regressors for age and race).
+> b. What happened to the standard error on morekids in the second stage?
+> The standard error increased */
+. 
+. ivregress 2sls weeksm1 black hispan othrace agem1 (morekids = samesex)
+
+Instrumental variables (2SLS) regression          Number of obs   =    254,654
+                                                  Wald chi2(5)    =    6677.36
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.0437
+                                                  Root MSE        =     21.384
+
+------------------------------------------------------------------------------
+     weeksm1 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    morekids |  -5.821051   1.246295    -4.67   0.000    -8.263744   -3.378358
+       black |   11.62327   .2289286    50.77   0.000     11.17458    12.07197
+      hispan |   .4041802   .2598548     1.56   0.120    -.1051259    .9134863
+     othrace |   2.130962   .2058553    10.35   0.000     1.727493    2.534431
+       agem1 |   .8315975   .0228862    36.34   0.000     .7867414    .8764536
+       _cons |  -4.791894   .4065695   -11.79   0.000    -5.588755   -3.995032
+------------------------------------------------------------------------------
+Instrumented:  morekids
+Instruments:   black hispan othrace agem1 samesex
+
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Users\faith\Documents\Cleaned Stata Files\ProblemSet1.log
+  log type:  text
+ closed on:  21 Feb 2019, 13:59:43
+------------------------------------------------------------------------------------------------

@@ -1,0 +1,418 @@
+------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\faith\Documents\LogFiles\datacase2.log
+  log type:  text
+ opened on:  20 Feb 2019, 22:03:24
+
+.  
+. foreach v of varlist aapl-mkt {
+  2.         replace `v' = `v'-rf
+  3. } 
+(60 real changes made)
+(60 real changes made)
+(60 real changes made)
+(60 real changes made)
+(60 real changes made)
+(60 real changes made)
+(60 real changes made)
+(60 real changes made)
+(60 real changes made)
+(60 real changes made)
+(60 real changes made)
+(0 real changes made)
+
+. 
+. foreach v of varlist aapl-mkt {
+  2.         reg `v' mkt
+  3.         display as text "Alpha"
+  4.         di _b[_cons]
+  5.         display as text "Beta"
+  6.         di _b[mkt]
+  7.         generate Beta`v' = _b[mkt]
+  8.         display as text "Standard Error"
+  9.         dis _se[mkt]
+ 10.         display as text "Lower Interval"
+ 11.         di _b[_cons]-(_se[mkt]*sqrt(12)*1.96)
+ 12.         display as text "Upper Interval"
+ 13.         di _b[_cons]+(_se[mkt]*sqrt(12)*1.96)
+ 14. }
+
+      Source |       SS           df       MS      Number of obs   =        60
+-------------+----------------------------------   F(1, 58)        =     19.87
+       Model |  .073129119         1  .073129119   Prob > F        =    0.0000
+    Residual |  .213439439        58   .00367999   R-squared       =    0.2552
+-------------+----------------------------------   Adj R-squared   =    0.2423
+       Total |  .286568558        59  .004857094   Root MSE        =    .06066
+
+------------------------------------------------------------------------------
+        aapl |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   1.281222   .2874105     4.46   0.000     .7059075    1.856537
+       _cons |   .0035668   .0083156     0.43   0.670    -.0130786    .0202122
+------------------------------------------------------------------------------
+Alpha
+.00356683
+Beta
+1.2812221
+Standard Error
+.28741048
+Lower Interval
+-1.9478466
+Upper Interval
+1.9549802
+
+      Source |       SS           df       MS      Number of obs   =        60
+-------------+----------------------------------   F(1, 58)        =     33.58
+       Model |  .171806962         1  .171806962   Prob > F        =    0.0000
+    Residual |  .296715641        58  .005115787   R-squared       =    0.3667
+-------------+----------------------------------   Adj R-squared   =    0.3558
+       Total |  .468522603        59  .007941061   Root MSE        =    .07152
+
+------------------------------------------------------------------------------
+        adsk |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   1.963811   .3388718     5.80   0.000     1.285485    2.642136
+       _cons |   .0048071   .0098045     0.49   0.626    -.0148187    .0244329
+------------------------------------------------------------------------------
+Alpha
+.00480708
+Beta
+1.9638107
+Standard Error
+.33887184
+Lower Interval
+-2.2960104
+Upper Interval
+2.3056246
+
+      Source |       SS           df       MS      Number of obs   =        60
+-------------+----------------------------------   F(1, 58)        =     22.10
+       Model |  .064107027         1  .064107027   Prob > F        =    0.0000
+    Residual |  .168217126        58  .002900295   R-squared       =    0.2759
+-------------+----------------------------------   Adj R-squared   =    0.2635
+       Total |  .232324153        59  .003937698   Root MSE        =    .05385
+
+------------------------------------------------------------------------------
+          ba |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   1.199588   .2551528     4.70   0.000      .688844    1.710332
+       _cons |   .0140452   .0073823     1.90   0.062     -.000732    .0288224
+------------------------------------------------------------------------------
+Alpha
+.01404518
+Beta
+1.1995879
+Standard Error
+.25515281
+Lower Interval
+-1.7183504
+Upper Interval
+1.7464407
+
+      Source |       SS           df       MS      Number of obs   =        60
+-------------+----------------------------------   F(1, 58)        =     24.80
+       Model |  .073172091         1  .073172091   Prob > F        =    0.0000
+    Residual |  .171095229        58  .002949918   R-squared       =    0.2996
+-------------+----------------------------------   Adj R-squared   =    0.2875
+       Total |   .24426732        59  .004140124   Root MSE        =    .05431
+
+------------------------------------------------------------------------------
+         cat |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   1.281598   .2573263     4.98   0.000     .7665039    1.796693
+       _cons |  -.0015743   .0074451    -0.21   0.833    -.0164774    .0133287
+------------------------------------------------------------------------------
+Alpha
+-.00157435
+Beta
+1.2815985
+Standard Error
+.25732632
+Lower Interval
+-1.7487272
+Upper Interval
+1.7455785
+
+      Source |       SS           df       MS      Number of obs   =        60
+-------------+----------------------------------   F(1, 58)        =     20.48
+       Model |  .082070756         1  .082070756   Prob > F        =    0.0000
+    Residual |  .232466935        58  .004008051   R-squared       =    0.2609
+-------------+----------------------------------   Adj R-squared   =    0.2482
+       Total |  .314537692        59  .005331147   Root MSE        =    .06331
+
+------------------------------------------------------------------------------
+        ebay |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   1.357293   .2999479     4.53   0.000     .7568816    1.957704
+       _cons |  -.0004151   .0086783    -0.05   0.962    -.0177866    .0169564
+------------------------------------------------------------------------------
+Alpha
+-.00041511
+Beta
+1.3572926
+Standard Error
+.29994792
+Lower Interval
+-2.0369532
+Upper Interval
+2.036123
+
+      Source |       SS           df       MS      Number of obs   =        60
+-------------+----------------------------------   F(1, 58)        =     29.15
+       Model |  .087069263         1  .087069263   Prob > F        =    0.0000
+    Residual |  .173236583        58  .002986838   R-squared       =    0.3345
+-------------+----------------------------------   Adj R-squared   =    0.3230
+       Total |  .260305846        59  .004411963   Root MSE        =    .05465
+
+------------------------------------------------------------------------------
+          gs |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   1.398015   .2589316     5.40   0.000     .8797066    1.916322
+       _cons |   .0016457   .0074916     0.22   0.827    -.0133503    .0166418
+------------------------------------------------------------------------------
+Alpha
+.00164573
+Beta
+1.3980145
+Standard Error
+.2589316
+Lower Interval
+-1.7564064
+Upper Interval
+1.7596979
+
+      Source |       SS           df       MS      Number of obs   =        60
+-------------+----------------------------------   F(1, 58)        =      2.24
+       Model |  .006076786         1  .006076786   Prob > F        =    0.1403
+    Residual |  .157628968        58  .002717741   R-squared       =    0.0371
+-------------+----------------------------------   Adj R-squared   =    0.0205
+       Total |  .163705754        59  .002774674   Root MSE        =    .05213
+
+------------------------------------------------------------------------------
+         hsy |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   .3693314   .2469922     1.50   0.140    -.1250772      .86374
+       _cons |   .0064925   .0071461     0.91   0.367    -.0078121    .0207971
+------------------------------------------------------------------------------
+Alpha
+.0064925
+Beta
+.3693314
+Standard Error
+.24699222
+Lower Interval
+-1.6704955
+Upper Interval
+1.6834806
+
+      Source |       SS           df       MS      Number of obs   =        60
+-------------+----------------------------------   F(1, 58)        =     19.20
+       Model |  .038058545         1  .038058545   Prob > F        =    0.0001
+    Residual |  .114965584        58  .001982165   R-squared       =    0.2487
+-------------+----------------------------------   Adj R-squared   =    0.2358
+       Total |  .153024129        59  .002593629   Root MSE        =    .04452
+
+------------------------------------------------------------------------------
+         ibm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   .9242838   .2109353     4.38   0.000      .502051    1.346517
+       _cons |  -.0113162   .0061029    -1.85   0.069    -.0235326    .0009001
+------------------------------------------------------------------------------
+Alpha
+-.01131625
+Beta
+.92428381
+Standard Error
+.21093526
+Lower Interval
+-1.4434906
+Upper Interval
+1.4208581
+
+      Source |       SS           df       MS      Number of obs   =        60
+-------------+----------------------------------   F(1, 58)        =     27.63
+       Model |  .062153195         1  .062153195   Prob > F        =    0.0000
+    Residual |  .130483564        58  .002249717   R-squared       =    0.3226
+-------------+----------------------------------   Adj R-squared   =    0.3110
+       Total |  .192636758        59   .00326503   Root MSE        =    .04743
+
+------------------------------------------------------------------------------
+         jpm |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   1.181166   .2247207     5.26   0.000     .7313387    1.630994
+       _cons |   .0065228   .0065018     1.00   0.320     -.006492    .0195375
+------------------------------------------------------------------------------
+Alpha
+.00652276
+Beta
+1.1811661
+Standard Error
+.22472074
+Lower Interval
+-1.51925
+Upper Interval
+1.5322955
+
+      Source |       SS           df       MS      Number of obs   =        60
+-------------+----------------------------------   F(1, 58)        =      1.63
+       Model |  .003218364         1  .003218364   Prob > F        =    0.2063
+    Residual |  .114287899        58  .001970481   R-squared       =    0.0274
+-------------+----------------------------------   Adj R-squared   =    0.0106
+       Total |  .117506263        59  .001991632   Root MSE        =    .04439
+
+------------------------------------------------------------------------------
+         wmt |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   .2687799   .2103126     1.28   0.206    -.1522066    .6897664
+       _cons |   .0011495   .0060849     0.19   0.851    -.0110308    .0133297
+------------------------------------------------------------------------------
+Alpha
+.00114946
+Beta
+.26877991
+Standard Error
+.21031264
+Lower Interval
+-1.4267975
+Upper Interval
+1.4290964
+
+      Source |       SS           df       MS      Number of obs   =        60
+-------------+----------------------------------   F(1, 58)        =         .
+       Model |           0         1           0   Prob > F        =         .
+    Residual |           0        58           0   R-squared       =         .
+-------------+----------------------------------   Adj R-squared   =         .
+       Total |           0        59           0   Root MSE        =         0
+
+------------------------------------------------------------------------------
+          rf |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |          0  (omitted)
+       _cons |          0  (omitted)
+------------------------------------------------------------------------------
+Alpha
+0
+Beta
+0
+Standard Error
+0
+Lower Interval
+0
+Upper Interval
+0
+
+      Source |       SS           df       MS      Number of obs   =        60
+-------------+----------------------------------   F(1, 58)        =         .
+       Model |  .044549362         1  .044549362   Prob > F        =         .
+    Residual |           0        58           0   R-squared       =    1.0000
+-------------+----------------------------------   Adj R-squared   =    1.0000
+       Total |  .044549362        59  .000755074   Root MSE        =         0
+
+------------------------------------------------------------------------------
+         mkt |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |          1          .        .       .            .           .
+       _cons |  -1.73e-18          .        .       .            .           .
+------------------------------------------------------------------------------
+Alpha
+-1.735e-18
+Beta
+1
+Standard Error
+0
+Lower Interval
+-1.735e-18
+Upper Interval
+-1.735e-18
+
+.         
+. /*BA has a pretty good alpha but the others didn't perform all that better than MKT. 
+> */
+. save "C:\Users\faith\iCloudDrive\School\StataDataSets\datacase2-2.dta", replace
+file C:\Users\faith\iCloudDrive\School\StataDataSets\datacase2-2.dta saved
+
+. collapse (mean) aapl adsk ba cat ebay gs hsy ibm jpm wmt rf mkt
+
+. xpose, varname clear
+
+. rename v1 avgreturn
+
+. save "C:\Users\faith\iCloudDrive\School\StataDataSets\avgreturndatacase2.dta", replace
+file C:\Users\faith\iCloudDrive\School\StataDataSets\avgreturndatacase2.dta saved
+
+. clear all 
+
+. use "C:\Users\faith\iCloudDrive\School\StataDataSets\datacase2-2.dta", clear
+
+. collapse (mean) Betaaapl Betaadsk Betaba Betacat Betaebay Betags Betahsy Betaibm Betajpm Betaw
+> mt
+
+. xpose, varname clear
+
+. rename v1 beta
+
+. save "C:\Users\faith\iCloudDrive\School\StataDataSets\betadatacase2.dta", replace
+file C:\Users\faith\iCloudDrive\School\StataDataSets\betadatacase2.dta saved
+
+. merge 1:1 _n using "C:\Users\faith\iCloudDrive\School\StataDataSets\avgreturndatacase2.dta"
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             2
+        from master                         0  (_merge==1)
+        from using                          2  (_merge==2)
+
+    matched                                10  (_merge==3)
+    -----------------------------------------
+
+. 
+. replace _varname = "AAPL" in 1
+(1 real change made)
+
+. replace _varname = "ADSK" in 2
+(1 real change made)
+
+. replace _varname = "BA" in 3
+(1 real change made)
+
+. replace _varname = "CAT" in 4
+(1 real change made)
+
+. replace _varname = "EBAY" in 5
+(1 real change made)
+
+. replace _varname = "GS" in 6
+(1 real change made)
+
+. replace _varname = "HSY" in 7
+(1 real change made)
+
+. replace _varname = "IBM" in 8
+(1 real change made)
+
+. replace _varname = "JPM" in 9
+(1 real change made)
+
+. replace _varname = "WMT" in 10
+(1 real change made)
+
+. replace _varname = "RF" in 11
+(1 real change made)
+
+. replace _varname = "MKT" in 12
+(1 real change made)
+
+. 
+. 
+. save "C:\Users\faith\iCloudDrive\School\StataDataSets\mergedatacase.dta", replace
+file C:\Users\faith\iCloudDrive\School\StataDataSets\mergedatacase.dta saved
+
+. twoway (scatter avgreturn beta, mlabel(_varname)), ytitle(Average Return) xtitle(Beta) title(B
+> eta and Average Return)
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\faith\Documents\Cleaned Stata Files\datacase2.log
+  log type:  text
+ closed on:  20 Feb 2019, 22:03:28
+------------------------------------------------------------------------------------------------

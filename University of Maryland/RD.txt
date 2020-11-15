@@ -1,0 +1,88 @@
+﻿------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\faith\Downloads\ps2_ray.log
+  log type:  text
+ opened on:  20 Feb 2019, 12:57:08
+
+> /* Question 4) Regression Discontinuity
+> 
+> (a) What are the potential biases of using OLS?
+> 
+> Selection bias: Although we understand the observable characteristics that determined
+> treatment assignment (pre-program rural income per capita), there may be unobserved
+> characteristics determining income.
+> 
+> Measurement Error: Measurement error may not be randomized throughout the treatment
+> and control groups, thus leading to bias. For example, some income information may be
+> inaccurate, subject to misreporting.
+> 
+> (b) Discuss how you can use the nature of the implementation of China’s 8-7 Plan 
+> to design a regression discontinuity evaluation of the above.
+> What is the running variable, and where is the discontinuity? 
+> 
+> Income is the running variable determining treatment at an arbitrary cutoff point.
+> Although selection and measurement error may arise under a variety of circumstances
+> including prior knowledge of the government's stimulas plan leading to manipulation 
+> of the running variable, the running variable can still be used as an IV for treatment
+> as long as it meets the exclusion assumption that it is only related to the outcome 
+> variable through its relationship with treatment, it is exogenous and uncorrelated with
+> the error term, and it is relevant, correlated with treatment. The discontinuity
+> is at the cutoff point, the poverty line. The discontinuity separates counties above
+> and below the poverty line, those which are eligible for treatment, and those which are not.
+> 
+> (c) What does the following graph tell you about about how reasonable this strategy is? 
+> What additional assumptions must be made for the regression discontinuity strategy to be valid
+> ?
+> 
+> There is a discontinuity in poor county status from .2 to over .4. Heterogenous treatment
+> effects may make this significant if counties which receive treatment underrepresented
+> income to be assigned into the treatment group. These counties may have lower marginal
+> effects from treatment than the other counties, meaning that income directly effects
+> treatment outcome around the cutoff and assignment is no longer as good as random.
+> 
+> The assumptions are that there must be no perfect manipulation of the running variable, 
+> and the running variable must be exogenous, relevant, and must not directly influence
+> treatment except through its effect on treatment assignment.
+> 
+>  Treatment Assignment needs to be random around the cutoff variable.If observations are able t
+> o 
+>  perfectly manipulate the running variable to receive treatment or if obs can refuse 
+>  treatment once assigned, the treatment and control groups would be contaminated by noncomplie
+> rs.
+> In other words, those randomly assigned to treatment must receive treatment and 
+> those randomly assigned to the control group must not receive treatment.
+> 
+> (d)
+>  Your research assistant creates the following graph plotting the ﬁtted relationship
+>  between log income growth and pre-program log income per capita, both to the left and 
+>  to the right of the cutoﬀ. Explain what aspects of the graph describe the treatment 
+>  eﬀect of the 8-7 Plan.
+> 
+>  The observations above the poverty level experienced lower change in log income per
+>  capita than the observations below the poverty line. The vertical distance at the cutoff
+>  represents the treatment effect of the plan which is approximately the vertical distance
+>  between the point just below .75 and around .62. 
+>  
+>  (e) Explain what a researcher can do to ensure that any eﬀects along the discontinuity 
+>  is due to the policy, and not something else that changes at that same cutoﬀ. What does the 
+>  following ﬁgure tell you about whether or not this concern applies in this context?
+> 
+>  The demographics of the poor counties and the rich counties at the cutoff vary with the runni
+> ng variable.
+> Thus, we are concerned about heterogenous treatment effects in missing 
+>  explanatory variables in the regression for which need to be controlled.
+>  
+>  The figures describe different demographic distributions between treatment and control groups
+> .
+>  Specifically, as poverty increases, minority count increases and the populations become less 
+>  educated, and overall, more impoverished counties are more likely to have a stronger 
+>  revolutionary base than higher income counties. If the data was as good as random, 
+>  the demographics at the cutoff would be similar, but in this case they are not.
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Users\faith\Downloads\ps2_ray.log
+  log type:  text
+ closed on:  20 Feb 2019, 12:57:23
+------------------------------------------------------------------------------------------------
+ 
