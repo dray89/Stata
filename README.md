@@ -1,14 +1,6 @@
 # Stata
 Sample Stata Files
 
-Bootstrapping CIF
-
-Bootstrapping capital inflows, World Bank Data, Bootstrapping is an alternate form of hypothesis testing to normalize the distribution of test statistics through the law of large numbers.
-
-Dofiles
-
-Collection of Dofiles
-
 Templates
 
 Collection of reusable dofile templates
