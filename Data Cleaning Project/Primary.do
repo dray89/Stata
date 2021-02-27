@@ -34,6 +34,9 @@ append using "./2001/2001transformed.dta"
 ***first and analysis variables last
 order unitid year arank contract male emp_count outlays
 
+****Calculate saverage***
+replace saverage = outlays/emp_count
+
 ****Save Dataset****
 save "1980-1990-2001-instructionalsalaries.dta", replace
 
