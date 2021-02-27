@@ -34,6 +34,7 @@ tree = html.fromstring(response.content)
 links = tree.xpath('//a/@href')
 files = ["SAL1980_A_Stata", "SAL90_A_Stata", "SAL2001_A_S_Stata",
          "SAL1980_A_Data", "SAL90_A_Data", "SAL2001_A_S_Data"]
+
 result = []
 for each in files:
     for l in links:
