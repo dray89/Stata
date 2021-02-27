@@ -8,6 +8,7 @@ Created on Thu Jan  7 19:55:28 2021
 import requests
 import json
 from lxml import html
+import zipfile
 
 cookie_file = open(r'cookies.json', 'r')
 cookies = json.loads(cookie_file.read())
@@ -31,7 +32,8 @@ response = requests.post('https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx', 
 
 tree = html.fromstring(response.content)
 links = tree.xpath('//a/@href')
-files = ["SAL1980_A_Stata", "SAL90_A_Stata", "SAL2001_A_S_Stata","SAL1980_A_Data", "SAL90_A_Data", "SAL2001_A_S_Data"]
+files = ["SAL1980_A_Stata", "SAL90_A_Stata", "SAL2001_A_S_Stata",
+         "SAL1980_A_Data", "SAL90_A_Data", "SAL2001_A_S_Data"]
 result = []
 for each in files:
     for l in links:
@@ -43,13 +45,13 @@ for each in result:
     open(f"{each[5:]}", 'wb').write(r.content)
     
 
-import zipfile
-paths = [r"C:\Users\rayde\Desktop\Urban Institute Interview Project\Scrape Ipeds\SAL90_A_Data_Stata.zip",
-r"C:\Users\rayde\Desktop\Urban Institute Interview Project\Scrape Ipeds\SAL90_A_Stata.zip",
-r"C:\Users\rayde\Desktop\Urban Institute Interview Project\Scrape Ipeds\SAL1980_A_Data_Stata.zip",
-r"C:\Users\rayde\Desktop\Urban Institute Interview Project\Scrape Ipeds\SAL1980_A_Stata.zip",
-r"C:\Users\rayde\Desktop\Urban Institute Interview Project\Scrape Ipeds\SAL2001_A_S_Data_Stata.zip",
-r"C:\Users\rayde\Desktop\Urban Institute Interview Project\Scrape Ipeds\SAL2001_A_S_Stata.zip" ]
+
+paths = [r".\SAL90_A_Data_Stata.zip",
+r".\SAL90_A_Stata.zip",
+r".\SAL1980_A_Data_Stata.zip",
+r".\SAL1980_A_Stata.zip",
+r".\SAL2001_A_S_Data_Stata.zip",
+r".\SAL2001_A_S_Stata.zip" ]
 
 for each in paths:
     with zipfile.ZipFile(each, 'r') as zip_ref:

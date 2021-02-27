@@ -1,8 +1,6 @@
 ****Create DTA Files****
 clear all
 
-cd "C:\\Users\\rayde\\Desktop\\Urban Institute Interview Project"
-
 *1980*
 do "./1980/sal1980_a.do"
 do "./1980/transform1980_1.do"
@@ -24,13 +22,13 @@ save "2001transformed.dta", replace
 
 
 *****import 1980 data****
-use "1980transformed.dta", clear
+use "./1980/1980transformed.dta", clear
 
 *****import 1990 data****
-append using "1990transformed.dta"
+append using "./1990/1990transformed.dta"
 
 *****import 2001 data****
-append using "2001transformed.dta"
+append using "./2001/2001transformed.dta"
 
 ***Order the variables with identifying and categorical variables 
 ***first and analysis variables last
