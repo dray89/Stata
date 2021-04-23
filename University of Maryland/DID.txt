@@ -56,9 +56,7 @@
 > the wage eﬀect? What do your estimates tell you? 
 > 
 > These estimates say that the difference in nj wages over this time period were 
-> larger than the diff in pa wages over the same time period although it isn't clear 
-> within what range we expect these estimates can be extended to the population without
-> standard errors from which to calculate confidence intervals.*/
+> larger than the diff in pa wages over the same time period.*/
 . 
 . /*iv. Under what conditions does this provide a valid estimate of the causal impact of a 
 > minimum wage increase on wages in the fast food industry? 
