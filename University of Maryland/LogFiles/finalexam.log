@@ -1,0 +1,221 @@
+------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\dray\Downloads\finalexam.log
+  log type:  text
+ opened on:  15 Nov 2018, 21:17:49
+
+. use "C:\Users\dray\Downloads\RDdata.dta"
+
+. 
+. /*a) Effect of elig on the probability of college attendance */
+. 
+. gen D_above = 1 if testscore >=0
+(2,740 missing values generated)
+
+. replace D_above = 0 if testscore<0
+(2,740 real changes made)
+
+. gen trt_test = testscore*D_above
+
+. gen sample = 1 if abs(testscore)<=2
+(6,327 missing values generated)
+
+. replace sample = 0 if abs(testscore)>2
+(6,327 real changes made)
+
+. 
+. regress attnd_college D_above trt_test wage if sample==1
+
+      Source |       SS           df       MS      Number of obs   =       232
+-------------+----------------------------------   F(3, 228)       =   1095.70
+       Model |  12.4405524         3  4.14685079   Prob > F        =    0.0000
+    Residual |  .862899059       228  .003784645   R-squared       =    0.9351
+-------------+----------------------------------   Adj R-squared   =    0.9343
+       Total |  13.3034514       231  .057590699   Root MSE        =    .06152
+
+------------------------------------------------------------------------------
+attnd_coll~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     D_above |   .2466332   .0586669     4.20   0.000     .1310345    .3622319
+    trt_test |  -.0601742   .0094019    -6.40   0.000    -.0786999   -.0416486
+       wages |   .0000371   7.02e-06     5.28   0.000     .0000232    .0000509
+       _cons |  -1.458418   .3158426    -4.62   0.000    -2.080762   -.8360745
+------------------------------------------------------------------------------
+
+. 
+. reg attnd_college testscore wage trt_test if sample==1 
+
+      Source |       SS           df       MS      Number of obs   =       232
+-------------+----------------------------------   F(3, 228)       =   1032.29
+       Model |   12.391176         3  4.13039201   Prob > F        =    0.0000
+    Residual |  .912275388       228  .004001208   R-squared       =    0.9314
+-------------+----------------------------------   Adj R-squared   =    0.9305
+       Total |  13.3034514       231  .057590699   Root MSE        =    .06326
+
+------------------------------------------------------------------------------
+attnd_coll~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   testscore |   .0218403   .0104401     2.09   0.038      .001269    .0424117
+       wages |   .0000633   1.97e-06    32.21   0.000     .0000594    .0000672
+    trt_test |  -.0611461   .0138782    -4.41   0.000     -.088492   -.0338003
+       _cons |  -2.614245   .0977825   -26.74   0.000    -2.806918   -2.421572
+------------------------------------------------------------------------------
+
+. predict yhat2_b, xb
+
+. reg attnd_college testscore wage trt_test if sample==1
+
+      Source |       SS           df       MS      Number of obs   =       232
+-------------+----------------------------------   F(3, 228)       =   1032.29
+       Model |   12.391176         3  4.13039201   Prob > F        =    0.0000
+    Residual |  .912275388       228  .004001208   R-squared       =    0.9314
+-------------+----------------------------------   Adj R-squared   =    0.9305
+       Total |  13.3034514       231  .057590699   Root MSE        =    .06326
+
+------------------------------------------------------------------------------
+attnd_coll~e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   testscore |   .0218403   .0104401     2.09   0.038      .001269    .0424117
+       wages |   .0000633   1.97e-06    32.21   0.000     .0000594    .0000672
+    trt_test |  -.0611461   .0138782    -4.41   0.000     -.088492   -.0338003
+       _cons |  -2.614245   .0977825   -26.74   0.000    -2.806918   -2.421572
+------------------------------------------------------------------------------
+
+. predict yhat2_a, xb
+
+. 
+. graph twoway (scatter attnd_college testscore, msymbol(Oh) mcolor(gray))  (line yhat2_a testsc
+> ore if testscore>=0, lcolor(green) lpattern(_)) (line yhat2_b testscore if testscore<0, lcolor
+> (green) lpattern(_)) if abs(testscore)<=2, xline(0,lcolor(black) lpattern(_)) ytitle("Average 
+> Test Score") xtitle("Dist to Cutoff")legend(label(1 "Actual") label(2 "Predicted, All")  label
+> (4 "Predicted, h=2")order(1 2 4))
+
+. clear all
+
+. use "C:\Users\dray\Downloads\RDdata.dta"
+
+. 
+. gen D_above = 1 if testscore >=0
+(2,740 missing values generated)
+
+. replace D_above = 0 if testscore<0
+(2,740 real changes made)
+
+. gen trt_test = testscore*D_above
+
+. gen sample = 1 if abs(testscore)<=10
+(5,349 missing values generated)
+
+. replace sample = 0 if abs(testscore)>10
+(5,349 real changes made)
+
+. 
+. 
+. ivregress 2sls attnd_college (testscore=D_above) wages if sample ==1, first
+
+First-stage regressions
+-----------------------
+
+                                                Number of obs     =      1,210
+                                                F(   2,   1207)   =    5085.87
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.8939
+                                                Adj R-squared     =     0.8937
+                                                Root MSE          =     1.8745
+
+------------------------------------------------------------------------------
+   testscore |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       wages |   .0008584   .0000218    39.44   0.000     .0008157    .0009011
+     D_above |   -.709209   .2925102    -2.42   0.015    -1.283094   -.1353242
+       _cons |  -42.07343   .9428808   -44.62   0.000     -43.9233   -40.22357
+------------------------------------------------------------------------------
+
+
+Instrumental variables (2SLS) regression          Number of obs   =      1,210
+                                                  Wald chi2(2)    =     285.07
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =          .
+                                                  Root MSE        =     .58169
+
+------------------------------------------------------------------------------
+attnd_coll~e |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   testscore |  -.3095187   .1279895    -2.42   0.016    -.5603734   -.0586639
+       wages |   .0002921   .0001036     2.82   0.005      .000089    .0004952
+       _cons |  -13.99038   5.121911    -2.73   0.006    -24.02914   -3.951614
+------------------------------------------------------------------------------
+Instrumented:  testscore
+Instruments:   wages D_above
+
+. clear all 
+
+. use "C:\Users\dray\Downloads\matchingdata.dta"
+
+. 
+. set seed 123456
+
+. gen u=uniform()
+
+. sort u
+
+. probit d age black hisp nodegree marr re74 re75
+
+Iteration 0:   log likelihood = -1972.3937  
+Iteration 1:   log likelihood = -1152.2707  
+Iteration 2:   log likelihood = -954.64933  
+Iteration 3:   log likelihood = -936.49776  
+Iteration 4:   log likelihood = -936.27057  
+Iteration 5:   log likelihood =  -936.2705  
+
+Probit regression                               Number of obs     =     16,417
+                                                LR chi2(7)        =    2072.25
+                                                Prob > chi2       =     0.0000
+Log likelihood =  -936.2705                     Pseudo R2         =     0.5253
+
+------------------------------------------------------------------------------
+           d |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         age |  -.0182783   .0039508    -4.63   0.000    -.0260217    -.010535
+       black |   2.043163   .0789524    25.88   0.000     1.888419    2.197907
+        hisp |   1.033739   .1030152    10.03   0.000     .8318329    1.235645
+    nodegree |   .7156789   .0708567    10.10   0.000     .5768023    .8545554
+     married |   -.684215   .0835392    -8.19   0.000    -.8479488   -.5204812
+        re74 |   .0000114   8.57e-06     1.33   0.184    -5.41e-06    .0000282
+        re75 |  -.0000564   9.53e-06    -5.91   0.000     -.000075   -.0000377
+       _cons |   -2.14345   .1146908   -18.69   0.000     -2.36824    -1.91866
+------------------------------------------------------------------------------
+
+. predict pscorea
+(option pr assumed; Pr(d))
+
+. psmatch2 d, outcome(re78) pscore(pscorea) n(3) common
+----------------------------------------------------------------------------------------
+        Variable     Sample |    Treated     Controls   Difference         S.E.   T-stat
+----------------------------+-----------------------------------------------------------
+            re78  Unmatched |  5090.0482   14846.6596  -9756.61142   470.155617   -20.75
+                        ATT | 5076.08235   6882.84031  -1806.75797   576.598116    -3.13
+----------------------------+-----------------------------------------------------------
+Note: S.E. does not take into account that the propensity score is estimated.
+
+ psmatch2: |   psmatch2: Common
+ Treatment |        support
+assignment | Off suppo  On suppor |     Total
+-----------+----------------------+----------
+ Untreated |         0     15,992 |    15,992 
+   Treated |         1        424 |       425 
+-----------+----------------------+----------
+     Total |         1     16,416 |    16,417 
+
+
+. histogram pscorea, start(0.0) width(0.05) by(d, col(1))
+
+. 
+end of do-file
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\dray\Downloads\finalexam.log
+  log type:  text
+ closed on:  15 Nov 2018, 21:18:09
+------------------------------------------------------------------------------------------------

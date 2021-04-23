@@ -1,0 +1,32 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mafton/Desktop/detecthtrsk_conditionalvariances.log
+  log type:  text
+ opened on:  26 Mar 2018, 14:26:45
+
+. /*recode ceoten into a dummy variable*/ egen float loyal = cut(ceoten), group(2)
+>  icodes
+/ is not a valid command name
+r(199);
+
+. help egen
+
+. do "/var/folders/ks/zj678rv15j14wrl6l0lwz9dw0000gn/T//SD42496.000000"
+
+. 
+. clear all 
+
+. log using class9.log, replace
+log file already open
+r(604);
+
+end of do-file
+
+r(604);
+
+. log close 
+      name:  <unnamed>
+       log:  /Users/mafton/Desktop/detecthtrsk_conditionalvariances.log
+  log type:  text
+ closed on:  29 Mar 2018, 18:43:07
+----------------------------------------------------------------------------------

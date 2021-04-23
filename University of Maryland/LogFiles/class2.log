@@ -1,0 +1,304 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class2.log
+  log type:  text
+ opened on:  25 Feb 2018, 15:55:40
+
+. clear all
+
+. use ceos.dta, clear
+
+. use ceos.dta, clear
+
+. set more off
+
+. display binomial(1,0,.7)
+.3
+
+. help binomial
+
+. display binomial(1,1,0.7)
+1
+
+. display binomial(1,2,0.7)
+1
+
+. display binomial(4,2,0.7)
+.3483
+
+. display 1,0,0.7
+1 0 .7
+
+. display as text "mean of comten = " as result r(mean)
+mean of comten = .
+
+. display as text "mean of ceoten = " as result r(mean)
+mean of ceoten = .
+
+. display r(mean)
+.
+
+. display normal(0)
+.5
+
+. nestreg : clogit salary (age) (college) (grad), group(gender)
+r(2000);
+
+. display normal(1.645) - normal(-1.645)
+.90003019
+
+. display normal(1.96) - normal(-1.96)
+.95000421
+
+. display normal(4) - normal(-4)
+.99993666
+
+. display binormal(0,0,0)
+.25
+
+. help binormal
+
+. display binormal(1,0,0)
+.42067237
+
+. display binormal(1,0,1)
+.5
+
+. display binormal(1,1,1)
+.84134475
+
+. display binormal(1,0,0)
+.42067237
+
+. display binormal(0,0,1)
+.5
+
+. display binormal(0,0,-1)
+0
+
+. drawnorm x, n(100000) means(3) sds(4)
+(obs 100,000)
+
+. display x
+11.102351
+
+. summarize
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+           x |    100,000    2.992654    4.012108  -14.87321   20.31001
+
+. summarize, detail
+
+                              x
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%    -6.278729      -14.87321
+ 5%    -3.600761       -14.8208
+10%    -2.166894      -13.45641       Obs             100,000
+25%      .295377      -13.31019       Sum of Wgt.     100,000
+
+50%     2.987205                      Mean           2.992654
+                        Largest       Std. Dev.      4.012108
+75%     5.686978       19.05449
+90%     8.144439       19.21676       Variance       16.09701
+95%     9.588945       19.32998       Skewness       .0089053
+99%     12.41472       20.31001       Kurtosis       2.999472
+
+. use ceos.dta, clear
+
+. drawnorm x, n(100000) means(3) sds(4)
+(obs 100,000)
+
+. histogram x, bin(5)
+(bin=5, start=-13.969879, width=6.6915695)
+
+. graph save Graph "/Users/mafton/Documents/School/Econ 644/class2histogram.gph"
+(file /Users/mafton/Documents/School/Econ 644/class2histogram.gph saved)
+
+. histogram x, bin(50)
+(bin=50, start=-13.969879, width=.66915695)
+
+. graph save Graph "/Users/mafton/Documents/School/Econ 644/class2histogram2.gph"
+(file /Users/mafton/Documents/School/Econ 644/class2histogram2.gph saved)
+
+. display x
+-.98598909
+
+. browse
+
+. display x
+-.98598909
+
+. summarize x
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+           x |    100,000    3.010236    3.995434  -13.96988   19.48797
+
+. browse x
+
+. drawnorm y, n(100000) means(3) sds(4)
+
+. 
+. graph hbox x
+
+. histogram x, bin(50)
+(bin=50, start=-13.969879, width=.66915695)
+
+. 
+. generate t = rbinomial(1,0.7)
+
+. generate t2 = rbinomial(1, .7)
+
+. display t2
+1
+
+. display t
+1
+
+. mean t2
+
+Mean estimation                   Number of obs   =    100,000
+
+--------------------------------------------------------------
+             |       Mean   Std. Err.     [95% Conf. Interval]
+-------------+------------------------------------------------
+          t2 |     .69727   .0014529      .6944224    .7001176
+--------------------------------------------------------------
+
+. mean t
+
+Mean estimation                   Number of obs   =    100,000
+
+--------------------------------------------------------------
+             |       Mean   Std. Err.     [95% Conf. Interval]
+-------------+------------------------------------------------
+           t |     .69896   .0014506      .6961169    .7018031
+--------------------------------------------------------------
+
+. histogram z, by(t)
+variable z not found
+r(111);
+
+. drawnorm z
+
+. drawnorm z2
+
+. histogram z, by(t)
+
+. histogram z
+(bin=50, start=-4.2711124, width=.1697149)
+
+. . histogram z, by(t)
+
+. histogram z
+(bin=50, start=-4.2711124, width=.1697149)
+
+.  by t, sort: summarize z
+
+----------------------------------------------------------------------------------
+-> t = 0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+           z |     30,104     -.00679    1.001177  -4.271112   4.214633
+
+----------------------------------------------------------------------------------
+-> t = 1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+           z |     69,896    .0004743    1.001461  -4.183545   4.170102
+
+
+. by t, sort: summarize z
+
+----------------------------------------------------------------------------------
+-> t = 0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+           z |     30,104     -.00679    1.001177  -4.271112   4.214633
+
+----------------------------------------------------------------------------------
+-> t = 1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+           z |     69,896    .0004743    1.001461  -4.183545   4.170102
+
+
+. count if t!=0
+  69,896
+
+. count if t!=1
+  30,104
+
+. count if z>0
+  49,964
+
+. count if z<0
+  50,036
+
+. count if z==0
+  0
+
+. twoway (scatter t z in 1/200) (lfit s x) 
+variable s not found
+r(111);
+
+. 
+. twoway (scatter t z in 1/200) (lfit t z) 
+
+. 
+. twoway (scatter y x in 1/200) (lfit y x) 
+
+. 
+. generate s = (x-3)/4
+
+. generate s2 = (x-3)/4
+
+. 
+. correlate x s
+(obs=100,000)
+
+             |        x        s
+-------------+------------------
+           x |   1.0000
+           s |   1.0000   1.0000
+
+
+. correlate s z
+(obs=100,000)
+
+             |        s        z
+-------------+------------------
+           s |   1.0000
+           z |   0.0008   1.0000
+
+
+. correlate z t
+(obs=100,000)
+
+             |        z        t
+-------------+------------------
+           z |   1.0000
+           t |   0.0033   1.0000
+
+
+. twoway (scatter z s in 1/200) (lfit z s) 
+
+. twoway (scatter s x in 1/200) (lfit s x) 
+
+. twoway (scatter z s in 1/200) (lfit z s) 
+
+. twoway (scatter x s in 1/200) (lfit x s) 
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class2.log
+  log type:  text
+ closed on:  25 Feb 2018, 16:26:17
+----------------------------------------------------------------------------------

@@ -1,0 +1,362 @@
+---------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\dray\Documents\Documents\putcall.log
+  log type:  text
+ opened on:  13 Nov 2018, 21:34:11
+
+. use beta.dta
+
+. 
+. foreach v of varlist aapl-mkt {
+  2.         replace `v' = `v'-rf
+  3. } 
+(252 real changes made)
+(252 real changes made)
+(211 real changes made)
+(252 real changes made)
+(252 real changes made)
+(79 real changes made)
+(252 real changes made)
+(252 real changes made)
+(252 real changes made)
+
+. 
+. foreach v of varlist aapl-mkt {
+  2.         reg `v' mkt
+  3.         display as text "Alpha"
+  4.         di _b[_cons]
+  5.         generate Alpha`v' = _b[mkt]
+  6.         display as text "Beta"
+  7.         di _b[mkt]
+  8.         generate Beta`v' = _b[mkt]
+  9.         display as text "Standard Error"
+ 10.         dis _se[mkt]
+ 11.         display as text "Lower Interval"
+ 12.         di _b[_cons]-(_se[mkt]*sqrt(12)*1.96)
+ 13.         display as text "Upper Interval"
+ 14.         di _b[_cons]+(_se[mkt]*sqrt(12)*1.96)
+ 15. }
+
+      Source |       SS           df       MS      Number of obs   =       252
+-------------+----------------------------------   F(1, 250)       =    207.17
+       Model |  .028336272         1  .028336272   Prob > F        =    0.0000
+    Residual |  .034194791       250  .000136779   R-squared       =    0.4532
+-------------+----------------------------------   Adj R-squared   =    0.4510
+       Total |  .062531063       251  .000249128   Root MSE        =     .0117
+
+------------------------------------------------------------------------------
+        aapl |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   1.161277   .0806816    14.39   0.000     1.002375    1.320179
+       _cons |   .0005727   .0007435     0.77   0.442    -.0008917    .0020371
+------------------------------------------------------------------------------
+Alpha
+.00057269
+Beta
+1.1612768
+Standard Error
+.08068158
+Lower Interval
+-.54722612
+Upper Interval
+.5483715
+
+      Source |       SS           df       MS      Number of obs   =       252
+-------------+----------------------------------   F(1, 250)       =     51.09
+       Model |  .019108018         1  .019108018   Prob > F        =    0.0000
+    Residual |  .093505266       250  .000374021   R-squared       =    0.1697
+-------------+----------------------------------   Adj R-squared   =    0.1664
+       Total |  .112613285       251  .000448659   Root MSE        =    .01934
+
+------------------------------------------------------------------------------
+        bhge |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   .9536132   .1334174     7.15   0.000     .6908478    1.216379
+       _cons |  -.0011767   .0012295    -0.96   0.339    -.0035982    .0012449
+------------------------------------------------------------------------------
+Alpha
+-.00117665
+Beta
+.95361317
+Standard Error
+.13341739
+Lower Interval
+-.9070326
+Upper Interval
+.90467929
+
+      Source |       SS           df       MS      Number of obs   =       211
+-------------+----------------------------------   F(1, 209)       =      8.57
+       Model |  .027482808         1  .027482808   Prob > F        =    0.0038
+    Residual |  .669908846       209  .003205305   R-squared       =    0.0394
+-------------+----------------------------------   Adj R-squared   =    0.0348
+       Total |  .697391654       210  .003320913   Root MSE        =    .05662
+
+------------------------------------------------------------------------------
+         cgc |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   1.168893   .3991892     2.93   0.004     .3819392    1.955846
+       _cons |   .0038275   .0039516     0.97   0.334    -.0039626    .0116176
+------------------------------------------------------------------------------
+Alpha
+.00382746
+Beta
+1.1688926
+Standard Error
+.3991892
+Lower Interval
+-2.7065231
+Upper Interval
+2.7141781
+
+      Source |       SS           df       MS      Number of obs   =       252
+-------------+----------------------------------   F(1, 250)       =     21.81
+       Model |  .009527105         1  .009527105   Prob > F        =    0.0000
+    Residual |   .10920143       250  .000436806   R-squared       =    0.0802
+-------------+----------------------------------   Adj R-squared   =    0.0766
+       Total |  .118728535       251  .000473022   Root MSE        =     .0209
+
+------------------------------------------------------------------------------
+          ge |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   .6733562   .1441812     4.67   0.000     .3893916    .9573208
+       _cons |   -.003693   .0013287    -2.78   0.006    -.0063099   -.0010761
+------------------------------------------------------------------------------
+Alpha
+-.00369298
+Beta
+.67335624
+Standard Error
+.14418118
+Lower Interval
+-.98263116
+Upper Interval
+.9752452
+
+      Source |       SS           df       MS      Number of obs   =       252
+-------------+----------------------------------   F(1, 250)       =     13.90
+       Model |  .015644278         1  .015644278   Prob > F        =    0.0002
+    Residual |  .281379039       250  .001125516   R-squared       =    0.0527
+-------------+----------------------------------   Adj R-squared   =    0.0489
+       Total |  .297023317       251   .00118336   Root MSE        =    .03355
+
+------------------------------------------------------------------------------
+         rht |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   .8628636    .231441     3.73   0.000      .407041    1.318686
+       _cons |   .0014068   .0021329     0.66   0.510    -.0027939    .0056075
+------------------------------------------------------------------------------
+Alpha
+.00140677
+Beta
+.86286365
+Standard Error
+.23144099
+Lower Interval
+-1.569994
+Upper Interval
+1.5728076
+
+      Source |       SS           df       MS      Number of obs   =        79
+-------------+----------------------------------   F(1, 77)        =      3.67
+       Model |  .053168895         1  .053168895   Prob > F        =    0.0592
+    Residual |   1.1166969        77  .014502557   R-squared       =    0.0454
+-------------+----------------------------------   Adj R-squared   =    0.0331
+       Total |  1.16986579        78  .014998279   Root MSE        =    .12043
+
+------------------------------------------------------------------------------
+        tlry |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   2.853053   1.490058     1.91   0.059    -.1140325    5.820138
+       _cons |   .0339545   .0139565     2.43   0.017     .0061635    .0617456
+------------------------------------------------------------------------------
+Alpha
+.03395455
+Beta
+2.8530528
+Standard Error
+1.4900583
+Lower Interval
+-10.083004
+Upper Interval
+10.150913
+
+      Source |       SS           df       MS      Number of obs   =       252
+-------------+----------------------------------   F(1, 250)       =     30.49
+       Model |   .00679361         1   .00679361   Prob > F        =    0.0000
+    Residual |  .055707521       250   .00022283   R-squared       =    0.1087
+-------------+----------------------------------   Adj R-squared   =    0.1051
+       Total |  .062501131       251  .000249008   Root MSE        =    .01493
+
+------------------------------------------------------------------------------
+         uso |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   .5686103   .1029796     5.52   0.000     .3657921    .7714285
+       _cons |   -.000553    .000949    -0.58   0.561    -.0024221    .0013161
+------------------------------------------------------------------------------
+Alpha
+-.00055297
+Beta
+.56861028
+Standard Error
+.10297963
+Lower Interval
+-.6997475
+Upper Interval
+.69864156
+
+      Source |       SS           df       MS      Number of obs   =       252
+-------------+----------------------------------   F(1, 250)       =    164.23
+       Model |   .07324972         1   .07324972   Prob > F        =    0.0000
+    Residual |  .111507287       250  .000446029   R-squared       =    0.3965
+-------------+----------------------------------   Adj R-squared   =    0.3941
+       Total |  .184757007       251  .000736084   Root MSE        =    .02112
+
+------------------------------------------------------------------------------
+        nflx |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |   1.867099   .1456955    12.82   0.000     1.580152    2.154046
+       _cons |   .0028314   .0013427     2.11   0.036      .000187    .0054758
+------------------------------------------------------------------------------
+Alpha
+.00283136
+Beta
+1.8670992
+Standard Error
+.14569546
+Lower Interval
+-.98638828
+Upper Interval
+.99205099
+
+      Source |       SS           df       MS      Number of obs   =       252
+-------------+----------------------------------   F(1, 250)       =         .
+       Model |  .021012183         1  .021012183   Prob > F        =         .
+    Residual |           0       250           0   R-squared       =    1.0000
+-------------+----------------------------------   Adj R-squared   =    1.0000
+       Total |  .021012183       251  .000083714   Root MSE        =         0
+
+------------------------------------------------------------------------------
+         mkt |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         mkt |          1          .        .       .            .           .
+       _cons |   2.17e-19          .        .       .            .           .
+------------------------------------------------------------------------------
+Alpha
+2.168e-19
+Beta
+1
+Standard Error
+0
+Lower Interval
+2.168e-19
+Upper Interval
+2.168e-19
+
+.         
+. 
+. save beta2.dta, replace
+file beta2.dta saved
+
+. collapse (mean) aapl bhge cgc ge rht tlry uso nflx mkt rf
+
+. xpose, varname clear
+
+. rename v1 avgreturn
+
+. save "C:\Users\dray\Documents\Documents\avgreturn.dta", replace
+file C:\Users\dray\Documents\Documents\avgreturn.dta saved
+
+. clear all 
+
+. use "C:\Users\dray\Documents\Documents\beta2.dta", clear
+
+. collapse (mean) Betaaapl Betabhge Betacgc Betage Betarht Betatlry Betauso Betanflx Betamkt
+
+. xpose, varname clear
+
+. rename v1 beta
+
+. save "C:\Users\dray\Documents\Documents\beta3.dta", replace
+file C:\Users\dray\Documents\Documents\beta3.dta saved
+
+. clear all 
+
+. use beta2.dta
+
+. collapse (mean) Alphaaapl Alphabhge Alphacgc Alphage Alpharht Alphatlry Alphauso Alphanflx Alphamkt
+
+. xpose, varname clear
+
+. rename v1 alpha
+
+. save "C:\Users\dray\Documents\Documents\alpha.dta", replace
+file C:\Users\dray\Documents\Documents\alpha.dta saved
+
+. merge 1:1 _n using "C:\Users\dray\Documents\Documents\avgreturn.dta"
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             1
+        from master                         0  (_merge==1)
+        from using                          1  (_merge==2)
+
+    matched                                 9  (_merge==3)
+    -----------------------------------------
+
+. drop _merge
+
+. merge 1:1 _n using "C:\Users\dray\Documents\Documents\beta3.dta"
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             1
+        from master                         1  (_merge==1)
+        from using                          0  (_merge==2)
+
+    matched                                 9  (_merge==3)
+    -----------------------------------------
+
+. 
+. replace _varname = "AAPL" in 1
+(1 real change made)
+
+. replace _varname = "BHGE" in 2
+(1 real change made)
+
+. replace _varname = "CGC" in 3
+(1 real change made)
+
+. replace _varname = "GE" in 4
+(1 real change made)
+
+. replace _varname = "RHAT" in 5
+(1 real change made)
+
+. replace _varname = "TLRY" in 6
+(1 real change made)
+
+. replace _varname = "USO" in 7
+(1 real change made)
+
+. replace _varname = "NFLX" in 8
+(1 real change made)
+
+. replace _varname = "MKT" in 9
+(1 real change made)
+
+. 
+. save "C:\Users\dray\Documents\Documents\mergedputcall.dta", replace
+file C:\Users\dray\Documents\Documents\mergedputcall.dta saved
+
+. twoway (scatter avgreturn beta, mlabel(_varname)), ytitle(Average Return) xtitle(Beta) title(Beta and A
+> verage Return)
+
+. 
+end of do-file
+
+. browse
+
+. browse
+
+. exit, clear

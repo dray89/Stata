@@ -1,0 +1,213 @@
+------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\dray\Downloads\discussion4.log
+  log type:  text
+ opened on:  24 Sep 2018, 20:30:32
+
+. 
+. use "C:\Users\dray\Downloads\fertility (1).dta"
+
+. 
+. /*Run 2SLS*/
+. ivreg2 weeksm1 black hispan othrace age (morekids=samesex)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics consistent for homoskedasticity only
+
+                                                      Number of obs =   254654
+                                                      F(  5,254648) =  1335.44
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  121769415.4                Centered R2   =   0.0437
+Total (uncentered) SS   =    213877017                Uncentered R2 =   0.4555
+Residual SS             =  116450412.1                Root MSE      =    21.38
+
+------------------------------------------------------------------------------
+     weeksm1 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    morekids |  -5.821051   1.246295    -4.67   0.000    -8.263744   -3.378358
+       black |   11.62327   .2289286    50.77   0.000     11.17458    12.07197
+      hispan |   .4041802   .2598548     1.56   0.120    -.1051259    .9134863
+     othrace |   2.130962   .2058553    10.35   0.000     1.727493    2.534431
+       agem1 |   .8315975   .0228862    36.34   0.000     .7867414    .8764536
+       _cons |  -4.791894   .4065695   -11.79   0.000    -5.588755   -3.995032
+------------------------------------------------------------------------------
+Underidentification test (Anderson canon. corr. LM statistic):        1273.441
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):             1279.811
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+------------------------------------------------------------------------------
+Sargan statistic (overidentification test of all instruments):           0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         morekids
+Included instruments: black hispan othrace agem1
+Excluded instruments: samesex
+------------------------------------------------------------------------------
+
+. /*Test for Endogeneity*/
+. ivendog 
+
+Tests of endogeneity of: morekids
+H0: Regressor is exogenous
+    Wu-Hausman F test:                  0.10844  F(1,254647) P-value = 0.74193
+    Durbin-Wu-Hausman chi-sq test:      0.10844  Chi-sq(1)   P-value = 0.74192
+
+. /*OLS estimates not biased by endogeneity*/
+. 
+. /*Run regression with more kids and samesex*/
+. reg weeksm1 black hispan othrace age morekids 
+
+      Source |       SS           df       MS      Number of obs   =   254,654
+-------------+----------------------------------   F(5, 254648)    =   2330.78
+       Model |  5328869.45         5  1065773.89   Prob > F        =    0.0000
+    Residual |   116440546   254,648  457.260791   R-squared       =    0.0438
+-------------+----------------------------------   Adj R-squared   =    0.0437
+       Total |   121769415   254,653  478.177816   Root MSE        =    21.384
+
+------------------------------------------------------------------------------
+     weeksm1 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       black |   11.66424   .1921723    60.70   0.000     11.28759    12.04089
+      hispan |    .466093   .1793652     2.60   0.009      .114542    .8176439
+     othrace |   2.142125   .2030385    10.55   0.000     1.744175    2.540075
+       agem1 |   .8378841   .0126208    66.39   0.000     .8131476    .8626207
+    morekids |  -6.230418   .0881296   -70.70   0.000     -6.40315   -6.057687
+       _cons |  -4.834514   .3854049   -12.54   0.000    -5.589898   -4.079131
+------------------------------------------------------------------------------
+
+. /*Regress morekids on samesex*/
+. reg morekids samesex black hispan othrace age 
+
+      Source |       SS           df       MS      Number of obs   =   254,654
+-------------+----------------------------------   F(5, 254648)    =   1262.09
+       Model |  1451.65094         5  290.330189   Prob > F        =    0.0000
+    Residual |  58579.1858   254,648  .230039843   R-squared       =    0.0242
+-------------+----------------------------------   Adj R-squared   =    0.0242
+       Total |  60030.8368   254,653  .235735832   Root MSE        =    .47962
+
+------------------------------------------------------------------------------
+    morekids |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     samesex |   .0680081    .001901    35.77   0.000     .0642821    .0717341
+       black |   .1005237   .0043058    23.35   0.000     .0920844    .1089629
+      hispan |   .1512258   .0040119    37.69   0.000     .1433625    .1590892
+     othrace |   .0275069   .0045537     6.04   0.000     .0185817    .0364321
+       agem1 |   .0153898   .0002814    54.68   0.000     .0148382    .0159415
+       _cons |  -.1395319   .0086985   -16.04   0.000    -.1565808    -.122483
+------------------------------------------------------------------------------
+
+. /*Run Ftest - valid instrument*/
+. test samesex
+
+ ( 1)  samesex = 0
+
+       F(  1,254648) = 1279.81
+            Prob > F =    0.0000
+
+. /*save residuals*/
+. predict uhat, resid 
+
+. /*Include residuals in regression*/
+. reg weeksm1 black hispan othrace age morekids uhat
+
+      Source |       SS           df       MS      Number of obs   =   254,654
+-------------+----------------------------------   F(6, 254647)    =   1942.33
+       Model |  5328919.03         6  888153.172   Prob > F        =    0.0000
+    Residual |   116440496   254,647  457.262392   R-squared       =    0.0438
+-------------+----------------------------------   Adj R-squared   =    0.0437
+       Total |   121769415   254,653  478.177816   Root MSE        =    21.384
+
+------------------------------------------------------------------------------
+     weeksm1 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       black |   11.62327    .228922    50.77   0.000     11.17459    12.07195
+      hispan |   .4041801   .2598473     1.56   0.120    -.1051137     .913474
+     othrace |   2.130962   .2058493    10.35   0.000     1.727503    2.534421
+       agem1 |   .8315975   .0228855    36.34   0.000     .7867425    .8764525
+    morekids |   -5.82105   1.246259    -4.67   0.000    -8.263685   -3.378416
+        uhat |  -.4114255   1.249387    -0.33   0.742     -2.86019    2.037339
+       _cons |  -4.791893   .4065577   -11.79   0.000    -5.588736   -3.995051
+------------------------------------------------------------------------------
+
+. /*residuals do not have a signifant effect on weeksm1 - so no endog bias */
+. ivreg2 weeksm1 black hispan othrace age (morekids=samesex)
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics consistent for homoskedasticity only
+
+                                                      Number of obs =   254654
+                                                      F(  5,254648) =  1335.44
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  121769415.4                Centered R2   =   0.0437
+Total (uncentered) SS   =    213877017                Uncentered R2 =   0.4555
+Residual SS             =  116450412.1                Root MSE      =    21.38
+
+------------------------------------------------------------------------------
+     weeksm1 |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    morekids |  -5.821051   1.246295    -4.67   0.000    -8.263744   -3.378358
+       black |   11.62327   .2289286    50.77   0.000     11.17458    12.07197
+      hispan |   .4041802   .2598548     1.56   0.120    -.1051259    .9134863
+     othrace |   2.130962   .2058553    10.35   0.000     1.727493    2.534431
+       agem1 |   .8315975   .0228862    36.34   0.000     .7867414    .8764536
+       _cons |  -4.791894   .4065695   -11.79   0.000    -5.588755   -3.995032
+------------------------------------------------------------------------------
+Underidentification test (Anderson canon. corr. LM statistic):        1273.441
+                                                   Chi-sq(1) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Cragg-Donald Wald F statistic):             1279.811
+Stock-Yogo weak ID test critical values: 10% maximal IV size             16.38
+                                         15% maximal IV size              8.96
+                                         20% maximal IV size              6.66
+                                         25% maximal IV size              5.53
+Source: Stock-Yogo (2005).  Reproduced by permission.
+------------------------------------------------------------------------------
+Sargan statistic (overidentification test of all instruments):           0.000
+                                                 (equation exactly identified)
+------------------------------------------------------------------------------
+Instrumented:         morekids
+Included instruments: black hispan othrace agem1
+Excluded instruments: samesex
+------------------------------------------------------------------------------
+
+. reg weeksm1 black hispan othrace age morekids samesex
+
+      Source |       SS           df       MS      Number of obs   =   254,654
+-------------+----------------------------------   F(6, 254647)    =   1942.33
+       Model |  5328919.03         6  888153.172   Prob > F        =    0.0000
+    Residual |   116440496   254,647  457.262392   R-squared       =    0.0438
+-------------+----------------------------------   Adj R-squared   =    0.0437
+       Total |   121769415   254,653  478.177816   Root MSE        =    21.384
+
+------------------------------------------------------------------------------
+     weeksm1 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       black |   11.66463   .1921763    60.70   0.000     11.28797    12.04129
+      hispan |   .4663983   .1793679     2.60   0.009      .114842    .8179546
+     othrace |   2.142279   .2030394    10.55   0.000     1.744327    2.540231
+       agem1 |   .8379293   .0126216    66.39   0.000     .8131912    .8626673
+    morekids |  -6.232476   .0883509   -70.54   0.000    -6.405641    -6.05931
+     samesex |   .0279802   .0849684     0.33   0.742    -.1385556     .194516
+       _cons |    -4.8493   .3880123   -12.50   0.000    -5.609794   -4.088807
+------------------------------------------------------------------------------
+
+. 
+end of do-file
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\dray\Downloads\discussion4.log
+  log type:  text
+ closed on:  24 Sep 2018, 20:30:39
+------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,553 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/econ644final.log
+  log type:  text
+ opened on:   1 Apr 2018, 16:52:50
+
+. 
+. /* (4) Display the working directory. Change the working directory to your 
+> desktop, if not already set this way. */
+. pwd
+/Users/mafton/Documents/School/Econ 644
+
+. cd "/Users/mafton/Desktop"
+/Users/mafton/Desktop
+
+. cd "/Users/mafton/Documents/School/Econ 644"
+/Users/mafton/Documents/School/Econ 644
+
+. 
+. /* (5) Open the dataset CEOsalary.dta. */
+. use "/Users/mafton/Documents/School/Econ 644/CEOsalary.dta"
+
+. 
+. 
+. /* (6) Obtain a description of the variables in the dataset. What are the name 
+> and the label of the first variable? */
+. describe
+
+Contains data from /Users/mafton/Documents/School/Econ 644/CEOsalary.dta
+  obs:           177                          
+ vars:            17                          3 Feb 2017 11:28
+ size:        11,328                          (_dta has notes)
+----------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+----------------------------------------------------------------------------------
+id              str3    %9s                   unique CEO identifier
+name            str18   %18s                  CEO name
+phone           double  %10.0f                phone number
+gender          str1    %9s                   male or female
+mstatus         long    %8.0g      maritalstatus
+                                              marital status
+salary          int     %9.0g                 1990 compensation, $1000s
+age             byte    %9.0g                 in years
+daybirth        float   %9.0g                 day of birth
+monthbirth      float   %9.0g                 month of birth
+college         byte    %9.0g                 =1 if attended college
+grad            byte    %9.0g                 =1 if attended graduate school
+comten          byte    %9.0g                 years with company
+ceoten          byte    %9.0g                 years as ceo with company
+sales           str5    %9s                   1990 firm sales, millions
+profits         int     %9.0g                 1990 profits, millions
+mktval          float   %9.0g                 market value, end 1990, mills.
+profmarg        float   %9.0g                 profits as % of sales
+----------------------------------------------------------------------------------
+Sorted by: id
+
+. /*id, unique ceo identifier*/
+. 
+. /* (7) Obtain summary statistics for all the variables in the dataset. Which 
+> variables in the dataset are string? */
+. 
+. summarize 
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+          id |          0
+        name |          0
+       phone |        177    5.41e+09    2.50e+09   1.01e+09   9.95e+09
+      gender |          0
+     mstatus |        177     1.99435    .5589883          1          4
+-------------+---------------------------------------------------------
+      salary |        177    865.8644    587.5893        100       5299
+         age |        177    56.42938     8.42189         33         86
+    daybirth |        172    15.75581    8.618538          1         31
+  monthbirth |        175    6.497143    3.622843          1         12
+     college |        177    .9717514    .1661523          0          1
+-------------+---------------------------------------------------------
+        grad |        177    .5310734    .5004492          0          1
+      comten |        177    22.50282    12.29473          2         58
+      ceoten |        177    7.954802    7.150826          0         37
+       sales |          0
+     profits |        177    207.8305    404.4543       -463       2700
+-------------+---------------------------------------------------------
+      mktval |        177    3600.316    6442.276        387      45400
+    profmarg |        177     6.42011    17.86074  -203.0769   47.45763
+
+. /* id, name, gender, sales */
+. /* (8) List the CEO names that have missing records for the variable daybirth. *
+> /
+. list daybirth name if daybirth==.
+
+     +--------------------------+
+     | daybirth            name |
+     |--------------------------|
+  8. |        .   Melvin Stuart |
+ 26. |        .      Kamal Cook |
+112. |        .     Magee Beach |
+125. |        .     Peter Hurst |
+172. |        .    Colby Larsen |
+     +--------------------------+
+
+. 
+. 
+. /* (9) Create a dummy (indicator) variable named mis which takes the value 1 if
+> daybirth is missing, zero otherwise. */
+. generate mis = (daybirth==.)
+
+. 
+. /* (10) Compute the mean and std. dev. of the variable mis. What percentage of 
+> the CEOs in the sample have missing records for daybirth? */
+. summarize mis 
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+         mis |        177    .0282486    .1661523          0          1
+
+. display 100*(5/177)
+2.8248588
+
+. 
+. /* (11) Create a new variable named daybirth_mz that replaces the missing values
+> in datebirth with zeros. */
+. recode daybirth (missing = 0), generate(daybirth_mz)
+(5 differences between daybirth and daybirth_mz)
+
+. 
+. /* (12) List daybirth and daybirth_mz for the observations that have different 
+> values for these two variables. */
+. list daybirth_mz daybirth if daybirth!=daybirth_mz
+
+     +---------------------+
+     | daybir~z   daybirth |
+     |---------------------|
+  8. |        0          . |
+ 26. |        0          . |
+112. |        0          . |
+125. |        0          . |
+172. |        0          . |
+     +---------------------+
+
+. 
+. 
+. /* (13) Plot a histogram of the variable age. Use a bin width of 3, plot 
+> frequencies, and add height labels to the histogram bars. Later please pdf-print
+>  this graph and attach it with your answers. */
+. 
+. histogram age, width(3) frequency addlabel
+(bin=18, start=33, width=3)
+
+. /* (14) Compute a 95% confidence interval for the variable age. Can you claim 
+> with 95% confidence that the population mean age is 50? */
+. ci means age 
+
+    Variable |        Obs        Mean    Std. Err.       [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+         age |        177    56.42938     .633028        55.18008    57.67868
+
+. ttest age ==50
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+     age |     177    56.42938     .633028     8.42189    55.18008    57.67868
+------------------------------------------------------------------------------
+    mean = mean(age)                                              t =  10.1565
+Ho: mean = 50                                    degrees of freedom =      176
+
+    Ha: mean < 50               Ha: mean != 50                 Ha: mean > 50
+ Pr(T < t) = 1.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 0.0000
+
+. 
+. /*No, outside the confidence interval*/
+. 
+. /* (15) Compute the correlation between college and age. */
+. corr college age
+(obs=177)
+
+             |  college      age
+-------------+------------------
+     college |   1.0000
+         age |  -0.1781   1.0000
+
+
+. 
+. /* (16) Estimate a regression of college on age by OLS. Interpret the coefficien
+> t
+>  on age. Is this coefficient statistically significant at the 5% level? */
+.  regress college age 
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(1, 175)       =      5.73
+       Model |  .154052588         1  .154052588   Prob > F        =    0.0177
+    Residual |  4.70470447       175  .026884026   R-squared       =    0.0317
+-------------+----------------------------------   Adj R-squared   =    0.0262
+       Total |  4.85875706       176  .027606574   Root MSE        =    .16396
+
+------------------------------------------------------------------------------
+     college |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         age |  -.0035129   .0014675    -2.39   0.018    -.0064092   -.0006166
+       _cons |   1.169983   .0837228    13.97   0.000     1.004747     1.33522
+------------------------------------------------------------------------------
+
+. /*yes, p = .018*/
+. /* (17) Run a Breuch-Pagan test of heteroskedasticity. Does the test detect 
+> heteroskedasticity? */
+. regress college age
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(1, 175)       =      5.73
+       Model |  .154052588         1  .154052588   Prob > F        =    0.0177
+    Residual |  4.70470447       175  .026884026   R-squared       =    0.0317
+-------------+----------------------------------   Adj R-squared   =    0.0262
+       Total |  4.85875706       176  .027606574   Root MSE        =    .16396
+
+------------------------------------------------------------------------------
+     college |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         age |  -.0035129   .0014675    -2.39   0.018    -.0064092   -.0006166
+       _cons |   1.169983   .0837228    13.97   0.000     1.004747     1.33522
+------------------------------------------------------------------------------
+
+. estat hettest
+
+Breusch-Pagan / Cook-Weisberg test for heteroskedasticity 
+         Ho: Constant variance
+         Variables: fitted values of college
+
+         chi2(1)      =    84.56
+         Prob > chi2  =   0.0000
+
+. /*yes, p <.01*/
+. /* (18) Estimate a regression of college on age by Robust-OLS. Does the standard
+> error of the age coefficient go up or down? */
+. regress college age, vce(robust)
+
+Linear regression                               Number of obs     =        177
+                                                F(1, 175)         =       2.84
+                                                Prob > F          =     0.0938
+                                                R-squared         =     0.0317
+                                                Root MSE          =     .16396
+
+------------------------------------------------------------------------------
+             |               Robust
+     college |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         age |  -.0035129    .002085    -1.68   0.094    -.0076279     .000602
+       _cons |   1.169983   .1095404    10.68   0.000     .9537931    1.386174
+------------------------------------------------------------------------------
+
+. /* goes up*/
+. /* (19) Estimate a regression of college on age by WLS using weights equal to
+> 1/(age*(100-age)). Does the age coefficient go up or down? */
+.  regress college age [aweight=1/(age*(100-age))]
+(sum of wgt is   7.4590e-02)
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(1, 175)       =      6.39
+       Model |  .187262287         1  .187262287   Prob > F        =    0.0124
+    Residual |  5.13165586       175  .029323748   R-squared       =    0.0352
+-------------+----------------------------------   Adj R-squared   =    0.0297
+       Total |  5.31891815       176  .030221126   Root MSE        =    .17124
+
+------------------------------------------------------------------------------
+     college |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         age |   -.003665   .0014503    -2.53   0.012    -.0065274   -.0008027
+       _cons |   1.177699   .0835873    14.09   0.000      1.01273    1.342668
+------------------------------------------------------------------------------
+
+.  /*down*/
+. /* (20) Estimate a regression of college on age and daybirth by OLS. Did the 
+> adjusted-R-squared go up or down? Would you keep daybirth in the model? */
+. regress college age daybirth
+
+      Source |       SS           df       MS      Number of obs   =       172
+-------------+----------------------------------   F(2, 169)       =      2.82
+       Model |  .156659294         2  .078329647   Prob > F        =    0.0626
+    Residual |  4.69799187       169  .027798768   R-squared       =    0.0323
+-------------+----------------------------------   Adj R-squared   =    0.0208
+       Total |  4.85465116       171  .028389773   Root MSE        =    .16673
+
+------------------------------------------------------------------------------
+     college |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         age |  -.0035342   .0015087    -2.34   0.020    -.0065124   -.0005559
+    daybirth |  -.0003193   .0014832    -0.22   0.830    -.0032473    .0026087
+       _cons |    1.17552   .0876295    13.41   0.000      1.00253    1.348509
+------------------------------------------------------------------------------
+
+. /*r2 went down; I would not keep daybirth in the model - day of birth 
+> does not really contribute to the model, largely insignificant and it is missing
+>  values
+> The adj R2 goes down because the added variable daybirth does not contribute to 
+> the model
+> as much as expected*/
+. 
+. /* (21) Estimate a regression of college on age and daybirth by OLS, using all 
+> the data records available on these variables. (Hint: Use the variables mis and 
+> daybirth_mz created above.) */
+. 
+. regress college age daybirth_mz
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(2, 174)       =      2.90
+       Model |  .156621352         2  .078310676   Prob > F        =    0.0578
+    Residual |  4.70213571       174  .027023768   R-squared       =    0.0322
+-------------+----------------------------------   Adj R-squared   =    0.0211
+       Total |  4.85875706       176  .027606574   Root MSE        =    .16439
+
+------------------------------------------------------------------------------
+     college |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         age |  -.0034787   .0014755    -2.36   0.020    -.0063909   -.0005665
+ daybirth_mz |   -.000431   .0013979    -0.31   0.758      -.00319     .002328
+       _cons |   1.174649   .0852931    13.77   0.000     1.006307    1.342991
+------------------------------------------------------------------------------
+
+. 
+. /* (22) Estimate a regression of college on age and monthbirth by OLS. */
+. regress college age monthbirth
+
+      Source |       SS           df       MS      Number of obs   =       175
+-------------+----------------------------------   F(2, 172)       =      4.45
+       Model |  .239148796         2  .119574398   Prob > F        =    0.0130
+    Residual |  4.61799406       172  .026848803   R-squared       =    0.0492
+-------------+----------------------------------   Adj R-squared   =    0.0382
+       Total |  4.85714286       174  .027914614   Root MSE        =    .16386
+
+------------------------------------------------------------------------------
+     college |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         age |  -.0033116   .0014816    -2.24   0.027     -.006236   -.0003872
+  monthbirth |   .0060887   .0034427     1.77   0.079    -.0007067    .0128842
+       _cons |   1.118816   .0893606    12.52   0.000      .942431      1.2952
+------------------------------------------------------------------------------
+
+. 
+. /* (23) Run an Ramsey test of model specification. Does the test detect model
+> misspecification?. */
+. estat ovtest
+
+Ramsey RESET test using powers of the fitted values of college
+       Ho:  model has no omitted variables
+                 F(3, 169) =      1.65
+                  Prob > F =      0.1794
+
+. /* no functional form mispecification found*/
+. 
+. /* (24) Create a dummy (indicator) variable named female that takes the value 1
+> if the variable gender is F, and 0 otherwise. */
+. generate female = (gender=="F")
+
+. 
+. /* (25) Label the female variable "1 if female, 0 if male". */
+. 
+. label variable female "1 if female, 0 if male"
+
+. /* (26) Estimate a regression of college on age, monthbirth, and female by OLS.
+> Interpret the coefficient on female. */
+. regress college age monthbirth female
+
+      Source |       SS           df       MS      Number of obs   =       175
+-------------+----------------------------------   F(3, 171)       =      5.43
+       Model |  .422309296         3  .140769765   Prob > F        =    0.0014
+    Residual |  4.43483356       171  .025934699   R-squared       =    0.0869
+-------------+----------------------------------   Adj R-squared   =    0.0709
+       Total |  4.85714286       174  .027914614   Root MSE        =    .16104
+
+------------------------------------------------------------------------------
+     college |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         age |  -.0034377   .0014569    -2.36   0.019    -.0063136   -.0005619
+  monthbirth |    .005172   .0034011     1.52   0.130    -.0015417    .0118856
+      female |  -.1199009   .0451177    -2.66   0.009    -.2089603   -.0308415
+       _cons |   1.141483   .0882394    12.94   0.000     .9673041    1.315662
+------------------------------------------------------------------------------
+
+. /* women are 11.99 percent less likely to have attended college. */
+. /* (27) Save the fitted values of the model just estimated. Name the new variabl
+> e
+> college_hat. */
+. 
+. predict college_hat
+(option xb assumed; fitted values)
+(2 missing values generated)
+
+. /* (28) Plot college_hat against age. */
+. 
+. twoway (scatter college_hat age)
+
+. /* (29) Save the graph as college.gph in the working directory. Later please 
+> pdf-print this graph and attach it with your answers.*/
+. graph save Graph "/Users/mafton/Desktop/college.gph",replace
+(file /Users/mafton/Desktop/college.gph saved)
+
+. 
+end of do-file
+
+. test (age+monthbirth=0)
+
+ ( 1)  age + monthbirth = 0
+
+       F(  1,   171) =    0.21
+            Prob > F =    0.6506
+
+. ttest age
+by() option required
+r(100);
+
+. ttest age by(0)
+factor variables and time-series operators not allowed
+r(101);
+
+. ttest age by(college)
+factor variables and time-series operators not allowed
+r(101);
+
+. test age
+
+ ( 1)  age = 0
+
+       F(  1,   171) =    5.57
+            Prob > F =    0.0194
+
+. test age+college=0
+college not found
+r(111);
+
+. test age+monthbirth=0
+
+ ( 1)  age + monthbirth = 0
+
+       F(  1,   171) =    0.21
+            Prob > F =    0.6506
+
+. regress college age monthbirth female, beta
+
+      Source |       SS           df       MS      Number of obs   =       175
+-------------+----------------------------------   F(3, 171)       =      5.43
+       Model |  .422309296         3  .140769765   Prob > F        =    0.0014
+    Residual |  4.43483356       171  .025934699   R-squared       =    0.0869
+-------------+----------------------------------   Adj R-squared   =    0.0709
+       Total |  4.85714286       174  .027914614   Root MSE        =    .16104
+
+------------------------------------------------------------------------------
+     college |      Coef.   Std. Err.      t    P>|t|                     Beta
+-------------+----------------------------------------------------------------
+         age |  -.0034377   .0014569    -2.36   0.019                -.1732157
+  monthbirth |    .005172   .0034011     1.52   0.130                 .1121473
+      female |  -.1199009   .0451177    -2.66   0.009                -.1952495
+       _cons |   1.141483   .0882394    12.94   0.000                        .
+------------------------------------------------------------------------------
+
+. corr college age
+(obs=177)
+
+             |  college      age
+-------------+------------------
+     college |   1.0000
+         age |  -0.1781   1.0000
+
+
+. corr college age monthbirth female
+(obs=175)
+
+             |  college      age monthb~h   female
+-------------+------------------------------------
+     college |   1.0000
+         age |  -0.1787   1.0000
+  monthbirth |   0.1470  -0.0899   1.0000
+      female |  -0.2023  -0.0234  -0.0989   1.0000
+
+
+. regress college age c.monthbirth##i.female
+
+      Source |       SS           df       MS      Number of obs   =       175
+-------------+----------------------------------   F(4, 170)       =      4.54
+       Model |  .469111622         4  .117277905   Prob > F        =    0.0016
+    Residual |  4.38803124       170  .025811948   R-squared       =    0.0966
+-------------+----------------------------------   Adj R-squared   =    0.0753
+       Total |  4.85714286       174  .027914614   Root MSE        =    .16066
+
+------------------------------------------------------------------------------
+     college |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         age |  -.0034132   .0014536    -2.35   0.020    -.0062826   -.0005439
+  monthbirth |   .0039437   .0035136     1.12   0.263    -.0029921    .0108795
+    1.female |  -.2167163   .0848257    -2.55   0.012    -.3841637   -.0492689
+             |
+      female#|
+c.monthbirth |
+          1  |   .0180138   .0133777     1.35   0.180     -.008394    .0444217
+             |
+       _cons |   1.148208   .0881719    13.02   0.000     .9741549     1.32226
+------------------------------------------------------------------------------
+
+. regress college age c.monthbirth##c.female
+
+      Source |       SS           df       MS      Number of obs   =       175
+-------------+----------------------------------   F(4, 170)       =      4.54
+       Model |  .469111622         4  .117277905   Prob > F        =    0.0016
+    Residual |  4.38803124       170  .025811948   R-squared       =    0.0966
+-------------+----------------------------------   Adj R-squared   =    0.0753
+       Total |  4.85714286       174  .027914614   Root MSE        =    .16066
+
+-------------------------------------------------------------------------------
+      college |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+          age |  -.0034132   .0014536    -2.35   0.020    -.0062826   -.0005439
+   monthbirth |   .0039437   .0035136     1.12   0.263    -.0029921    .0108795
+       female |  -.2167163   .0848257    -2.55   0.012    -.3841637   -.0492689
+              |
+ c.monthbirth#|
+     c.female |   .0180138   .0133777     1.35   0.180     -.008394    .0444217
+              |
+        _cons |   1.148208   .0881719    13.02   0.000     .9741549     1.32226
+-------------------------------------------------------------------------------
+
+. destring sales, replace
+sales: all characters numeric; replaced as long
+
+. save "/users/mafton/desktop/ceosalarynew.dta", replace
+file /users/mafton/desktop/ceosalarynew.dta saved
+
+. export delimited using ceosalarynew.txt, delimiter(" ") replace
+file ceosalarynew.txt saved
+
+. notes list _dta
+
+_dta:
+  1.  Sample of 177 CEOs of large corporations in 1990. The original purpose of
+      the dataset was to estimate the factors that influence executive
+      compensation.
+
+. notes: updated version of the datafile ceosalary.dta
+
+. notes list _dta
+
+_dta:
+  1.  Sample of 177 CEOs of large corporations in 1990. The original purpose of
+      the dataset was to estimate the factors that influence executive
+      compensation.
+  2.  updated version of the datafile ceosalary.dta
+
+. log close
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/econ644final.log
+  log type:  text
+ closed on:   1 Apr 2018, 17:01:45
+----------------------------------------------------------------------------------

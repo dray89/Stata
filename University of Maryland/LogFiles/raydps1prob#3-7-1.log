@@ -1,0 +1,453 @@
+--------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/debraray/Desktop/raydps1prob#3-7.log
+  log type:  text
+ opened on:  22 Sep 2016, 22:29:27
+
+. use "/Users/debraray/Library/Mobile Documents/com~apple~CloudDocs/UMD/ECO643/healthdata.dta"
+
+. do "/Users/debraray/Library/Mobile Documents/com~apple~CloudDocs/UMD/ECO643/DATA/Problem Set 1 - 2.do"
+
+. *Problem Set 1
+. *(a) Load the dataset healthdata that we have been using in class into Stata. De- scribe the data. Sort on the variable 
+> ipr.
+. sort ipr
+
+. describe
+
+Contains data from /Users/debraray/Library/Mobile Documents/com~apple~CloudDocs/UMD/ECO643/healthdata.dta
+  obs:        25,917                          
+ vars:            40                          6 Sep 2016 19:50
+ size:     4,276,305                          
+--------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+--------------------------------------------------------------------------------------------------------------------------
+age             byte    %8.0g                 Age at Screening Adjudicated - Recode
+ipr             double  %10.0g                Family PIR
+bmi_measured    double  %10.0g                Body Mass Index (kg/m**2)
+year            float   %9.0g                 survey wave
+raceth          float   %9.0g      racecat    race/ethnicty recode
+hispam          float   %9.0g                 Hispanic
+white           float   %9.0g                 White
+black           float   %9.0g                 Black
+other_r         float   %9.0g                 Other Race
+edn             float   %9.0g      ed         highest level of schooling completed
+hsdrop          float   %9.0g                 High School Dropout
+hsgrad          float   %9.0g                 High School Graduate
+somecol         float   %9.0g                 Some College
+colgrad         float   %9.0g                 College Graduate
+married         float   %9.0g                 Married
+income12        float   %9.0g                 yearly income
+loginc          float   %9.0g                 Log of Income12
+usualintake     float   %9.0g                 intake reported about normal daily intake
+highintake      float   %9.0g                 intake reported higher than usual
+wtlossdiet      float   %9.0g                 on a diet for weight loss
+obese           float   %9.0g                 Obese (Measured BMI)
+ovrwgt          float   %9.0g                 Overweight
+normwgt         float   %9.0g                 Normal Weight
+privhi          float   %9.0g                 private health insurance
+medicare        float   %9.0g                 medicare
+mcdschip        float   %9.0g                 medicaid/schip
+othpubins       float   %9.0g                 other public insurance
+sah             float   %9.0g                 Self-Assessed Health
+diethealth      float   %9.0g                 Self Assessed Diet Quality
+diabetesdr      float   %9.0g                 ever diagnosed with diabetes
+smokenow        float   %9.0g                 current smoker/tobacco user
+hbpdr           float   %9.0g                 Doctor Said You Have High Blood Pressure?
+choldr          float   %9.0g                 Doctor Said You Have High Cholesterol?
+hyprsys         float   %9.0g                 Prehypertension or Hypertension (Systolic)
+highldl         float   %9.0g                 Borderline High or High Cholesterol
+obese_waist     float   %9.0g                 Obesity Measured by Waist Circumference
+logkcal         float   %9.0g                 Log of kcal
+bpqmed          float   %9.0g                 Taking High BP Med
+diabmed         float   %9.0g                 Taking Insulin / Diab Med
+cholmed         float   %9.0g                 Taking Cholesterol Med
+--------------------------------------------------------------------------------------------------------------------------
+Sorted by: ipr
+
+. rename bmi_measured bmi
+
+. sum bmi, detail
+
+                  Body Mass Index (kg/m**2)
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        17.85          13.18
+ 5%        20.06          13.36
+10%        21.46           13.4       Obs              25,567
+25%         24.1           13.6       Sum of Wgt.      25,567
+
+50%        27.72                      Mean            28.7859
+                        Largest       Std. Dev.      6.729519
+75%        32.13           80.6
+90%        37.37          81.25       Variance       45.28642
+95%        41.09           82.1       Skewness       1.364971
+99%        50.18         130.21       Kurtosis       8.056129
+
+. return list
+
+scalars:
+                  r(N) =  25567
+              r(sum_w) =  25567
+               r(mean) =  28.78590018383072
+                r(Var) =  45.28642253998549
+                 r(sd) =  6.729518745050458
+           r(skewness) =  1.364970960116402
+           r(kurtosis) =  8.056128565613099
+                r(sum) =  735969.11
+                r(min) =  13.18
+                r(max) =  130.21
+                 r(p1) =  17.85
+                 r(p5) =  20.06
+                r(p10) =  21.46
+                r(p25) =  24.1
+                r(p50) =  27.72
+                r(p75) =  32.13
+                r(p90) =  37.37
+                r(p95) =  41.09
+                r(p99) =  50.18
+
+. replace bmi =. if bmi>r(p99) | bmi<r(p1)
+(505 real changes made, 505 to missing)
+
+. *(b) Construct a variable that indicates that someone is type 2 obese – BMI ≥ 35. 
+. *Call that variable obese_extreme. Correct the obese variable so that it only captures those that have 30 ≤ BMI < 35. (H
+> int: use replace.)
+. gen obese_extreme = bmi >=35
+
+. replace obese = bmi <35 & bmi >=30
+(4,233 real changes made)
+
+. 
+.  gen bmi_cat =bmi
+(855 missing values generated)
+
+.  replace bmi_cat =1 if obese_extreme==1
+(4,483 real changes made)
+
+.  replace bmi_cat =2 if obese==1
+(5,236 real changes made)
+
+.  replace bmi_cat =3 if ovrwgt==1
+(8,581 real changes made)
+
+.  replace bmi_cat =4 if normwgt==1
+(7,867 real changes made)
+
+.  
+. label define bmi_categories 1 "Extreme" 2 "Obese" 3 "Overweight" 4 "Normal"
+
+. label values bmi_cat bmi_categories
+
+. label variable bmi_cat "BMI Categories"
+
+.  
+.  *histogram
+.  hist bmi_cat, discrete title("BMI") xlabel(1 2 3 4 5, valuelabel)
+(start=1, width=1)
+
+.  *piegraph
+.  graph pie, over(bmi_cat) plabel(_all percent) legend(on) title("BMI")
+
+.  *frequency distribution 
+.  tab bmi_cat
+
+        BMI |
+ Categories |      Freq.     Percent        Cum.
+------------+-----------------------------------
+    Extreme |      4,233       16.33       16.33
+      Obese |      5,236       20.20       36.54
+ Overweight |      8,581       33.11       69.65
+     Normal |      7,867       30.35      100.00
+------------+-----------------------------------
+      Total |     25,917      100.00
+
+.  *crosstabulations
+. tab sah bmi_cat
+
+Self-Asses |               BMI Categories
+sed Health |   Extreme      Obese  Overweigh     Normal |     Total
+-----------+--------------------------------------------+----------
+         1 |       176        314        889      1,079 |     2,458 
+         2 |       677      1,234      2,430      2,404 |     6,745 
+         3 |     1,692      2,087      3,125      2,591 |     9,495 
+         4 |     1,130      1,088      1,397      1,072 |     4,687 
+         5 |       296        188        242        190 |       916 
+-----------+--------------------------------------------+----------
+     Total |     3,971      4,911      8,083      7,336 |    24,301 
+
+
+. 
+. tabulate sah bmi_cat, summarize(bmi) nostandard nofreq noobs
+
+                    Means of Body Mass Index (kg/m**2)
+
+Self-Asses |             BMI Categories
+sed Health |   Extreme      Obese  Overweigh     Normal |     Total
+-----------+--------------------------------------------+----------
+         1 | 38.576538  32.041242  27.218909  22.293953 | 26.419219
+         2 | 39.037023  32.119198  27.358802  22.375934 | 27.544959
+         3 | 39.409847  32.217235  27.471149  22.348532 |  29.08993
+         4 | 39.954554  32.176847  27.494345  22.419407 | 30.149955
+         5 |  40.49447  32.380745  27.610041  22.187052 | 30.969354
+-----------+--------------------------------------------+----------
+     Total | 39.528483   32.17866  27.417799   22.35571 | 28.649611
+
+. table sah bmi_cat, contents(mean bmi )
+
+----------------------------------------------------------
+Self-Asse |
+ssed      |                 BMI Categories                
+Health    |    Extreme       Obese  Overweight      Normal
+----------+-----------------------------------------------
+        1 |  38.576538   32.041242   27.218909   22.293953
+        2 |  39.037023   32.119198   27.358802   22.375934
+        3 |  39.409847   32.217235   27.471149   22.348532
+        4 |  39.954554   32.176847   27.494345   22.419407
+        5 |   40.49447   32.380745   27.610041   22.187052
+----------------------------------------------------------
+
+. 
+. drop if bmi >=.
+(855 observations deleted)
+
+. 
+. *BMI Variance
+. gen sumbmi = sum(bmi)
+
+. browse sumbmi
+
+. scalar sumv = sumbmi[_N]
+
+. dis sumv
+717326.25
+
+. scalar xbar = sumv/_N 
+
+. di xbar
+28.622067
+
+. 
+. sum bmi
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+         bmi |     25,062    28.62207    6.028397      17.85      50.18
+
+. return list
+
+scalars:
+                  r(N) =  25062
+              r(sum_w) =  25062
+               r(mean) =  28.62206847019392
+                r(Var) =  36.34156454931987
+                 r(sd) =  6.028396515601796
+                r(min) =  17.85
+                r(max) =  50.18
+                r(sum) =  717326.28
+
+. gen sqarediff = (bmi - xbar)^2
+
+. gen sumsqdiff = sum(sqarediff)
+
+. gen varnumer = sumsqdiff[_N]
+
+. gen xvariance = varnumer/(_N-1)
+
+. dis xvariance
+36.341564
+
+. 
+. summarize bmi, detail
+
+                  Body Mass Index (kg/m**2)
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%        18.64          17.85
+ 5%        20.36          17.85
+10%        21.63          17.85       Obs              25,062
+25%        24.17          17.85       Sum of Wgt.      25,062
+
+50%        27.72                      Mean           28.62207
+                        Largest       Std. Dev.      6.028397
+75%           32           50.1
+90%        36.91          50.13       Variance       36.34156
+95%         40.3          50.13       Skewness       .7918962
+99%        46.26          50.18       Kurtosis       3.483509
+
+. *5. Make sure the data are sorted on the variable ipr. Compute z-scores for each value of BMI in the data. List the firs
+> t 25 z-scores.
+. sort ipr
+
+. scalar xstdev = sqrt(xvariance)
+
+. gen zscore = (bmi - xbar)/xstdev
+
+. list zscore in 1/25
+
+     +-----------+
+     |    zscore |
+     |-----------|
+  1. | -.5527286 |
+  2. |  1.381451 |
+  3. | -.3785529 |
+  4. |  -.765057 |
+  5. |  -1.30749 |
+     |-----------|
+  6. | -.1629069 |
+  7. |  .9667467 |
+  8. | -.5228699 |
+  9. |  .7262185 |
+ 10. | -.6837751 |
+     |-----------|
+ 11. |  3.576064 |
+ 12. | -.9657738 |
+ 13. | -.3918235 |
+ 14. | -1.131655 |
+ 15. | -.5013053 |
+     |-----------|
+ 16. | -.2939533 |
+ 17. |  .2103267 |
+ 18. | -.1031895 |
+ 19. |  -.053425 |
+ 20. | -.3918235 |
+     |-----------|
+ 21. | -.7053397 |
+ 22. |  .2103267 |
+ 23. |  -.045131 |
+ 24. | -1.556312 |
+ 25. | -.6655281 |
+     +-----------+
+
+. 
+. *6. If the data are normally distributed, 
+. *what is the probability that a z-score will have an absolute value greater than 1.96? Check this. What does it tell you
+>  about BMI?
+. summarize zscore if zscore <-1.96
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      zscore |          0
+
+. sort zscore
+
+. browse zscore
+
+. summarize zscore if zscore >1.96
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      zscore |      1,215    2.531194    .4330999   1.960377   3.576064
+
+. scalar prob = 1215/_N
+
+. dis prob
+.04847977
+
+. scalar percprob = prob*100
+
+. dis percprob
+4.847977
+
+. 
+. **BMI is right-skewed. Values are more likely to be be greater than 1.96 than less than -1.96. 
+. 
+. *7. Compute the covariance of income-to-poverty ratio and BMI. 
+. *(Drop observations for which BMI is missing.) Do this first by computing the intermediate and final quantities
+. *”by hand” in Stata. Then use the correlate command (with the option cov) to check your work. 
+. *What does this tell you about the relationship between income and BMI?
+. drop if bmi >=.
+(0 observations deleted)
+
+. drop if ipr >=.
+(1,828 observations deleted)
+
+. scalar obs = _N
+
+. gen bmidiff = (bmi - xbar)
+
+. 
+. sum ipr, detail
+
+                         Family PIR
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%          .03              0
+ 5%          .39              0
+10%          .65              0       Obs              23,234
+25%         1.11              0       Sum of Wgt.      23,234
+
+50%         2.12                      Mean           2.519107
+                        Largest       Std. Dev.      1.625567
+75%         4.08              5
+90%            5              5       Variance        2.64247
+95%            5              5       Skewness       .3349097
+99%            5              5       Kurtosis       1.695717
+
+. return list
+
+scalars:
+                  r(N) =  23234
+              r(sum_w) =  23234
+               r(mean) =  2.519106912283722
+                r(Var) =  2.642469537658929
+                 r(sd) =  1.625567450971792
+           r(skewness) =  .3349097368221976
+           r(kurtosis) =  1.69571696587096
+                r(sum) =  58528.93
+                r(min) =  0
+                r(max) =  5
+                 r(p1) =  .03
+                 r(p5) =  .39
+                r(p10) =  .65
+                r(p25) =  1.11
+                r(p50) =  2.12
+                r(p75) =  4.08
+                r(p90) =  5
+                r(p95) =  5
+                r(p99) =  5
+
+. scalar iprmean = r(mean)
+
+. gen iprdiff = (ipr - iprmean)
+
+. 
+. gen iprbmi = iprdiff*bmidiff
+
+. sum iprbmi
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      iprbmi |     23,234   -.2857756    9.706656  -54.30674   52.78828
+
+. 
+. 
+. gen sumib = sum(iprbmi)
+
+. scalar sumib2 = sumib[scalar(obs)]
+
+. scalar corr2 = sumib2/(scalar(obs)-1)
+
+. 
+. correlate ipr bmi, c
+(obs=23,234)
+
+             |      ipr      bmi
+-------------+------------------
+         ipr |  2.64247
+         bmi | -.285788  36.5143
+
+
+. dis corr2
+-.28578789
+
+. 
+end of do-file
+
+. log off
+      name:  <unnamed>
+       log:  /Users/debraray/Desktop/raydps1prob#3-7.log
+  log type:  text
+ paused on:  22 Sep 2016, 22:30:09
+--------------------------------------------------------------------------------------------------------------------------

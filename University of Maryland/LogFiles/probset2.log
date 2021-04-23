@@ -1,0 +1,320 @@
+---------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\dray\Documents\probset2.log
+  log type:  text
+ opened on:  23 Sep 2018, 16:19:58
+
+. use "C:\Users\dray\Downloads\Guns.dta"
+
+. 
+. gen lvio = ln(vio)
+
+. 
+. reg lvio shall, robust
+
+Linear regression                               Number of obs     =      1,173
+                                                F(1, 1171)        =      86.86
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0866
+                                                Root MSE          =     .61735
+
+------------------------------------------------------------------------------
+             |               Robust
+        lvio |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       shall |  -.4429646   .0475283    -9.32   0.000    -.5362148   -.3497144
+       _cons |   6.134919   .0193039   317.81   0.000     6.097045    6.172793
+------------------------------------------------------------------------------
+
+. di [exp(_b[shall])-1]*100
+-35.787005
+
+. /*Percentage of violent crime decreases by 35.787005% when there is a shall carry law.
+> The results are statistically significant.*/
+. 
+. reg lvio shall incarc_rate density avginc pop, robust
+
+Linear regression                               Number of obs     =      1,173
+                                                F(5, 1167)        =     126.16
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.5403
+                                                Root MSE          =     .43873
+
+------------------------------------------------------------------------------
+             |               Robust
+        lvio |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       shall |  -.3935666   .0334409   -11.77   0.000    -.4591775   -.3279556
+ incarc_rate |   .0017224   .0001539    11.19   0.000     .0014205    .0020243
+     density |   .0450569   .0152151     2.96   0.003     .0152049    .0749088
+      avginc |   .0093228   .0051796     1.80   0.072    -.0008396    .0194852
+         pop |   .0419058   .0030383    13.79   0.000     .0359447    .0478669
+       _cons |   5.387007   .0719241    74.90   0.000     5.245892    5.528122
+------------------------------------------------------------------------------
+
+. di [exp(_b[shall])-1]*100
+-32.53536
+
+. /*The standard error decreases and the absolute value of the coefficient decreases.
+> The percentage of violent crime decreases by 32.53536% when there is a shall carry law.
+>  The results are statistically significant.*/
+. sort stateid year
+
+. xtset stateid year
+       panel variable:  stateid (strongly balanced)
+        time variable:  year, 77 to 99
+                delta:  1 unit
+
+. 
+. xtreg lvio (shall incarc_rate density avginc pop), fe robust
+
+Fixed-effects (within) regression               Number of obs     =      1,173
+Group variable: stateid                         Number of groups  =         51
+
+R-sq:                                           Obs per group:
+     within  = 0.1334                                         min =         23
+     between = 0.2565                                         avg =       23.0
+     overall = 0.2468                                         max =         23
+
+                                                F(5,50)           =      54.94
+corr(u_i, Xb)  = 0.0951                         Prob > F          =     0.0000
+
+                               (Std. Err. adjusted for 51 clusters in stateid)
+------------------------------------------------------------------------------
+             |               Robust
+        lvio |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       shall |   .0212701   .0408431     0.52   0.605    -.0607657    .1033059
+ incarc_rate |   .0003273   .0001942     1.69   0.098    -.0000627    .0007174
+     density |   .1531902   .1088699     1.41   0.166    -.0654814    .3718619
+      avginc |   .0199514   .0134469     1.48   0.144    -.0070575    .0469604
+         pop |   .0029747   .0111415     0.27   0.791    -.0194037    .0253531
+       _cons |    5.60587    .149368    37.53   0.000     5.305856    5.905885
+-------------+----------------------------------------------------------------
+     sigma_u |  .54311809
+     sigma_e |  .16894191
+         rho |  .91177828   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. di [exp(_b[shall])-1]
+.02149789
+
+. /*The effect of shall is no longer statistically significant and 
+> it is now positive with a larger robust standard error. */
+. xtreg lvio (shall incarc_rate density avginc pop i.year), fe robust
+
+Fixed-effects (within) regression               Number of obs     =      1,173
+Group variable: stateid                         Number of groups  =         51
+
+R-sq:                                           Obs per group:
+     within  = 0.3847                                         min =         23
+     between = 0.2070                                         avg =       23.0
+     overall = 0.0058                                         max =         23
+
+                                                F(27,50)          =      55.10
+corr(u_i, Xb)  = -0.2705                        Prob > F          =     0.0000
+
+                               (Std. Err. adjusted for 51 clusters in stateid)
+------------------------------------------------------------------------------
+             |               Robust
+        lvio |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       shall |   .0060076   .0401886     0.15   0.882    -.0747137    .0867288
+ incarc_rate |  -1.74e-06   .0002463    -0.01   0.994    -.0004965     .000493
+     density |  -.0506992   .1359877    -0.37   0.711    -.3238385    .2224401
+      avginc |   .0050948   .0146526     0.35   0.730    -.0243359    .0345255
+         pop |  -.0024862   .0111431    -0.22   0.824    -.0248677    .0198954
+             |
+        year |
+         78  |   .0459113   .0112312     4.09   0.000     .0233527    .0684699
+         79  |   .1414698   .0168422     8.40   0.000     .1076413    .1752984
+         80  |   .1871746   .0225903     8.29   0.000     .1418007    .2325485
+         81  |    .176578   .0269496     6.55   0.000     .1224481    .2307079
+         82  |   .1353775   .0286645     4.72   0.000     .0778031    .1929519
+         83  |   .0767159     .02937     2.61   0.012     .0177245    .1357073
+         84  |   .0844907    .032234     2.62   0.012     .0197467    .1492346
+         85  |   .1105856   .0385158     2.87   0.006     .0332243    .1879469
+         86  |   .1628112    .049948     3.26   0.002     .0624878    .2631347
+         87  |    .137958   .0529332     2.61   0.012     .0316386    .2442774
+         88  |   .1765846   .0596226     2.96   0.005      .056829    .2963401
+         89  |   .2112445   .0680984     3.10   0.003     .0744647    .3480242
+         90  |   .3110061   .0708613     4.39   0.000      .168677    .4533352
+         91  |    .345844   .0755281     4.58   0.000     .1941413    .4975467
+         92  |   .3625126   .0786454     4.61   0.000     .2045485    .5204766
+         93  |   .3732242   .0816403     4.57   0.000     .2092448    .5372035
+         94  |   .3477262   .0868532     4.00   0.000     .1732764    .5221759
+         95  |   .3315917    .091783     3.61   0.001     .1472401    .5159432
+         96  |   .2681247    .096292     2.78   0.008     .0747165    .4615328
+         97  |   .2422351   .1049687     2.31   0.025     .0313992     .453071
+         98  |   .1835281   .1136684     1.61   0.113    -.0447817    .4118379
+         99  |   .1223326    .115909     1.06   0.296    -.1104776    .3551428
+             |
+       _cons |   5.788951   .1922811    30.11   0.000     5.402743    6.175159
+-------------+----------------------------------------------------------------
+     sigma_u |  .65921665
+     sigma_e |  .14377711
+         rho |  .95459115   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. di [exp(_b[shall])-1]
+.00602567
+
+. /*The coefficient got even smaller and is still not statistically significant.*/
+. 
+. testparm i.year
+
+ ( 1)  78.year = 0
+ ( 2)  79.year = 0
+ ( 3)  80.year = 0
+ ( 4)  81.year = 0
+ ( 5)  82.year = 0
+ ( 6)  83.year = 0
+ ( 7)  84.year = 0
+ ( 8)  85.year = 0
+ ( 9)  86.year = 0
+ (10)  87.year = 0
+ (11)  88.year = 0
+ (12)  89.year = 0
+ (13)  90.year = 0
+ (14)  91.year = 0
+ (15)  92.year = 0
+ (16)  93.year = 0
+ (17)  94.year = 0
+ (18)  95.year = 0
+ (19)  96.year = 0
+ (20)  97.year = 0
+ (21)  98.year = 0
+ (22)  99.year = 0
+
+       F( 22,    50) =   37.61
+            Prob > F =    0.0000
+
+. 
+. /*We reject the null that the coefficients are not jointly significant. Since 
+> we reject the null, we do want to use the year dummy variable in the regression
+> because it may be relevant to the dependent variable. Otherwise, the equation 
+> may suffer from missing variables bias and may bias our coefficients on included
+> variables, violating exogeneity assumption.*/
+. 
+. xtreg lvio (shall incarc_rate density avginc pop i.year), fe 
+
+Fixed-effects (within) regression               Number of obs     =      1,173
+Group variable: stateid                         Number of groups  =         51
+
+R-sq:                                           Obs per group:
+     within  = 0.3847                                         min =         23
+     between = 0.2070                                         avg =       23.0
+     overall = 0.0058                                         max =         23
+
+                                                F(27,1095)        =      25.36
+corr(u_i, Xb)  = -0.2705                        Prob > F          =     0.0000
+
+------------------------------------------------------------------------------
+        lvio |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       shall |   .0060076   .0169386     0.35   0.723    -.0272283    .0392434
+ incarc_rate |  -1.74e-06    .000089    -0.02   0.984    -.0001764    .0001729
+     density |  -.0506992   .0679243    -0.75   0.456    -.1839757    .0825772
+      avginc |   .0050948   .0063216     0.81   0.420     -.007309    .0174986
+         pop |  -.0024862   .0074658    -0.33   0.739    -.0171351    .0121627
+             |
+        year |
+         78  |   .0459113   .0286313     1.60   0.109    -.0102672    .1020898
+         79  |   .1414698   .0286047     4.95   0.000     .0853436    .1975961
+         80  |   .1871746   .0285064     6.57   0.000     .1312414    .2431079
+         81  |    .176578   .0285292     6.19   0.000        .1206     .232556
+         82  |   .1353775   .0285902     4.74   0.000     .0792797    .1914752
+         83  |   .0767159   .0287722     2.67   0.008     .0202611    .1331707
+         84  |   .0844907   .0293588     2.88   0.004     .0268849    .1420965
+         85  |   .1105856   .0299224     3.70   0.000     .0518738    .1692974
+         86  |   .1628112   .0307397     5.30   0.000     .1024958    .2231266
+         87  |    .137958   .0315032     4.38   0.000     .0761444    .1997715
+         88  |   .1765846   .0325373     5.43   0.000      .112742    .2404271
+         89  |   .2112445   .0336305     6.28   0.000     .1452569     .277232
+         90  |   .3110061   .0344472     9.03   0.000     .2434161    .3785962
+         91  |    .345844   .0345529    10.01   0.000     .2780467    .4136413
+         92  |   .3625126   .0359613    10.08   0.000     .2919517    .4330734
+         93  |   .3732242   .0364933    10.23   0.000     .3016194    .4448289
+         94  |   .3477262   .0377624     9.21   0.000     .2736312    .4218211
+         95  |   .3315917   .0393672     8.42   0.000     .2543481    .4088353
+         96  |   .2681247    .041085     6.53   0.000     .1875104    .3487389
+         97  |   .2422351   .0430825     5.62   0.000     .1577015    .3267687
+         98  |   .1835281   .0459156     4.00   0.000     .0934357    .2736206
+         99  |   .1223326   .0479226     2.55   0.011      .028302    .2163632
+             |
+       _cons |   5.788951   .0887609    65.22   0.000      5.61479    5.963111
+-------------+----------------------------------------------------------------
+     sigma_u |  .65921665
+     sigma_e |  .14377711
+         rho |  .95459115   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0: F(50, 1095) = 181.08                  Prob > F = 0.0000
+
+. estimates store fe_reg
+
+. 
+. xtreg lvio (shall incarc_rate density avginc pop), re
+
+Random-effects GLS regression                   Number of obs     =      1,173
+Group variable: stateid                         Number of groups  =         51
+
+R-sq:                                           Obs per group:
+     within  = 0.1281                                         min =         23
+     between = 0.4072                                         avg =       23.0
+     overall = 0.3839                                         max =         23
+
+                                                Wald chi2(5)      =     217.45
+corr(u_i, X)   = 0 (assumed)                    Prob > chi2       =     0.0000
+
+------------------------------------------------------------------------------
+        lvio |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       shall |   .0036132   .0181883     0.20   0.843    -.0320352    .0392616
+ incarc_rate |   .0003367   .0000665     5.06   0.000     .0002063    .0004671
+     density |   .1484836   .0306367     4.85   0.000     .0884367    .2085305
+      avginc |   .0177676   .0049313     3.60   0.000     .0081025    .0274328
+         pop |    .025135   .0062803     4.00   0.000     .0128258    .0374442
+       _cons |   5.532939   .0767375    72.10   0.000     5.382536    5.683341
+-------------+----------------------------------------------------------------
+     sigma_u |  .33173757
+     sigma_e |  .16894191
+         rho |  .79406071   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. estimates store re_reg
+
+. 
+. hausman fe_reg re_reg
+
+                 ---- Coefficients ----
+             |      (b)          (B)            (b-B)     sqrt(diag(V_b-V_B))
+             |     fe_reg       re_reg       Difference          S.E.
+-------------+----------------------------------------------------------------
+       shall |    .0060076     .0036132        .0023944               .
+ incarc_rate |   -1.74e-06     .0003367       -.0003384        .0000591
+     density |   -.0506992     .1484836       -.1991828        .0606226
+      avginc |    .0050948     .0177676       -.0126729        .0039553
+         pop |   -.0024862      .025135       -.0276212        .0040368
+------------------------------------------------------------------------------
+                           b = consistent under Ho and Ha; obtained from xtreg
+            B = inconsistent under Ha, efficient under Ho; obtained from xtreg
+
+    Test:  Ho:  difference in coefficients not systematic
+
+                  chi2(5) = (b-B)'[(V_b-V_B)^(-1)](b-B)
+                          =      112.92
+                Prob>chi2 =      0.0000
+                (V_b-V_B is not positive definite)
+
+. 
+. /*We reject the null that there are no systematic differences in the coefficients. 
+> Therefore, we would use FE versus RE. */ 
+. 
+end of do-file
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\dray\Documents\probset2.log
+  log type:  text
+ closed on:  23 Sep 2018, 16:21:35
+---------------------------------------------------------------------------------------------------------

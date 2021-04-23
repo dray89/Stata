@@ -1,0 +1,79 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class6.log
+  log type:  text
+ opened on:  18 Feb 2018, 17:27:41
+
+. set more off 
+
+. use ceos.dta
+
+. regress salary ceoten age grad mktval
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(4, 172)       =      9.87
+       Model |  11348587.4         4  2837146.84   Prob > F        =    0.0000
+    Residual |  49417377.4       172  287310.334   R-squared       =    0.1868
+-------------+----------------------------------   Adj R-squared   =    0.1678
+       Total |  60765964.7       176  345261.163   Root MSE        =    536.01
+
+------------------------------------------------------------------------------
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   10.55413   6.019706     1.75   0.081    -1.327879    22.43614
+         age |   1.649817   5.162111     0.32   0.750    -8.539427    11.83906
+        grad |  -43.43346    82.2966    -0.53   0.598    -205.8748    119.0079
+      mktval |   .0371649   .0063706     5.83   0.000     .0245903    .0497395
+       _cons |   578.0711   288.3528     2.00   0.047     8.905383    1147.237
+------------------------------------------------------------------------------
+
+. /* How does the effect of CEO tenure compare to 0*/
+. test ( ceoten==0)
+
+ ( 1)  ceoten = 0
+
+       F(  1,   172) =    3.07
+            Prob > F =    0.0813
+
+. /*Note: F (1,n  k  1)  t 2 ; 3.07 = 1.752. nk1
+> Note: p-value > 0.05, can’t reject H0, it’s possible the effect is zero.*/
+. 
+. /*How does the effect of CEO tenure compare to 20?*/
+. test ( ceoten==20)
+
+ ( 1)  ceoten = 20
+
+       F(  1,   172) =    2.46
+            Prob > F =    0.1184
+
+. /*Note: p-value > 0.05, can’t reject H0, it’s possible the effect is 20.*/
+. 
+. regress lwage jc univ exper
+variable lwage not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "/var/folders/ks/zj678rv15j14wrl6l0lwz9dw0000gn/T//SD36915.000000"
+
+. 
+. clear all 
+
+. log using class7.log, replace
+log file already open
+r(604);
+
+end of do-file
+
+r(604);
+
+. clear all
+
+. log close
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class6.log
+  log type:  text
+ closed on:  18 Feb 2018, 17:48:28
+----------------------------------------------------------------------------------

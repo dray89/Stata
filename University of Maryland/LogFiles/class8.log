@@ -1,0 +1,402 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class8.log
+  log type:  text
+ opened on:  19 Feb 2018, 10:08:01
+
+. set more off
+
+. use ceos.dta
+
+. 
+. summarize salary
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      salary |        177    865.8644    587.5893        100       5299
+
+. 
+. /*Creating Dummy Variables in Stata*/
+. use ceosalary.dta
+
+. 
+. generate male = (gender=="M") 
+
+. 
+. list name gender male in 1/7
+
+     +-------------------------------+
+     |          name   gender   male |
+     |-------------------------------|
+  1. |    Ira Larson        M      1 |
+  2. | Nancy Hawkins        F      0 |
+  3. |    Tyler Rush        M      1 |
+  4. | Dylan Andrews        M      1 |
+  5. | Tarik Barrera        M      1 |
+     |-------------------------------|
+  6. |    Ryder Goff        M      1 |
+  7. |  Zachary Gray        M      1 |
+     +-------------------------------+
+
+. 
+. tab male
+
+       male |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |         14        7.91        7.91
+          1 |        163       92.09      100.00
+------------+-----------------------------------
+      Total |        177      100.00
+
+. tab male gender
+
+           |    male or female
+      male |         F          M |     Total
+-----------+----------------------+----------
+         0 |        14          0 |        14 
+         1 |         0        163 |       163 
+-----------+----------------------+----------
+     Total |        14        163 |       177 
+
+
+. regress salary ceoten male
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(2, 174)       =      2.81
+       Model |  1900957.17         2  950478.584   Prob > F        =    0.0630
+    Residual |  58865007.6       174  338304.641   R-squared       =    0.0313
+-------------+----------------------------------   Adj R-squared   =    0.0201
+       Total |  60765964.7       176  345261.163   Root MSE        =    581.64
+
+------------------------------------------------------------------------------
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   12.01342   6.134132     1.96   0.052    -.0934599    24.12031
+        male |   226.2403    162.067     1.40   0.165    -93.62991    546.1104
+       _cons |   561.9544   164.3837     3.42   0.001     237.5117    886.3972
+------------------------------------------------------------------------------
+
+. 
+. /*Stata creates all needed explanatory variables using double-hashtag (##).*/
+. regress salary c.ceoten##male
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(3, 173)       =      1.86
+       Model |  1900981.52         3  633660.508   Prob > F        =    0.1378
+    Residual |  58864983.2       173  340260.019   R-squared       =    0.0313
+-------------+----------------------------------   Adj R-squared   =    0.0145
+       Total |  60765964.7       176  345261.163   Root MSE        =    583.32
+
+-------------------------------------------------------------------------------
+       salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+       ceoten |   12.15363   17.67747     0.69   0.493    -22.73764    47.04491
+       1.male |   227.6145   229.7877     0.99   0.323    -225.9338    681.1628
+              |
+male#c.ceoten |
+           1  |  -.1595301   18.85611    -0.01   0.993    -37.37717    37.05811
+              |
+        _cons |   560.7326    219.168     2.56   0.011     128.1451    993.3201
+-------------------------------------------------------------------------------
+
+. 
+. codebook mstatus
+
+----------------------------------------------------------------------------------
+mstatus                                                             marital status
+----------------------------------------------------------------------------------
+
+                  type:  numeric (long)
+                 label:  maritalstatus
+
+                 range:  [1,4]                        units:  1
+         unique values:  4                        missing .:  0/177
+
+            tabulation:  Freq.   Numeric  Label
+                            23         1  divorced
+                           137         2  married
+                            12         3  single
+                             5         4  widowed
+
+. 
+. quietly tabulate mstatus, generate (mstatus_)
+
+. 
+. summarize mstatus_*
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+   mstatus_1 |        177    .1299435    .3371951          0          1
+   mstatus_2 |        177    .7740113    .4194182          0          1
+   mstatus_3 |        177    .0677966    .2521097          0          1
+   mstatus_4 |        177    .0282486    .1661523          0          1
+
+. 
+. regress salary ceoten mstatus_*
+note: mstatus_4 omitted because of collinearity
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(4, 172)       =      1.36
+       Model |  1865134.35         4  466283.587   Prob > F        =    0.2493
+    Residual |  58900830.4       172  342446.688   R-squared       =    0.0307
+-------------+----------------------------------   Adj R-squared   =    0.0082
+       Total |  60765964.7       176  345261.163   Root MSE        =    585.19
+
+------------------------------------------------------------------------------
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   11.85224   6.180044     1.92   0.057    -.3462554    24.05073
+   mstatus_1 |    299.529   288.8525     1.04   0.301     -270.623     869.681
+   mstatus_2 |   301.5615    266.439     1.13   0.259    -224.3497    827.4727
+   mstatus_3 |   164.0989   311.5841     0.53   0.599    -450.9221    779.1199
+   mstatus_4 |          0  (omitted)
+       _cons |    488.123    265.886     1.84   0.068    -36.69665    1012.943
+------------------------------------------------------------------------------
+
+. /*RECODING VARIABLES*/
+. /*Describe a variable's contents*/
+. codebook ceoten
+
+----------------------------------------------------------------------------------
+ceoten                                                   years as ceo with company
+----------------------------------------------------------------------------------
+
+                  type:  numeric (byte)
+
+                 range:  [0,37]                       units:  1
+         unique values:  28                       missing .:  0/177
+
+                  mean:    7.9548
+              std. dev:   7.15083
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 1         3         6        11        18
+
+. 
+. /*Create a binary variable from a continuous variable*/
+. egen float loyal = cut(ceoten), group(2) icodes
+
+. 
+. /*Table of Summary Statistics, by New Category*/
+. tabstat ceoten, statistics( min max count ) by(loyal)
+
+Summary for variables: ceoten
+     by categories of: loyal 
+
+   loyal |       min       max         N
+---------+------------------------------
+       0 |         0         5        86
+       1 |         6        37        91
+---------+------------------------------
+   Total |         0        37       177
+----------------------------------------
+
+. 
+. /*Label the Newly Created Variable*/
+. 
+. label variable loyal "above median CEO tenure"
+
+. 
+. /*Describe the New Variable's Contents*/
+. 
+. codebook loyal 
+
+----------------------------------------------------------------------------------
+loyal                                                      above median CEO tenure
+----------------------------------------------------------------------------------
+
+                  type:  numeric (float)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  0/177
+
+            tabulation:  Freq.  Value
+                            86  0
+                            91  1
+
+. 
+. /*HANDLING DATE VARIABLES*/
+. 
+. /*Create a new variable*/
+. 
+. generate yearbirth=1990-age
+
+. 
+. /*label the newly created variable*/
+. 
+. label variable yearbirth "year of birth"
+
+. 
+. /*Create a new variable */
+. generate birthdate = mdy(monthbirth,daybirth,yearbirth)
+(6 missing values generated)
+
+. label variable birthdate "date of birth"
+
+. 
+. list birthdate in 1/7
+
+     +----------+
+     | birthd~e |
+     |----------|
+  1. |    -6929 |
+  2. |    -4584 |
+  3. |    -7334 |
+  4. |    -9004 |
+  5. |    -4884 |
+     |----------|
+  6. |   -12182 |
+  7. |   -10584 |
+     +----------+
+
+. 
+. /*Format the date variable*/
+. format %td birthdate
+
+. 
+. list birthdate in 1/7
+
+     +-----------+
+     | birthdate |
+     |-----------|
+  1. | 11jan1941 |
+  2. | 14jun1947 |
+  3. | 03dec1939 |
+  4. | 08may1935 |
+  5. | 18aug1946 |
+     |-----------|
+  6. | 25aug1926 |
+  7. | 09jan1931 |
+     +-----------+
+
+. 
+. codebook birthdate
+
+----------------------------------------------------------------------------------
+birthdate                                                            date of birth
+----------------------------------------------------------------------------------
+
+                  type:  numeric daily date (float)
+
+                 range:  [-20242,-995]                units:  1
+       or equivalently:  [31jul1904,11apr1957]        units:  days
+         unique values:  169                      missing .:  6/177
+
+                  mean:  -9515.82 = 12dec1933 (+ -20 hours)
+              std. dev:   3086.57
+
+           percentiles:        10%       25%       50%       75%       90%
+                            -13124    -11464     -9688     -7737     -5213
+                         26jan1924 12aug1928 23jun1933 26oct1938 23sep1945
+
+. 
+. summarize sales
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       sales |          0
+
+. describe sales
+
+              storage   display    value
+variable name   type    format     label      variable label
+----------------------------------------------------------------------------------
+sales           str5    %9s                   1990 firm sales, millions
+
+. /*convert from string to numeric*/
+. destring sales, generate(sales_num)
+sales: all characters numeric; sales_num generated as long
+
+. 
+. summarize sales sales_num
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       sales |          0
+   sales_num |        177    3529.463    6088.654         29      51300
+
+. describe sales sales_num 
+
+              storage   display    value
+variable name   type    format     label      variable label
+----------------------------------------------------------------------------------
+sales           str5    %9s                   1990 firm sales, millions
+sales_num       long    %10.0g                1990 firm sales, millions
+
+. 
+. /*If the string variable is made up of letters, then it can be changed from stri
+> ng to numeric 
+> without changing its letter display. 
+> what stata does is to assign numeric values together with letter value labels*/
+. 
+. codebook gender
+
+----------------------------------------------------------------------------------
+gender                                                              male or female
+----------------------------------------------------------------------------------
+
+                  type:  string (str1)
+
+         unique values:  2                        missing "":  0/177
+
+            tabulation:  Freq.  Value
+                            14  "F"
+                           163  "M"
+
+. 
+. encode gender, generate(gender_num)
+
+. 
+. codebook gender_num
+
+----------------------------------------------------------------------------------
+gender_num                                                          male or female
+----------------------------------------------------------------------------------
+
+                  type:  numeric (long)
+                 label:  gender_num
+
+                 range:  [1,2]                        units:  1
+         unique values:  2                        missing .:  0/177
+
+            tabulation:  Freq.   Numeric  Label
+                            14         1  F
+                           163         2  M
+
+. 
+. /*Convert from Numeric to String*/
+. 
+. tostring phone, replace
+phone was double now str10
+
+. 
+. /*Split the string into substrings*/
+. 
+. generate areacode = substr(phone,1,3) 
+
+. generate citycode = substr(phone,4,3) 
+
+. generate digits = substr(phone,7,4) 
+
+. 
+. generate phoneno = "("+areacode+")"+" "+citycode+"-"+digits
+
+. 
+. drop areacode citycode digits
+
+. replace phone = phoneno
+variable phone was str10 now str14
+(177 real changes made)
+
+. drop phoneno
+
+. save CEOsalaryNEW.dta, replace 
+file CEOsalaryNEW.dta saved
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class8.log
+  log type:  text
+ closed on:  19 Feb 2018, 10:08:02
+----------------------------------------------------------------------------------

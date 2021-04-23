@@ -1,0 +1,444 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class3.log
+  log type:  text
+ opened on:  25 Feb 2018, 16:27:03
+
+. set more off
+
+. use name salary using ceos.dta, clear
+
+. browse
+
+. use ceos.dta, clear
+
+. describe
+
+Contains data from ceos.dta
+  obs:           177                          
+ vars:            12                          3 Feb 2016 17:43
+ size:         7,080                          (_dta has notes)
+----------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+----------------------------------------------------------------------------------
+name            str18   %18s                  CEO name
+gender          str1    %9s                   CEO gender
+salary          int     %9.0g                 1990 compensation, $1000s
+age             byte    %9.0g                 in years
+college         byte    %9.0g                 =1 if attended college
+grad            byte    %9.0g                 =1 if attended graduate school
+comten          byte    %9.0g                 years with company
+ceoten          byte    %9.0g                 years as ceo with company
+sales           float   %9.0g                 1990 firm sales, millions
+profits         int     %9.0g                 1990 profits, millions
+mktval          float   %9.0g                 market value, end 1990, mills.
+profmarg        float   %9.0g                 profits as % of sales
+----------------------------------------------------------------------------------
+Sorted by: 
+
+. summarize
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+        name |          0
+      gender |          0
+      salary |        177    865.8644    587.5893        100       5299
+         age |        177    56.42938     8.42189         33         86
+     college |        177    .9717514    .1661523          0          1
+-------------+---------------------------------------------------------
+        grad |        177    .5310734    .5004492          0          1
+      comten |        177    22.50282    12.29473          2         58
+      ceoten |        177    7.954802    7.150826          0         37
+       sales |        177    3529.463    6088.654         29      51300
+     profits |        177    207.8305    404.4543       -463       2700
+-------------+---------------------------------------------------------
+      mktval |        177    3600.316    6442.276        387      45400
+    profmarg |        177     6.42011    17.86074  -203.0769   47.45763
+
+. list name gender salary
+
+     +--------------------------------------+
+     |               name   gender   salary |
+     |--------------------------------------|
+  1. |         Ira Larson        M     1161 |
+  2. |      Nancy Hawkins        F      600 |
+  3. |         Tyler Rush        M      379 |
+  4. |      Dylan Andrews        M      651 |
+  5. |      Tarik Barrera        M      497 |
+     |--------------------------------------|
+  6. |         Ryder Goff        M     1067 |
+  7. |       Zachary Gray        M      945 |
+  8. |      Melvin Stuart        M     1261 |
+  9. |       Stephen Wynn        M      503 |
+ 10. |     Keegan Bernard        M     1094 |
+     |--------------------------------------|
+ 11. |         Ralph Ball        M      601 |
+ 12. |         Linus Kidd        M      355 |
+ 13. |  Nathaniel Trevino        M     1200 |
+ 14. |    Channing Turner        M      697 |
+ 15. |      Silas Merritt        M     1041 |
+     |--------------------------------------|
+ 16. |         Iris Knapp        F      245 |
+ 17. |    Zachery Johnson        M      817 |
+ 18. |         Erica Neal        F     1675 |
+ 19. |       Noble Berger        M      971 |
+ 20. |    Vaughan Salinas        M      609 |
+     |--------------------------------------|
+ 21. |       Leo Harrison        M      470 |
+ 22. |       Lyle Vazquez        M      867 |
+ 23. |     Aquila Mccarty        M      752 |
+ 24. |       Elaine Jones        F      246 |
+ 25. |     Micah Richards        M      825 |
+     |--------------------------------------|
+ 26. |         Kamal Cook        M      358 |
+ 27. |      Chaim England        M     1162 |
+ 28. |          Carl Dale        M      270 |
+ 29. |         Todd Hurst        M      829 |
+ 30. |         Nero Garza        M      300 |
+     |--------------------------------------|
+ 31. |      Kaseem Mcleod        M     1627 |
+ 32. |         Beck Weber        M     1237 |
+ 33. |       Miriam Flynn        F      540 |
+ 34. |        Quamar Wade        M     1798 |
+ 35. |       Tucker Mason        M      474 |
+     |--------------------------------------|
+ 36. |      Isaac Richard        M     1336 |
+ 37. |         Todd Ramos        M      541 |
+ 38. |     Garrett Crosby        M      129 |
+ 39. |    Bevis Nicholson        M     1700 |
+ 40. |        Ryder Rojas        M     1750 |
+     |--------------------------------------|
+ 41. |        Dillon Ryan        M      624 |
+ 42. |    Burton Delacruz        M      791 |
+ 43. |   Cedric Middleton        M     1487 |
+ 44. |       Kyle Harrell        M     2021 |
+ 45. |      Salvador Berg        M     1550 |
+     |--------------------------------------|
+ 46. |   Dawn Fitzpatrick        F      401 |
+ 47. |      Kaseem Farmer        M     1295 |
+ 48. |    Bernard Roberts        M      449 |
+ 49. |        Owen Hewitt        M      456 |
+ 50. |     Clayton Mercer        M     1142 |
+     |--------------------------------------|
+ 51. |       Jacob Newton        M      577 |
+ 52. |     Charles Powers        M      600 |
+ 53. |        William May        M      649 |
+ 54. |     Chester Spence        M      822 |
+ 55. |        Kieran Clay        M     1080 |
+     |--------------------------------------|
+ 56. |        Petra Nolan        F     1738 |
+ 57. |       Jasper Combs        M      581 |
+ 58. |       Brady Spence        M      912 |
+ 59. |         Brody Dyer        M      650 |
+ 60. |     Alan Wilkerson        M     2199 |
+     |--------------------------------------|
+ 61. |    Addison Ballard        M      609 |
+ 62. |           Len Bean        M     1946 |
+ 63. |   Geoffrey Mcguire        M      552 |
+ 64. |  Jackson Hendricks        M      481 |
+ 65. |       Reese Berger        M      526 |
+     |--------------------------------------|
+ 66. |      Heidi Shelton        F      471 |
+ 67. |         Owen Pitts        M      630 |
+ 68. |      Barry Lindsay        M      622 |
+ 69. | Matthew Mccullough        M      999 |
+ 70. |      Dieter Kelley        M      585 |
+     |--------------------------------------|
+ 71. |      Armand Jensen        M     1107 |
+ 72. |     Tobias Anthony        M     1099 |
+ 73. |  Curran Stephenson        M      425 |
+ 74. |     Gary Wilkerson        M     2792 |
+ 75. |      Ciaran Morton        M      350 |
+     |--------------------------------------|
+ 76. |      Benjamin Mays        M      363 |
+ 77. |        Grant Bates        M     2265 |
+ 78. |     Virginia Haney        F      377 |
+ 79. |        Andrew Ross        M      879 |
+ 80. |     Holmes Merrill        M      720 |
+     |--------------------------------------|
+ 81. |       Byron Savage        M      950 |
+ 82. |     Darius Coleman        M     1143 |
+ 83. |        Calvin Kirk        M     1064 |
+ 84. |        Ryan Conrad        M     1253 |
+ 85. |  Sylvester Woodard        M      462 |
+     |--------------------------------------|
+ 86. |         Nora Barry        F      174 |
+ 87. |       Barclay Barr        M      474 |
+ 88. |        Norman Lamb        M     1248 |
+ 89. |    Malcolm Houston        M     1101 |
+ 90. |       Isaac Gordon        M      348 |
+     |--------------------------------------|
+ 91. |     Hunter William        M      650 |
+ 92. |     Kermit Mccarty        M      875 |
+ 93. |     Octavius Irwin        M     1600 |
+ 94. |    Charles Holcomb        M     1500 |
+ 95. |      David Justice        M      323 |
+     |--------------------------------------|
+ 96. |     Tanner Sanders        M      459 |
+ 97. |         John Hobbs        M      925 |
+ 98. |      Abraham Reese        M      375 |
+ 99. |       Isaac Joyner        M      447 |
+100. |         Timon Kirk        M     1340 |
+     |--------------------------------------|
+101. |        Garth Avery        M     1749 |
+102. |    Melvin Saunders        M      491 |
+103. |   Timothy Anderson        M     5299 |
+104. |      Armand Hopper        M      431 |
+105. |      Paul Lawrence        M      729 |
+     |--------------------------------------|
+106. |      Anna Gonzales        F     1284 |
+107. |       Thomas Smith        M     1373 |
+108. |          Roth Beck        M      989 |
+109. |        Herman Hahn        M      515 |
+110. |       Guy Figueroa        M     1301 |
+     |--------------------------------------|
+111. |      Melvin Monroe        M      834 |
+112. |        Magee Beach        M      849 |
+113. |      Denton Ashley        M      100 |
+114. |    Theodore Rogers        M      679 |
+115. |   Zachery Gallegos        M      567 |
+     |--------------------------------------|
+116. |    Emmanuel Dalton        M      559 |
+117. |           Paul Guy        M      704 |
+118. |       Paki Donovan        M      308 |
+119. |       Erasmus Tate        M     1392 |
+120. |      Lewis Spencer        M      389 |
+     |--------------------------------------|
+121. |       Anne Whitney        F      790 |
+122. |  Benjamin Thompson        M      396 |
+123. |       Jack Mcclure        M      398 |
+124. |     Gabriel Hewitt        M      707 |
+125. |        Peter Hurst        M      984 |
+     |--------------------------------------|
+126. |      Robert Nguyen        M      410 |
+127. |   Keaton Wilkinson        M     1095 |
+128. |      Knox Bartlett        M      694 |
+129. |   Bernard Mcmillan        M      834 |
+130. |    Justin Odonnell        M     1630 |
+     |--------------------------------------|
+131. |         Beck Moran        M      493 |
+132. |    Yardley Simpson        M      625 |
+133. |      Dillon Vargas        M      483 |
+134. |     Gannon Allison        M      733 |
+135. |  Lawrence Benjamin        M     2102 |
+     |--------------------------------------|
+136. |      Francis Avery        M      853 |
+137. |       Hiram Daniel        M      345 |
+138. |        Nero Mccray        M      800 |
+139. |         Thane Wade        M      764 |
+140. |         Oren Marsh        M      806 |
+     |--------------------------------------|
+141. |   Odysseus Jackson        M      310 |
+142. |        Tyler Gates        M     1119 |
+143. |  Valentine Wallace        M     1287 |
+144. |     Sawyer Fleming        M     1170 |
+145. |      Tanek Simmons        M      880 |
+     |--------------------------------------|
+146. |     Zachery Turner        M     1091 |
+147. |     Armand Mcclure        M     1100 |
+148. |        Denton Dale        M      650 |
+149. |     Amelia Spencer        F      607 |
+150. |        Dale Murray        M     1133 |
+     |--------------------------------------|
+151. |    Odysseus Abbott        M      393 |
+152. |    Baker Blackburn        M      605 |
+153. |         Lane Blake        M     1444 |
+154. |     Preston Fuller        M     1033 |
+155. |       Walker Ramos        M     1142 |
+     |--------------------------------------|
+156. |       Adam Vazquez        M      537 |
+157. |        Ethan Stark        M      693 |
+158. |     Alec Mcconnell        M      439 |
+159. |    Brendan Bentley        M      358 |
+160. |         Wade Giles        M     1276 |
+     |--------------------------------------|
+161. |       Castor Duffy        M      873 |
+162. |      Porter Snyder        M      537 |
+163. |       Lionel Davis        M      713 |
+164. |      Thomas Berger        M     1350 |
+165. |     Chester Golden        M     1268 |
+     |--------------------------------------|
+166. |      Jasper Fulton        M      465 |
+167. |         Lee Finley        M      693 |
+168. |    Bernard Rosales        M      369 |
+169. |           Owen Fox        M      381 |
+170. |     Josiah Camacho        M      467 |
+     |--------------------------------------|
+171. |     Cullen Mueller        M      559 |
+172. |       Colby Larsen        M      218 |
+173. |         Lev Pruitt        M      264 |
+174. |     Bethany Warner        F      185 |
+175. |  Sylvester Mueller        M      387 |
+     |--------------------------------------|
+176. |   Benedict Sanders        M     2220 |
+177. |        Thane Weiss        M      445 |
+     +--------------------------------------+
+
+. list in 1/5
+
+     +--------------------------------------------------------------------------+
+  1. |          name | gender | salary | age | college | grad | comten | ceoten |
+     |    Ira Larson |      M |   1161 |  49 |       1 |    1 |      9 |      2 |
+     |--------------------------------------------------------------------------|
+     |     sales      |     profits      |     mktval      |      profmarg      |
+     |      6200      |         966      |      23200      |      15.58065      |
+     +--------------------------------------------------------------------------+
+
+     +--------------------------------------------------------------------------+
+  2. |          name | gender | salary | age | college | grad | comten | ceoten |
+     | Nancy Hawkins |      F |    600 |  43 |       1 |    1 |     10 |     10 |
+     |--------------------------------------------------------------------------|
+     |     sales      |     profits      |     mktval      |      profmarg      |
+     |       283      |          48      |       1100      |      16.96113      |
+     +--------------------------------------------------------------------------+
+
+     +--------------------------------------------------------------------------+
+  3. |          name | gender | salary | age | college | grad | comten | ceoten |
+     |    Tyler Rush |      M |    379 |  51 |       1 |    1 |      9 |      3 |
+     |--------------------------------------------------------------------------|
+     |     sales      |     profits      |     mktval      |      profmarg      |
+     |       169      |          40      |       1100      |      23.66864      |
+     +--------------------------------------------------------------------------+
+
+     +--------------------------------------------------------------------------+
+  4. |          name | gender | salary | age | college | grad | comten | ceoten |
+     | Dylan Andrews |      M |    651 |  55 |       1 |    0 |     22 |     22 |
+     |--------------------------------------------------------------------------|
+     |     sales      |     profits      |     mktval      |      profmarg      |
+     |      1100      |         -54      |       1000      |     -4.909091      |
+     +--------------------------------------------------------------------------+
+
+     +--------------------------------------------------------------------------+
+  5. |          name | gender | salary | age | college | grad | comten | ceoten |
+     | Tarik Barrera |      M |    497 |  44 |       1 |    1 |      8 |      6 |
+     |--------------------------------------------------------------------------|
+     |     sales      |     profits      |     mktval      |      profmarg      |
+     |       351      |          28      |        387      |      7.977208      |
+     +--------------------------------------------------------------------------+
+
+. list name gender salary in 1/5
+
+     +---------------------------------+
+     |          name   gender   salary |
+     |---------------------------------|
+  1. |    Ira Larson        M     1161 |
+  2. | Nancy Hawkins        F      600 |
+  3. |    Tyler Rush        M      379 |
+  4. | Dylan Andrews        M      651 |
+  5. | Tarik Barrera        M      497 |
+     +---------------------------------+
+
+. list name gender salary in 2/5
+
+     +---------------------------------+
+     |          name   gender   salary |
+     |---------------------------------|
+  2. | Nancy Hawkins        F      600 |
+  3. |    Tyler Rush        M      379 |
+  4. | Dylan Andrews        M      651 |
+  5. | Tarik Barrera        M      497 |
+     +---------------------------------+
+
+. save ceoscopy.dta, replace
+file ceoscopy.dta saved
+
+. keep if gender =="F"
+(163 observations deleted)
+
+. save femaleceos.dta
+file femaleceos.dta already exists
+r(602);
+
+. use ceos.dta, clear
+
+. histogram age, bin(35) frequency addlabel
+(bin=35, start=33, width=1.5142857)
+
+. ci means age
+
+    Variable |        Obs        Mean    Std. Err.       [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+         age |        177    56.42938     .633028        55.18008    57.67868
+
+. ci age
+you must specify one of means, proportions, or variances following ci
+r(198);
+
+. ci proportions age
+
+                                                         -- Binomial Exact --
+    Variable |        Obs  Proportion    Std. Err.       [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+
+. ci variances age
+
+    Variable |        Obs      Variance       [95% Conf. Interval]
+-------------+----------------------------------------------------
+         age |        177      70.92822       58.16271    88.43596
+
+. ci proportions gender
+
+                                                         -- Binomial Exact --
+    Variable |        Obs  Proportion    Std. Err.       [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+
+. generate F = 1 if gender == "F"
+(163 missing values generated)
+
+. generate F = 0 if gender == "M"
+variable F already defined
+r(110);
+
+. replace F = 1 if F = . 
+invalid syntax
+r(198);
+
+. ci means age
+
+    Variable |        Obs        Mean    Std. Err.       [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+         age |        177    56.42938     .633028        55.18008    57.67868
+
+. ttest age==54
+
+One-sample t test
+------------------------------------------------------------------------------
+Variable |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+     age |     177    56.42938     .633028     8.42189    55.18008    57.67868
+------------------------------------------------------------------------------
+    mean = mean(age)                                              t =   3.8377
+Ho: mean = 54                                    degrees of freedom =      176
+
+    Ha: mean < 54               Ha: mean != 54                 Ha: mean > 54
+ Pr(T < t) = 0.9999         Pr(|T| > |t|) = 0.0002          Pr(T > t) = 0.0001
+
+. clear all 
+
+. use ceos.dta, clear
+
+. regress salary ceoten
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(1, 175)       =      3.65
+       Model |  1241694.06         1  1241694.06   Prob > F        =    0.0577
+    Residual |  59524270.7       175   340138.69   R-squared       =    0.0204
+-------------+----------------------------------   Adj R-squared   =    0.0148
+       Total |  60765964.7       176  345261.163   Root MSE        =    583.21
+
+------------------------------------------------------------------------------
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   11.74613    6.14774     1.91   0.058     -.387127    23.87939
+       _cons |   772.4263   65.67567    11.76   0.000     642.8079    902.0446
+------------------------------------------------------------------------------
+
+. twoway (scatter salary ceoten) (lfit salary ceoten) 
+
+. log close
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class3.log
+  log type:  text
+ closed on:  25 Feb 2018, 16:34:31
+----------------------------------------------------------------------------------

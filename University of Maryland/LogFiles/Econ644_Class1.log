@@ -1,0 +1,15 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class2.log
+  log type:  text
+ opened on:  18 Feb 2018, 13:17:52
+
+. clear all
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class2.log
+  log type:  text
+ closed on:  18 Feb 2018, 13:17:52
+----------------------------------------------------------------------------------

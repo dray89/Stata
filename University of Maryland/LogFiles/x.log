@@ -1,0 +1,933 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/x.log
+  log type:  text
+ opened on:  24 Mar 2018, 09:39:30
+
+. display
+
+
+. wd
+command wd is unrecognized
+r(199);
+
+. display wd
+wd not found
+r(111);
+
+. pwd
+/Users/mafton/Documents/School/Econ 644
+
+. cd "/Users/mafton/Desktop"
+/Users/mafton/Desktop
+
+. use "/Users/mafton/Documents/School/Econ 644/CEOsalary.dta"
+
+. describe
+
+Contains data from /Users/mafton/Documents/School/Econ 644/CEOsalary.dta
+  obs:           177                          
+ vars:            17                          3 Feb 2017 11:28
+ size:        11,328                          (_dta has notes)
+----------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+----------------------------------------------------------------------------------
+id              str3    %9s                   unique CEO identifier
+name            str18   %18s                  CEO name
+phone           double  %10.0f                phone number
+gender          str1    %9s                   male or female
+mstatus         long    %8.0g      maritalstatus
+                                              marital status
+salary          int     %9.0g                 1990 compensation, $1000s
+age             byte    %9.0g                 in years
+daybirth        float   %9.0g                 day of birth
+monthbirth      float   %9.0g                 month of birth
+college         byte    %9.0g                 =1 if attended college
+grad            byte    %9.0g                 =1 if attended graduate school
+comten          byte    %9.0g                 years with company
+ceoten          byte    %9.0g                 years as ceo with company
+sales           str5    %9s                   1990 firm sales, millions
+profits         int     %9.0g                 1990 profits, millions
+mktval          float   %9.0g                 market value, end 1990, mills.
+profmarg        float   %9.0g                 profits as % of sales
+----------------------------------------------------------------------------------
+Sorted by: id
+
+. summarize
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+          id |          0
+        name |          0
+       phone |        177    5.41e+09    2.50e+09   1.01e+09   9.95e+09
+      gender |          0
+     mstatus |        177     1.99435    .5589883          1          4
+-------------+---------------------------------------------------------
+      salary |        177    865.8644    587.5893        100       5299
+         age |        177    56.42938     8.42189         33         86
+    daybirth |        172    15.75581    8.618538          1         31
+  monthbirth |        175    6.497143    3.622843          1         12
+     college |        177    .9717514    .1661523          0          1
+-------------+---------------------------------------------------------
+        grad |        177    .5310734    .5004492          0          1
+      comten |        177    22.50282    12.29473          2         58
+      ceoten |        177    7.954802    7.150826          0         37
+       sales |          0
+     profits |        177    207.8305    404.4543       -463       2700
+-------------+---------------------------------------------------------
+      mktval |        177    3600.316    6442.276        387      45400
+    profmarg |        177     6.42011    17.86074  -203.0769   47.45763
+
+. list daybirth by ceo if daybirth==.
+variable by not found
+r(111);
+
+. list daybirth, ceo if daybirth==/
+option ceo not allowed
+r(198);
+
+. list daybirth if daybirth==.
+
+     +----------+
+     | daybirth |
+     |----------|
+  8. |        . |
+ 26. |        . |
+112. |        . |
+125. |        . |
+172. |        . |
+     +----------+
+
+. list daybirth ceo if daybirth==.
+
+     +-------------------+
+     | daybirth   ceoten |
+     |-------------------|
+  8. |        .        8 |
+ 26. |        .        4 |
+112. |        .       24 |
+125. |        .        4 |
+172. |        .        5 |
+     +-------------------+
+
+. list daybirth name if daybirth=.
+=exp not allowed
+r(101);
+
+. list daybirth name if daybirth==.
+
+     +--------------------------+
+     | daybirth            name |
+     |--------------------------|
+  8. |        .   Melvin Stuart |
+ 26. |        .      Kamal Cook |
+112. |        .     Magee Beach |
+125. |        .     Peter Hurst |
+172. |        .    Colby Larsen |
+     +--------------------------+
+
+. generate mis=1 if daybirth==.
+(172 missing values generated)
+
+. list mis name
+
+     +--------------------------+
+     | mis                 name |
+     |--------------------------|
+  1. |   .           Ira Larson |
+  2. |   .        Nancy Hawkins |
+  3. |   .           Tyler Rush |
+  4. |   .        Dylan Andrews |
+  5. |   .        Tarik Barrera |
+     |--------------------------|
+  6. |   .           Ryder Goff |
+  7. |   .         Zachary Gray |
+  8. |   1        Melvin Stuart |
+  9. |   .         Stephen Wynn |
+ 10. |   .       Keegan Bernard |
+     |--------------------------|
+ 11. |   .           Ralph Ball |
+ 12. |   .           Linus Kidd |
+ 13. |   .    Nathaniel Trevino |
+ 14. |   .      Channing Turner |
+ 15. |   .        Silas Merritt |
+     |--------------------------|
+ 16. |   .           Iris Knapp |
+ 17. |   .      Zachery Johnson |
+ 18. |   .           Erica Neal |
+ 19. |   .         Noble Berger |
+ 20. |   .      Vaughan Salinas |
+     |--------------------------|
+ 21. |   .         Leo Harrison |
+ 22. |   .         Lyle Vazquez |
+ 23. |   .       Aquila Mccarty |
+ 24. |   .         Elaine Jones |
+ 25. |   .       Micah Richards |
+     |--------------------------|
+ 26. |   1           Kamal Cook |
+ 27. |   .        Chaim England |
+ 28. |   .            Carl Dale |
+ 29. |   .           Todd Hurst |
+ 30. |   .           Nero Garza |
+     |--------------------------|
+ 31. |   .        Kaseem Mcleod |
+ 32. |   .           Beck Weber |
+ 33. |   .         Miriam Flynn |
+ 34. |   .          Quamar Wade |
+ 35. |   .         Tucker Mason |
+     |--------------------------|
+ 36. |   .        Isaac Richard |
+ 37. |   .           Todd Ramos |
+ 38. |   .       Garrett Crosby |
+ 39. |   .      Bevis Nicholson |
+ 40. |   .          Ryder Rojas |
+     |--------------------------|
+ 41. |   .          Dillon Ryan |
+ 42. |   .      Burton Delacruz |
+ 43. |   .     Cedric Middleton |
+ 44. |   .         Kyle Harrell |
+ 45. |   .        Salvador Berg |
+     |--------------------------|
+ 46. |   .     Dawn Fitzpatrick |
+ 47. |   .        Kaseem Farmer |
+ 48. |   .      Bernard Roberts |
+ 49. |   .          Owen Hewitt |
+ 50. |   .       Clayton Mercer |
+     |--------------------------|
+ 51. |   .         Jacob Newton |
+ 52. |   .       Charles Powers |
+ 53. |   .          William May |
+ 54. |   .       Chester Spence |
+ 55. |   .          Kieran Clay |
+     |--------------------------|
+ 56. |   .          Petra Nolan |
+ 57. |   .         Jasper Combs |
+ 58. |   .         Brady Spence |
+ 59. |   .           Brody Dyer |
+ 60. |   .       Alan Wilkerson |
+     |--------------------------|
+ 61. |   .      Addison Ballard |
+ 62. |   .             Len Bean |
+ 63. |   .     Geoffrey Mcguire |
+ 64. |   .    Jackson Hendricks |
+ 65. |   .         Reese Berger |
+     |--------------------------|
+ 66. |   .        Heidi Shelton |
+ 67. |   .           Owen Pitts |
+ 68. |   .        Barry Lindsay |
+ 69. |   .   Matthew Mccullough |
+ 70. |   .        Dieter Kelley |
+     |--------------------------|
+ 71. |   .        Armand Jensen |
+ 72. |   .       Tobias Anthony |
+ 73. |   .    Curran Stephenson |
+ 74. |   .       Gary Wilkerson |
+ 75. |   .        Ciaran Morton |
+     |--------------------------|
+ 76. |   .        Benjamin Mays |
+ 77. |   .          Grant Bates |
+ 78. |   .       Virginia Haney |
+ 79. |   .          Andrew Ross |
+ 80. |   .       Holmes Merrill |
+     |--------------------------|
+ 81. |   .         Byron Savage |
+ 82. |   .       Darius Coleman |
+ 83. |   .          Calvin Kirk |
+ 84. |   .          Ryan Conrad |
+ 85. |   .    Sylvester Woodard |
+     |--------------------------|
+ 86. |   .           Nora Barry |
+ 87. |   .         Barclay Barr |
+ 88. |   .          Norman Lamb |
+ 89. |   .      Malcolm Houston |
+ 90. |   .         Isaac Gordon |
+     |--------------------------|
+ 91. |   .       Hunter William |
+ 92. |   .       Kermit Mccarty |
+ 93. |   .       Octavius Irwin |
+ 94. |   .      Charles Holcomb |
+ 95. |   .        David Justice |
+     |--------------------------|
+ 96. |   .       Tanner Sanders |
+ 97. |   .           John Hobbs |
+ 98. |   .        Abraham Reese |
+ 99. |   .         Isaac Joyner |
+100. |   .           Timon Kirk |
+     |--------------------------|
+101. |   .          Garth Avery |
+102. |   .      Melvin Saunders |
+103. |   .     Timothy Anderson |
+104. |   .        Armand Hopper |
+105. |   .        Paul Lawrence |
+     |--------------------------|
+106. |   .        Anna Gonzales |
+107. |   .         Thomas Smith |
+108. |   .            Roth Beck |
+109. |   .          Herman Hahn |
+110. |   .         Guy Figueroa |
+     |--------------------------|
+111. |   .        Melvin Monroe |
+112. |   1          Magee Beach |
+113. |   .        Denton Ashley |
+114. |   .      Theodore Rogers |
+115. |   .     Zachery Gallegos |
+     |--------------------------|
+116. |   .      Emmanuel Dalton |
+117. |   .             Paul Guy |
+118. |   .         Paki Donovan |
+119. |   .         Erasmus Tate |
+120. |   .        Lewis Spencer |
+     |--------------------------|
+121. |   .         Anne Whitney |
+122. |   .    Benjamin Thompson |
+123. |   .         Jack Mcclure |
+124. |   .       Gabriel Hewitt |
+125. |   1          Peter Hurst |
+     |--------------------------|
+126. |   .        Robert Nguyen |
+127. |   .     Keaton Wilkinson |
+128. |   .        Knox Bartlett |
+129. |   .     Bernard Mcmillan |
+130. |   .      Justin Odonnell |
+     |--------------------------|
+131. |   .           Beck Moran |
+132. |   .      Yardley Simpson |
+133. |   .        Dillon Vargas |
+134. |   .       Gannon Allison |
+135. |   .    Lawrence Benjamin |
+     |--------------------------|
+136. |   .        Francis Avery |
+137. |   .         Hiram Daniel |
+138. |   .          Nero Mccray |
+139. |   .           Thane Wade |
+140. |   .           Oren Marsh |
+     |--------------------------|
+141. |   .     Odysseus Jackson |
+142. |   .          Tyler Gates |
+143. |   .    Valentine Wallace |
+144. |   .       Sawyer Fleming |
+145. |   .        Tanek Simmons |
+     |--------------------------|
+146. |   .       Zachery Turner |
+147. |   .       Armand Mcclure |
+148. |   .          Denton Dale |
+149. |   .       Amelia Spencer |
+150. |   .          Dale Murray |
+     |--------------------------|
+151. |   .      Odysseus Abbott |
+152. |   .      Baker Blackburn |
+153. |   .           Lane Blake |
+154. |   .       Preston Fuller |
+155. |   .         Walker Ramos |
+     |--------------------------|
+156. |   .         Adam Vazquez |
+157. |   .          Ethan Stark |
+158. |   .       Alec Mcconnell |
+159. |   .      Brendan Bentley |
+160. |   .           Wade Giles |
+     |--------------------------|
+161. |   .         Castor Duffy |
+162. |   .        Porter Snyder |
+163. |   .         Lionel Davis |
+164. |   .        Thomas Berger |
+165. |   .       Chester Golden |
+     |--------------------------|
+166. |   .        Jasper Fulton |
+167. |   .           Lee Finley |
+168. |   .      Bernard Rosales |
+169. |   .             Owen Fox |
+170. |   .       Josiah Camacho |
+     |--------------------------|
+171. |   .       Cullen Mueller |
+172. |   1         Colby Larsen |
+173. |   .           Lev Pruitt |
+174. |   .       Bethany Warner |
+175. |   .    Sylvester Mueller |
+     |--------------------------|
+176. |   .     Benedict Sanders |
+177. |   .          Thane Weiss |
+     +--------------------------+
+
+. list mis if mis=1
+=exp not allowed
+r(101);
+
+. list mis if mis==1
+
+     +-----+
+     | mis |
+     |-----|
+  8. |   1 |
+ 26. |   1 |
+112. |   1 |
+125. |   1 |
+172. |   1 |
+     +-----+
+
+. list mis name if mis==1
+
+     +---------------------+
+     | mis            name |
+     |---------------------|
+  8. |   1   Melvin Stuart |
+ 26. |   1      Kamal Cook |
+112. |   1     Magee Beach |
+125. |   1     Peter Hurst |
+172. |   1    Colby Larsen |
+     +---------------------+
+
+. list name daybirth if daybirth==.
+
+     +--------------------------+
+     |          name   daybirth |
+     |--------------------------|
+  8. | Melvin Stuart          . |
+ 26. |    Kamal Cook          . |
+112. |   Magee Beach          . |
+125. |   Peter Hurst          . |
+172. |  Colby Larsen          . |
+     +--------------------------+
+
+. mean mis
+
+Mean estimation                   Number of obs   =          5
+
+--------------------------------------------------------------
+             |       Mean   Std. Err.     [95% Conf. Interval]
+-------------+------------------------------------------------
+         mis |          1          0             .           .
+--------------------------------------------------------------
+
+. std mis
+command std is unrecognized
+r(199);
+
+. summarize mis
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+         mis |          5           1           0          1          1
+
+. display 172/177
+.97175141
+
+. generate daybirth_mz=0 if datebirth=.
+datebirth not found
+r(111);
+
+. generate daybirth_mz=0 if datebirth==.
+datebirth not found
+r(111);
+
+. generate daybirth_mz=0 if daybirth=.
+invalid syntax
+r(198);
+
+. generate daybirth_mz=0 if daybirth==.
+(172 missing values generated)
+
+. replace daybirth_mz=daybirth if daybirth_mz==. 
+(172 real changes made)
+
+. replace daybirth=0 if daybirth==.
+(5 real changes made)
+
+. replace daybirth=. if daybirth==0
+(5 real changes made, 5 to missing)
+
+. list daybirth daybirth_mz
+
+     +---------------------+
+     | daybirth   daybir~z |
+     |---------------------|
+  1. |       11         11 |
+  2. |       14         14 |
+  3. |        3          3 |
+  4. |        8          8 |
+  5. |       18         18 |
+     |---------------------|
+  6. |       25         25 |
+  7. |        9          9 |
+  8. |        .          0 |
+  9. |        3          3 |
+ 10. |       14         14 |
+     |---------------------|
+ 11. |       23         23 |
+ 12. |       22         22 |
+ 13. |       28         28 |
+ 14. |        1          1 |
+ 15. |       26         26 |
+     |---------------------|
+ 16. |        6          6 |
+ 17. |        1          1 |
+ 18. |        7          7 |
+ 19. |        4          4 |
+ 20. |        2          2 |
+     |---------------------|
+ 21. |       15         15 |
+ 22. |       30         30 |
+ 23. |        6          6 |
+ 24. |        9          9 |
+ 25. |        5          5 |
+     |---------------------|
+ 26. |        .          0 |
+ 27. |        7          7 |
+ 28. |        5          5 |
+ 29. |       14         14 |
+ 30. |       21         21 |
+     |---------------------|
+ 31. |        3          3 |
+ 32. |       28         28 |
+ 33. |       18         18 |
+ 34. |       13         13 |
+ 35. |       29         29 |
+     |---------------------|
+ 36. |       24         24 |
+ 37. |       23         23 |
+ 38. |       26         26 |
+ 39. |        8          8 |
+ 40. |       26         26 |
+     |---------------------|
+ 41. |       14         14 |
+ 42. |       22         22 |
+ 43. |       15         15 |
+ 44. |       19         19 |
+ 45. |       23         23 |
+     |---------------------|
+ 46. |        5          5 |
+ 47. |       27         27 |
+ 48. |        5          5 |
+ 49. |       30         30 |
+ 50. |       22         22 |
+     |---------------------|
+ 51. |       22         22 |
+ 52. |       18         18 |
+ 53. |       25         25 |
+ 54. |       23         23 |
+ 55. |       29         29 |
+     |---------------------|
+ 56. |       19         19 |
+ 57. |        2          2 |
+ 58. |       26         26 |
+ 59. |        5          5 |
+ 60. |       13         13 |
+     |---------------------|
+ 61. |       24         24 |
+ 62. |       25         25 |
+ 63. |       25         25 |
+ 64. |        4          4 |
+ 65. |        6          6 |
+     |---------------------|
+ 66. |       17         17 |
+ 67. |       13         13 |
+ 68. |       16         16 |
+ 69. |       26         26 |
+ 70. |       12         12 |
+     |---------------------|
+ 71. |       23         23 |
+ 72. |        3          3 |
+ 73. |       31         31 |
+ 74. |        7          7 |
+ 75. |       11         11 |
+     |---------------------|
+ 76. |       14         14 |
+ 77. |       18         18 |
+ 78. |       13         13 |
+ 79. |       18         18 |
+ 80. |       18         18 |
+     |---------------------|
+ 81. |        5          5 |
+ 82. |       10         10 |
+ 83. |       19         19 |
+ 84. |       26         26 |
+ 85. |       16         16 |
+     |---------------------|
+ 86. |       24         24 |
+ 87. |        2          2 |
+ 88. |       27         27 |
+ 89. |       14         14 |
+ 90. |       30         30 |
+     |---------------------|
+ 91. |       14         14 |
+ 92. |        4          4 |
+ 93. |       12         12 |
+ 94. |        8          8 |
+ 95. |       12         12 |
+     |---------------------|
+ 96. |        5          5 |
+ 97. |       30         30 |
+ 98. |       13         13 |
+ 99. |       20         20 |
+100. |       29         29 |
+     |---------------------|
+101. |       13         13 |
+102. |        7          7 |
+103. |       11         11 |
+104. |       16         16 |
+105. |        7          7 |
+     |---------------------|
+106. |       28         28 |
+107. |       21         21 |
+108. |       23         23 |
+109. |        9          9 |
+110. |       23         23 |
+     |---------------------|
+111. |       27         27 |
+112. |        .          0 |
+113. |       21         21 |
+114. |       26         26 |
+115. |       19         19 |
+     |---------------------|
+116. |        4          4 |
+117. |       12         12 |
+118. |       23         23 |
+119. |       24         24 |
+120. |       19         19 |
+     |---------------------|
+121. |       25         25 |
+122. |       14         14 |
+123. |       13         13 |
+124. |       14         14 |
+125. |        .          0 |
+     |---------------------|
+126. |       10         10 |
+127. |       11         11 |
+128. |       22         22 |
+129. |        5          5 |
+130. |        7          7 |
+     |---------------------|
+131. |       27         27 |
+132. |       29         29 |
+133. |        8          8 |
+134. |       11         11 |
+135. |       28         28 |
+     |---------------------|
+136. |       21         21 |
+137. |        3          3 |
+138. |       23         23 |
+139. |       21         21 |
+140. |        8          8 |
+     |---------------------|
+141. |       30         30 |
+142. |        6          6 |
+143. |        9          9 |
+144. |        7          7 |
+145. |       17         17 |
+     |---------------------|
+146. |       11         11 |
+147. |       20         20 |
+148. |       24         24 |
+149. |        3          3 |
+150. |       18         18 |
+     |---------------------|
+151. |        7          7 |
+152. |        6          6 |
+153. |       18         18 |
+154. |       12         12 |
+155. |       26         26 |
+     |---------------------|
+156. |       22         22 |
+157. |       31         31 |
+158. |        9          9 |
+159. |       31         31 |
+160. |        7          7 |
+     |---------------------|
+161. |        4          4 |
+162. |       23         23 |
+163. |       15         15 |
+164. |       17         17 |
+165. |        2          2 |
+     |---------------------|
+166. |       18         18 |
+167. |        4          4 |
+168. |       26         26 |
+169. |        9          9 |
+170. |       20         20 |
+     |---------------------|
+171. |       20         20 |
+172. |        .          0 |
+173. |        3          3 |
+174. |       25         25 |
+175. |        6          6 |
+     |---------------------|
+176. |       18         18 |
+177. |       10         10 |
+     +---------------------+
+
+. list daybirth_mz daybirth if daybirth==.
+
+     +---------------------+
+     | daybir~z   daybirth |
+     |---------------------|
+  8. |        0          . |
+ 26. |        0          . |
+112. |        0          . |
+125. |        0          . |
+172. |        0          . |
+     +---------------------+
+
+. list daybirth daybirth_mz if diff 
+diff not found
+r(111);
+
+. sort daybirth daybirth_mz
+
+. by daybirth (daybirth_mz), sort: gen diff = daybirth_mz[0] != daybirth_mz[_N] 
+
+. list eid egenotype if diff
+variable eid not found
+r(111);
+
+. list daybirth daybirth_mz if diff
+
+     +---------------------+
+     | daybirth   daybir~z |
+     |---------------------|
+  1. |        1          1 |
+  2. |        1          1 |
+  3. |        2          2 |
+  4. |        2          2 |
+  5. |        2          2 |
+     |---------------------|
+  6. |        2          2 |
+  7. |        3          3 |
+  8. |        3          3 |
+  9. |        3          3 |
+ 10. |        3          3 |
+     |---------------------|
+ 11. |        3          3 |
+ 12. |        3          3 |
+ 13. |        3          3 |
+ 14. |        4          4 |
+ 15. |        4          4 |
+     |---------------------|
+ 16. |        4          4 |
+ 17. |        4          4 |
+ 18. |        4          4 |
+ 19. |        4          4 |
+ 20. |        5          5 |
+     |---------------------|
+ 21. |        5          5 |
+ 22. |        5          5 |
+ 23. |        5          5 |
+ 24. |        5          5 |
+ 25. |        5          5 |
+     |---------------------|
+ 26. |        5          5 |
+ 27. |        5          5 |
+ 28. |        6          6 |
+ 29. |        6          6 |
+ 30. |        6          6 |
+     |---------------------|
+ 31. |        6          6 |
+ 32. |        6          6 |
+ 33. |        6          6 |
+ 34. |        7          7 |
+ 35. |        7          7 |
+     |---------------------|
+ 36. |        7          7 |
+ 37. |        7          7 |
+ 38. |        7          7 |
+ 39. |        7          7 |
+ 40. |        7          7 |
+     |---------------------|
+ 41. |        7          7 |
+ 42. |        7          7 |
+ 43. |        8          8 |
+ 44. |        8          8 |
+ 45. |        8          8 |
+     |---------------------|
+ 46. |        8          8 |
+ 47. |        8          8 |
+ 48. |        9          9 |
+ 49. |        9          9 |
+ 50. |        9          9 |
+     |---------------------|
+ 51. |        9          9 |
+ 52. |        9          9 |
+ 53. |        9          9 |
+ 54. |       10         10 |
+ 55. |       10         10 |
+     |---------------------|
+ 56. |       10         10 |
+ 57. |       11         11 |
+ 58. |       11         11 |
+ 59. |       11         11 |
+ 60. |       11         11 |
+     |---------------------|
+ 61. |       11         11 |
+ 62. |       11         11 |
+ 63. |       12         12 |
+ 64. |       12         12 |
+ 65. |       12         12 |
+     |---------------------|
+ 66. |       12         12 |
+ 67. |       12         12 |
+ 68. |       13         13 |
+ 69. |       13         13 |
+ 70. |       13         13 |
+     |---------------------|
+ 71. |       13         13 |
+ 72. |       13         13 |
+ 73. |       13         13 |
+ 74. |       13         13 |
+ 75. |       14         14 |
+     |---------------------|
+ 76. |       14         14 |
+ 77. |       14         14 |
+ 78. |       14         14 |
+ 79. |       14         14 |
+ 80. |       14         14 |
+     |---------------------|
+ 81. |       14         14 |
+ 82. |       14         14 |
+ 83. |       14         14 |
+ 84. |       15         15 |
+ 85. |       15         15 |
+     |---------------------|
+ 86. |       15         15 |
+ 87. |       16         16 |
+ 88. |       16         16 |
+ 89. |       16         16 |
+ 90. |       17         17 |
+     |---------------------|
+ 91. |       17         17 |
+ 92. |       17         17 |
+ 93. |       18         18 |
+ 94. |       18         18 |
+ 95. |       18         18 |
+     |---------------------|
+ 96. |       18         18 |
+ 97. |       18         18 |
+ 98. |       18         18 |
+ 99. |       18         18 |
+100. |       18         18 |
+     |---------------------|
+101. |       18         18 |
+102. |       18         18 |
+103. |       19         19 |
+104. |       19         19 |
+105. |       19         19 |
+     |---------------------|
+106. |       19         19 |
+107. |       19         19 |
+108. |       20         20 |
+109. |       20         20 |
+110. |       20         20 |
+     |---------------------|
+111. |       20         20 |
+112. |       21         21 |
+113. |       21         21 |
+114. |       21         21 |
+115. |       21         21 |
+     |---------------------|
+116. |       21         21 |
+117. |       22         22 |
+118. |       22         22 |
+119. |       22         22 |
+120. |       22         22 |
+     |---------------------|
+121. |       22         22 |
+122. |       22         22 |
+123. |       23         23 |
+124. |       23         23 |
+125. |       23         23 |
+     |---------------------|
+126. |       23         23 |
+127. |       23         23 |
+128. |       23         23 |
+129. |       23         23 |
+130. |       23         23 |
+     |---------------------|
+131. |       23         23 |
+132. |       23         23 |
+133. |       24         24 |
+134. |       24         24 |
+135. |       24         24 |
+     |---------------------|
+136. |       24         24 |
+137. |       24         24 |
+138. |       25         25 |
+139. |       25         25 |
+140. |       25         25 |
+     |---------------------|
+141. |       25         25 |
+142. |       25         25 |
+143. |       25         25 |
+144. |       26         26 |
+145. |       26         26 |
+     |---------------------|
+146. |       26         26 |
+147. |       26         26 |
+148. |       26         26 |
+149. |       26         26 |
+150. |       26         26 |
+     |---------------------|
+151. |       26         26 |
+152. |       26         26 |
+153. |       27         27 |
+154. |       27         27 |
+155. |       27         27 |
+     |---------------------|
+156. |       27         27 |
+157. |       28         28 |
+158. |       28         28 |
+159. |       28         28 |
+160. |       28         28 |
+     |---------------------|
+161. |       29         29 |
+162. |       29         29 |
+163. |       29         29 |
+164. |       29         29 |
+165. |       30         30 |
+     |---------------------|
+166. |       30         30 |
+167. |       30         30 |
+168. |       30         30 |
+169. |       30         30 |
+170. |       31         31 |
+     |---------------------|
+171. |       31         31 |
+172. |       31         31 |
+173. |        .          0 |
+174. |        .          0 |
+175. |        .          0 |
+     |---------------------|
+176. |        .          0 |
+177. |        .          0 |
+     +---------------------+
+
+. by daybirth (daybirth_mz), sort: gen diff = daybirth_mz[1] != daybirth_mz[_N]
+variable diff already defined
+r(110);
+
+. by daybirth (daybirth_mz), sort: gen diff1 = daybirth_mz[1] != daybirth_mz[_N]
+
+. list daybirth daybirth_mz if diff1
+
+. clear all 
+
+. do "/var/folders/ks/zj678rv15j14wrl6l0lwz9dw0000gn/T//SD37806.000000"
+
+. 
+. /* (2) Clear Stata's memory. */
+. 
+. clear
+
+. 
+. /* (3) Begin a Log File named econ644final.smcl. */
+. log using econ644final.log 
+log file already open
+r(604);
+
+end of do-file
+
+r(604);
+
+. log close
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/x.log
+  log type:  text
+ closed on:  24 Mar 2018, 10:06:25
+----------------------------------------------------------------------------------

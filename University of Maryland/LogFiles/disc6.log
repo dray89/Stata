@@ -1,0 +1,79 @@
+------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\dray\Documents\disc6.log
+  log type:  text
+ opened on:  10 Oct 2018, 08:09:17
+
+. use "C:\Users\dray\Downloads\discussion6_data.dta", clear
+
+. 
+. /*(1) Collapse the data to average test score by the distance variable using the 
+> collapse command in Stata.  This may be a new command that you haven't used before
+> , 
+> so I urge you to check the Stata help file (you can type help collapse into the co
+> mmand line).  */
+. 
+. collapse (mean) meantest=testscore, by(distance)
+
+. 
+. /*(2) After collapsing the data, run two regressions and generate predicted values
+> :*/
+. 
+. /*a) Regress testscore on distance when distance is less than zero*/
+. regress meantest distance if distance<0
+
+      Source |       SS           df       MS      Number of obs   =        19
+-------------+----------------------------------   F(1, 17)        =    111.90
+       Model |  .004473574         1  .004473574   Prob > F        =    0.0000
+    Residual |  .000679662        17   .00003998   R-squared       =    0.8681
+-------------+----------------------------------   Adj R-squared   =    0.8604
+       Total |  .005153236        18  .000286291   Root MSE        =    .00632
+
+------------------------------------------------------------------------------
+    meantest |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    distance |   .2801495   .0264841    10.58   0.000      .224273     .336026
+       _cons |   7.538265   .0030196  2496.41   0.000     7.531894    7.544636
+------------------------------------------------------------------------------
+
+. predict fittedless
+(option xb assumed; fitted values)
+
+. /*b) Regress testscore on distance when distance is greater than or equal to zero*
+> /
+. regress meantest distance if distance>=0
+
+      Source |       SS           df       MS      Number of obs   =        20
+-------------+----------------------------------   F(1, 18)        =     63.73
+       Model |  .004412733         1  .004412733   Prob > F        =    0.0000
+    Residual |  .001246298        18  .000069239   R-squared       =    0.7798
+-------------+----------------------------------   Adj R-squared   =    0.7675
+       Total |   .00565903        19  .000297844   Root MSE        =    .00832
+
+------------------------------------------------------------------------------
+    meantest |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    distance |   .2575983   .0322674     7.98   0.000      .189807    .3253896
+       _cons |   7.653296   .0035859  2134.28   0.000     7.645762    7.660829
+------------------------------------------------------------------------------
+
+. predict fittedgreater
+(option xb assumed; fitted values)
+
+. 
+. /*(3) Generate a scatter plot of testscore and distance and add the predicted valu
+> es from the regressions in (2a) and (2b).*/
+. 
+. twoway (scatter meantest distance, sort) (lfit meantest distance if distance<0)(lf
+> it meantest distance if distance>=0), ytitle(Mean Test Score by Distance) xtitle(D
+> istance) title(Average Test Score by Distance)
+
+. 
+end of do-file
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\dray\Documents\disc6.log
+  log type:  text
+ closed on:  10 Oct 2018, 08:09:30
+------------------------------------------------------------------------------------

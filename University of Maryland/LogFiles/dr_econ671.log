@@ -1,0 +1,439 @@
+--------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\rayde\Documents\dr_econ671.log
+  log type:  text
+ opened on:  20 Jul 2019, 17:03:45
+
+. 
+. use "C:\Users\rayde\Downloads\adkw.dta"
+
+. 
+. generate vlbw = (dbirwt<1500)
+
+. generate weight = dbirwt - 1500
+
+. 
+. * In One Regression *
+. generate above = weight
+
+. generate below = weight*vlbw
+
+. reg death1year vlbw above below, robust
+
+Linear regression                               Number of obs     =    202,071
+                                                F(3, 202067)      =      35.02
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0005
+                                                Root MSE          =     .23312
+
+------------------------------------------------------------------------------
+             |               Robust
+  death1year |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        vlbw |  -.0095432   .0021687    -4.40   0.000    -.0137938   -.0052925
+       above |  -.0002238   .0000288    -7.78   0.000    -.0002802   -.0001674
+       below |   .0000874   .0000433     2.02   0.043     2.57e-06    .0001723
+       _cons |   .0630851   .0012691    49.71   0.000     .0605976    .0655726
+------------------------------------------------------------------------------
+
+. estimates store treatment
+
+. 
+. * Regression below the break *
+. reg death1year weight if vlbw==1, robust
+
+Linear regression                               Number of obs     =     95,221
+                                                F(1, 95219)       =      17.75
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0002
+                                                Root MSE          =     .23814
+
+------------------------------------------------------------------------------
+             |               Robust
+  death1year |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      weight |  -.0001364   .0000324    -4.21   0.000    -.0001998   -.0000729
+       _cons |   .0535419   .0017586    30.45   0.000     .0500951    .0569888
+------------------------------------------------------------------------------
+
+. predict low, xb
+
+. scalar low = _b[_cons]
+
+. scalar list low
+       low =  .05354193
+
+. 
+. * Regression above the break *
+. reg death1year weight if vlbw==0, robust
+
+Linear regression                               Number of obs     =    106,850
+                                                F(1, 106848)      =      60.56
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0006
+                                                Root MSE          =     .22856
+
+------------------------------------------------------------------------------
+             |               Robust
+  death1year |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      weight |  -.0002238   .0000288    -7.78   0.000    -.0002802   -.0001674
+       _cons |   .0630851   .0012691    49.71   0.000     .0605976    .0655726
+------------------------------------------------------------------------------
+
+. predict high, xb
+
+. scalar high = _b[_cons]
+
+. scalar list high low
+      high =   .0630851
+       low =  .05354193
+
+. 
+. * Treatment Effect *
+. di low - high
+-.00928086
+
+. 
+. estimates table treatment, stats(r2_a F rmse) star(.05 .01 .001) se() title(Regression Discontinuity R
+> esults)
+
+Regression Discontinuity Results
+
+------------------------------
+    Variable |   treatment    
+-------------+----------------
+        vlbw | -.00954317***  
+       above |  -.0002238***  
+       below |  .00008744*    
+       _cons |   .0630851***  
+-------------+----------------
+        r2_a |  .00048602     
+           F |  35.021706     
+        rmse |  .23312391     
+------------------------------
+legend: * p<.05; ** p<.01; *** p<.001
+
+. 
+. ********************************************************************************
+. ********************************************************************************
+. * B) Mortality rate changes by 0.00954317 as birth weight passes from just under to just
+. * over 1500 grams. An infant just below the very low birth weight threshold is less likely
+. * to die than one just above the threshold. A low birth weight baby is 0.954317% less
+. * likely to die in the first year.
+. ********************************************************************************
+. ********************************************************************************
+. preserve
+
+. collapse (mean) death1year, by(dbirwt)
+
+. scatter death1year dbirwt, xline(1500) ytitle("1 Year Mortality Rate") xtitle("Birthweight in Grams") 
+> title("Regression Discontinuity Results") 
+
+. 
+. ********************************************************************************
+. * D) Rerun the regression
+. ********************************************************************************
+. 
+. restore 
+
+. reg death1year vlbw above below if dbirwt>=1503 | dbirwt<=1497, robust
+
+Linear regression                               Number of obs     =    197,128
+                                                F(3, 197124)      =      27.66
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0004
+                                                Root MSE          =     .23176
+
+------------------------------------------------------------------------------
+             |               Robust
+  death1year |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        vlbw |  -.0053324   .0022087    -2.41   0.016    -.0096614   -.0010035
+       above |   -.000148   .0000295    -5.02   0.000    -.0002058   -.0000902
+       below |   .0000159   .0000439     0.36   0.717    -.0000702    .0001021
+       _cons |   .0591396   .0013164    44.93   0.000     .0565596    .0617197
+------------------------------------------------------------------------------
+
+. estimates store treatment
+
+. 
+end of do-file
+
+. reg death1year vlbw above below if abs(weight)<=3, robust
+
+Linear regression                               Number of obs     =     26,968
+                                                F(3, 26964)       =      21.38
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0029
+                                                Root MSE          =     .24664
+
+------------------------------------------------------------------------------
+             |               Robust
+  death1year |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        vlbw |  -.0538358    .029366    -1.83   0.067    -.1113947    .0037231
+       above |  -.0125838   .0017346    -7.25   0.000    -.0159837    -.009184
+       below |   .0178522   .0126196     1.41   0.157    -.0068828    .0425872
+       _cons |   .0978266   .0048919    20.00   0.000     .0882381     .107415
+------------------------------------------------------------------------------
+
+. do "C:\Users\rayde\AppData\Local\Temp\STDa474_000000.tmp"
+
+. gen dist = (dbirwt - 1500)/100;
+100; invalid name
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\rayde\AppData\Local\Temp\STDa474_000000.tmp"
+
+. gen dist = (dbirwt - 1500)/100
+
+. gen vlbw = (dbirwt < 1500)
+variable vlbw already defined
+r(110);
+
+end of do-file
+
+r(110);
+
+. do "C:\Users\rayde\AppData\Local\Temp\STDa474_000000.tmp"
+
+. 
+. gen nvlbw = (1-vlbw)
+
+. gen vlbw_dist_b = (vlbw*(dbirwt - 1500))/100
+
+. gen vlbw_dist_a = ((1-vlbw)*(dbirwt- 1500))/100
+
+. 
+. reg death1year vlbw vlbw_dist_a vlbw_dist_b, robust
+
+Linear regression                               Number of obs     =    202,071
+                                                F(3, 202067)      =      35.02
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0005
+                                                Root MSE          =     .23312
+
+------------------------------------------------------------------------------
+             |               Robust
+  death1year |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        vlbw |  -.0095432   .0021687    -4.40   0.000    -.0137938   -.0052925
+ vlbw_dist_a |  -.0223796   .0028758    -7.78   0.000    -.0280162    -.016743
+ vlbw_dist_b |  -.0136359    .003237    -4.21   0.000    -.0199803   -.0072914
+       _cons |   .0630851   .0012691    49.71   0.000     .0605976    .0655726
+------------------------------------------------------------------------------
+
+. reg death1year vlbw dist vlbw_dist_a, robust
+
+Linear regression                               Number of obs     =    202,071
+                                                F(3, 202067)      =      35.02
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0005
+                                                Root MSE          =     .23312
+
+------------------------------------------------------------------------------
+             |               Robust
+  death1year |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        vlbw |  -.0095432   .0021687    -4.40   0.000    -.0137938   -.0052925
+        dist |  -.0136359    .003237    -4.21   0.000    -.0199803   -.0072914
+ vlbw_dist_a |  -.0087437     .00433    -2.02   0.043    -.0172303    -.000257
+       _cons |   .0630851   .0012691    49.71   0.000     .0605976    .0655726
+------------------------------------------------------------------------------
+
+. 
+. /* Replicate rdrobust */
+. /* Note the rdrobust identifies the indicator as above the cutoff */
+. /* compare output from rdrobust to coefficient on nvlbw */
+. rdrobust death1year dist, c(0) p(1) kernel(uniform)
+command rdrobust is unrecognized
+r(199);
+
+end of do-file
+
+r(199);
+
+. help rdrobust
+
+. do "C:\Users\rayde\AppData\Local\Temp\STDa474_000000.tmp"
+
+. rdrobust death1year dist, c(0) p(1) kernel(uniform)
+
+Sharp RD estimates using local polynomial regression.
+
+      Cutoff c = 0 | Left of c  Right of c           
+>  Number of obs =     202071
+-------------------+----------------------           
+>  BW type       =      mserd
+     Number of obs |     95221      106850           
+>  Kernel        =    Uniform
+Eff. Number of obs |      5036       31157           
+>  VCE method    =         NN
+    Order est. (p) |         1           1
+    Order bias (q) |         2           2
+       BW est. (h) |     0.167       0.167
+       BW bias (b) |     0.350       0.350
+         rho (h/b) |     0.477       0.477
+
+Outcome: death1year. Running variable: dist.
+-----------------------------------------------------
+> ---------------------------
+            Method |   Coef.    Std. Err.    z     P>
+> |z|                                                
+>        [95% Conf. Interval]
+-------------------+---------------------------------
+> ---------------------------
+      Conventional |  .02122     .00801   2.6485   0.
+> 008                                                
+>        .005518                                     
+>                     .036931
+            Robust |     -          -     3.1035   0.
+> 002                                                
+>        .010478                                     
+>                     .046395
+-----------------------------------------------------
+> ---------------------------
+
+. scalar bw_b = e(h_l)
+
+. scalar bw_a = e(h_r)
+
+. reg death1year nvlbw dist vlbw_dist_a if dist>-bw_l
+>  & dist<bw_u, robust
+bw_l not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. scalar list
+      bw_a =  .16682561
+      bw_b =  .16682561
+       g_r =          0
+       g_l =          0
+    bias_r = -.00278524
+    bias_l =  .00442648
+ se_tau_rb =  .00916269
+    tau_bc =  .02843628
+ se_tau_cl =  .00801383
+    tau_cl =  .02122456
+     N_b_r =      61596
+     N_h_r =      31157
+     N_b_l =      34611
+     N_h_l =       5036
+       N_r =     106850
+       N_l =      95221
+     quant =   1.959964
+   b_mserd =  .34979147
+   h_mserd =  .16682561
+      high =   .0630851
+       low =  .05354193
+
+. reg death1year nvlbw dist vlbw_dist_a if dist>-bw_b
+>  & dist<bw_a, robust
+
+Linear regression                               Numbe
+> r of obs     =     36,193
+                                                F(3, 
+> 36189)       =      19.00
+                                                Prob 
+> > F          =     0.0000
+                                                R-squ
+> ared         =     0.0015
+                                                Root 
+> MSE          =     .23994
+
+-----------------------------------------------------
+> -------------------------
+             |               Robust
+  death1year |      Coef.   Std. Err.      t    P>|t|
+>      [95% Con                                      
+>              f. Interval]
+-------------+---------------------------------------
+> -------------------------
+       nvlbw |   .0212246   .0080187     2.65   0.008
+>      .0055076                                      
+>                  .0369415
+        dist |   .0443102   .0733991     0.60   0.546
+>     -.0995542                                      
+>                  .1881746
+ vlbw_dist_a |  -.2977347   .0849807    -3.50   0.000
+>     -.4642993                                      
+>                   -.13117
+       _cons |    .051681   .0077099     6.70   0.000
+>      .0365692                                      
+>                  .0667927
+-----------------------------------------------------
+> -------------------------
+
+. reg death1year nvlbw dist vlbw_dist_a if dist>-bw_b & dist<bw_a, robust
+
+Linear regression                               Number of obs     =     36,193
+                                                F(3, 36189)       =      19.00
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0015
+                                                Root MSE          =     .23994
+
+------------------------------------------------------------------------------
+             |               Robust
+  death1year |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       nvlbw |   .0212246   .0080187     2.65   0.008     .0055076    .0369415
+        dist |   .0443102   .0733991     0.60   0.546    -.0995542    .1881746
+ vlbw_dist_a |  -.2977347   .0849807    -3.50   0.000    -.4642993     -.13117
+       _cons |    .051681   .0077099     6.70   0.000     .0365692    .0667927
+------------------------------------------------------------------------------
+
+. reg death1year nvlbw dist vlbw_dist_a if dist>-3 & dist<3, robust
+
+Linear regression                               Number of obs     =    202,071
+                                                F(3, 202067)      =      35.02
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0005
+                                                Root MSE          =     .23312
+
+------------------------------------------------------------------------------
+             |               Robust
+  death1year |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       nvlbw |   .0095432   .0021687     4.40   0.000     .0052925    .0137938
+        dist |  -.0136359    .003237    -4.21   0.000    -.0199803   -.0072914
+ vlbw_dist_a |  -.0087437     .00433    -2.02   0.043    -.0172303    -.000257
+       _cons |   .0535419   .0017586    30.45   0.000     .0500951    .0569888
+------------------------------------------------------------------------------
+
+. do "C:\Users\rayde\AppData\Local\Temp\STDa474_00000
+> 0.tmp"
+
+. rdrobust death1year dist, c(0) p(1) kernel(uniform)
+
+Sharp RD estimates using local polynomial regression.
+
+      Cutoff c = 0 | Left of c  Right of c            Number of obs =     202071
+-------------------+----------------------            BW type       =      mserd
+     Number of obs |     95221      106850            Kernel        =    Uniform
+Eff. Number of obs |      5036       31157            VCE method    =         NN
+    Order est. (p) |         1           1
+    Order bias (q) |         2           2
+       BW est. (h) |     0.167       0.167
+       BW bias (b) |     0.350       0.350
+         rho (h/b) |     0.477       0.477
+
+Outcome: death1year. Running variable: dist.
+--------------------------------------------------------------------------------
+            Method |   Coef.    Std. Err.    z     P>|z|    [95% Conf. Interval]
+-------------------+------------------------------------------------------------
+      Conventional |  .02122     .00801   2.6485   0.008    .005518      .036931
+            Robust |     -          -     3.1035   0.002    .010478      .046395
+--------------------------------------------------------------------------------
+
+. 
+end of do-file
+
+. exit, clear

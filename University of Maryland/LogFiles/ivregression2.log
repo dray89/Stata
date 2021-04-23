@@ -1,0 +1,201 @@
+﻿      name:  <unnamed>
+       log:  C:\Users\faith\Downloads\ps2_ray.log
+  log type:  text
+ opened on:  20 Feb 2019, 12:57:08
+
+. /* Question 2 IV Regression
+> 
+> (a) Run an OLS regression of loggdp on risk. What do these results suggest? */
+. 
+. use "C:\Users\faith\Downloads\ps2_iv.dta", clear
+(From Albouy (2008) comment on Acemoglu et al. (2001))
+
+. regress loggdp risk 
+
+      Source |       SS           df       MS      Number of obs   =        62
+-------------+----------------------------------   F(1, 60)        =     65.70
+       Model |  34.2899301         1  34.2899301   Prob > F        =    0.0000
+    Residual |  31.3169649        60  .521949415   R-squared       =    0.5227
+-------------+----------------------------------   Adj R-squared   =    0.5147
+       Total |   65.606895        61  1.07552287   Root MSE        =    .72246
+
+------------------------------------------------------------------------------
+      loggdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        risk |   .5051113   .0623186     8.11   0.000     .3804554    .6297671
+       _cons |   4.731189   .4146464    11.41   0.000     3.901773    5.560606
+------------------------------------------------------------------------------
+
+. di exp(_b[risk]) -1
+.65716992
+
+. 
+. /*These results suggest that property rights have a positive relationship with 
+> loggdp at the .01 confidence level. The coefficient on risk is equal to approx .51. 
+> Thus, the estimated effect of one additional unit increase in property protection on 
+> gdp is 66%.*/
+. 
+. /* Q2(b) Why might you be worried about interpreting the coeﬃcient on the eﬀect 
+> of property rights on GDP per capita as a truly causal relationship? Explain. 
+> 
+> Becuase it is not possible to exactly quantify risk, the risk measures in the 
+> regression are approximate index measures on a scale of 1 - 10. Thus, these
+> estimates are only correlated with risk, and they are not exact. */ 
+
+. /*Q2 (c) 
+> 
+> i. What conditions need to be satisﬁed for settler mortality to be a valid instrument 
+> for property rights? Discuss whether each of these is likely to hold in this context. 
+> Which of these conditions can you check in the data? 
+> 
+> For settler mortality to be a valid instrument for property rights, the instrumental
+> variable needs to be both relevant, correlated with the variable it is instrumenting, and 
+> exogenous, uncorrelated with the error term.
+>  
+> In this case, mortality needs to be both correlated with property rights and uncorrelated
+> with the error term. Exogeneity cannot be tested, but we can test for relevance in the 
+> first stage regression of the endogenous variable on the excluded instruments. 
+> 
+> To check for relevance, after running the first stage regression, if the F statistic 
+> is greater than 10, we have a strong enough correlation with the endogenous variable to 
+> use an IV regression model to estimate the causal effect of property rights on 
+> GDP. 
+> 
+> In this case, it seems that settler mortality may not be exogenous in the equation as it
+> may also be a product of GDP. As GDP increases, the death rate should decrease. Because 
+> there is a relationship between mortality and the outcome variable apart from the 
+> indirect relationship resulting from the mutual correlation with the instrumented variable, 
+> the exogeneity assumption may be theoretically unlikely. The relevance assumption 
+> is likely to hold because it seems likely that mortality rate would be correlated to the 
+> presence of protective institutions like rule of law which govern property rights.
+> 
+> */
+. 
+. /*ii. Estimate the ﬁrst stage equation using the regress command. Explain what you ﬁnd. */
+. 
+. regress risk logmort0
+
+      Source |       SS           df       MS      Number of obs   =        62
+-------------+----------------------------------   F(1, 60)        =     22.43
+       Model |  36.5753075         1  36.5753075   Prob > F        =    0.0000
+    Residual |  97.8225871        60  1.63037645   R-squared       =    0.2721
+-------------+----------------------------------   Adj R-squared   =    0.2600
+       Total |  134.397895        61  2.20324417   Root MSE        =    1.2769
+
+------------------------------------------------------------------------------
+        risk |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    logmort0 |  -.6195573   .1308071    -4.74   0.000    -.8812106   -.3579041
+       _cons |   9.388219   .6332872    14.82   0.000     8.121456    10.65498
+------------------------------------------------------------------------------
+
+. 
+. /* The F statistic of the regression is greater than 10 and the t-stat on logmort is significa
+> nt
+> at the .01 confidence level. The relevance assumption holds. */
+. 
+. /*iii. Use the command ivregress with the first option to run an IV regression of loggdp on 
+> risk using logmort0 as an instrument.*/
+. 
+. ivregress 2sls loggdp (risk = logmort0), first
+
+First-stage regressions
+-----------------------
+
+                                                Number of obs     =         62
+                                                F(   1,     60)   =      22.43
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.2721
+                                                Adj R-squared     =     0.2600
+                                                Root MSE          =     1.2769
+
+------------------------------------------------------------------------------
+        risk |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    logmort0 |  -.6195573   .1308071    -4.74   0.000    -.8812106   -.3579041
+       _cons |   9.388219   .6332872    14.82   0.000     8.121456    10.65498
+------------------------------------------------------------------------------
+
+
+Instrumental variables (2SLS) regression          Number of obs   =         62
+                                                  Wald chi2(1)    =      35.17
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.1946
+                                                  Root MSE        =     .92318
+
+------------------------------------------------------------------------------
+      loggdp |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        risk |   .9052929   .1526484     5.93   0.000     .6061076    1.204478
+       _cons |   2.134527    .997406     2.14   0.032      .179647    4.089407
+------------------------------------------------------------------------------
+Instrumented:  risk
+Instruments:   logmort0
+
+. 
+. /*Verify that the ﬁrst stage results here match the ﬁrst stage you manually estimated 
+> in 2(c)ii. 
+> 
+> The first stage results are the same.
+> 
+>  */
+. /*
+> How do your estimates of the eﬀect of risk on loggdp compare to the estimates 
+> in 2a? Are the diﬀerences you ﬁnd consistent with the biases you discussed in 2b? 
+> 
+> iv. Now, run the command estat endogeneity to test if the the variable we are assuming 
+> to be endogenous, risk, might be in fact exogenous. Verify from the p-value of the test 
+> that you can reject the null hypothesis that risk is exogenous. */
+. 
+. estat endogenous
+
+  Tests of endogeneity
+  Ho: variables are exogenous
+
+  Durbin (score) chi2(1)          =  15.9319  (p = 0.0001)
+  Wu-Hausman F(1,59)              =  20.4042  (p = 0.0000)
+
+. 
+. /* Both the Durbin chi2 and the Wu-Hausman Fstat are significant at the .01 confidence
+> level. Thus, we can verify that the null hypothesis that risk is exogenous is rejected. */
+. 
+. /*v. Lastly, run the command estat firststage to make sure the instrument isn’t weak. 
+> What is the R2 and the F-test statistic from the ﬁrst stage? */
+. 
+. estat firststage
+
+  First-stage regression summary statistics
+  --------------------------------------------------------------------------
+               |            Adjusted      Partial
+      Variable |   R-sq.       R-sq.        R-sq.       F(1,60)   Prob > F
+  -------------+------------------------------------------------------------
+          risk |  0.2721      0.2600       0.2721       22.4337    0.0000
+  --------------------------------------------------------------------------
+
+
+  Minimum eigenvalue statistic = 22.4337     
+
+  Critical Values                      # of endogenous regressors:    1
+  Ho: Instruments are weak             # of excluded instruments:     1
+  ---------------------------------------------------------------------
+                                     |    5%     10%     20%     30%
+  2SLS relative bias                 |         (not available)
+  -----------------------------------+---------------------------------
+                                     |   10%     15%     20%     25%
+  2SLS Size of nominal 5% Wald test  |  16.38    8.96    6.66    5.53
+  LIML Size of nominal 5% Wald test  |  16.38    8.96    6.66    5.53
+  ---------------------------------------------------------------------
+
+
+. 
+. /* The Fstat is 22.43 and the adjusted R-sq is .26. */
+. 
+
+end of do-file
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\faith\Downloads\ps2_ray.log
+  log type:  text
+ closed on:  20 Feb 2019, 12:57:23
+------------------------------------------------------------------------------------------------

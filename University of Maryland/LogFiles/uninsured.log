@@ -1,0 +1,4305 @@
+--------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\rayde\Desktop\uninsured.log
+  log type:  text
+ opened on:   8 Aug 2019, 20:56:44
+
+. 
+. use "C:\Users\rayde\Downloads\h196dat\cleaned_data.dta", clear
+
+. 
+. ********************************************************************************
+. ********************************************************************************
+. * Controlling for Cooksd
+. ********************************************************************************
+. ********************************************************************************
+. 
+. 
+. local list = "regress logit probit"
+
+. 
+. cap drop *_uhat* *_yhat*
+
+. 
+. foreach x in `list' {
+  2. 
+. `x' ${depvar} ${model1} ${cooksd}
+  3. estimates store `x'_1
+  4. predict `x'_uhat1, stdp
+  5. predict `x'_yhat1 
+  6. 
+. `x' ${depvar} ${model2} ${cooksd}
+  7. estimates store `x'_2
+  8. predict `x'_uhat2, stdp
+  9. predict `x'_yhat2 
+ 10. 
+. `x' ${depvar} ${model3} ${cooksd}
+ 11. estimates store `x'_3
+ 12. predict `x'_uhat3, stdp
+ 13. predict `x'_yhat3 
+ 14. di "==========================================================================="
+ 15. }
+
+      Source |       SS           df       MS      Number of obs   =     3,838
+-------------+----------------------------------   F(4, 3833)      =    180.75
+       Model |  151.312554         4  37.8281384   Prob > F        =    0.0000
+    Residual |  802.167644     3,833  .209279323   R-squared       =    0.1587
+-------------+----------------------------------   Adj R-squared   =    0.1578
+       Total |  953.480198     3,837  .248496273   Root MSE        =    .45747
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0006812   .0006125     1.11   0.266    -.0005196    .0018821
+    HRWAG13X |  -.0101663   .0005529   -18.39   0.000    -.0112502   -.0090823
+    ACTDTY13 |   .2158117   .2291754     0.94   0.346    -.2335057     .665129
+     RACETHX |   -.152097   .0081421   -18.68   0.000    -.1680602   -.1361338
+       _cons |   .4938196   .4597546     1.07   0.283    -.4075674    1.395207
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+
+      Source |       SS           df       MS      Number of obs   =     3,838
+-------------+----------------------------------   F(5, 3832)      =    154.44
+       Model |  159.912809         5  31.9825617   Prob > F        =    0.0000
+    Residual |  793.567389     3,832  .207089611   R-squared       =    0.1677
+-------------+----------------------------------   Adj R-squared   =    0.1666
+       Total |  953.480198     3,837  .248496273   Root MSE        =    .45507
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0009468   .0006107     1.55   0.121    -.0002504    .0021441
+    HRWAG13X |  -.0132924   .0007333   -18.13   0.000    -.0147302   -.0118546
+    ACTDTY13 |   .2179671   .2279735     0.96   0.339     -.228994    .6649281
+     RACETHX |  -.1463435   .0081484   -17.96   0.000    -.1623192   -.1303679
+     EMPST13 |  -.0448448   .0069588    -6.44   0.000    -.0584881   -.0312014
+       _cons |   .5949064   .4576119     1.30   0.194    -.3022799    1.492093
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+
+      Source |       SS           df       MS      Number of obs   =     3,838
+-------------+----------------------------------   F(4, 3833)      =    102.18
+       Model |  91.8752259         4  22.9688065   Prob > F        =    0.0000
+    Residual |  861.604972     3,833  .224786061   R-squared       =    0.0964
+-------------+----------------------------------   Adj R-squared   =    0.0954
+       Total |  953.480198     3,837  .248496273   Root MSE        =    .47412
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |  -.0011008   .0006252    -1.76   0.078    -.0023267     .000125
+    ACTDTY13 |   .3246677   .2374352     1.37   0.172    -.1408437    .7901792
+     RACETHX |  -.1602267   .0084519   -18.96   0.000    -.1767973   -.1436562
+     EMPST13 |   .0385917   .0054372     7.10   0.000     .0279316    .0492517
+       _cons |   .1614547   .4761119     0.34   0.735    -.7720023    1.094912
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+===========================================================================
+
+note: ACTDTY13 != 2 predicts failure perfectly
+      ACTDTY13 dropped and 4 obs not used
+
+Iteration 0:   log likelihood = -2645.1415  
+Iteration 1:   log likelihood = -2311.5899  
+Iteration 2:   log likelihood = -2308.1827  
+Iteration 3:   log likelihood =  -2308.172  
+Iteration 4:   log likelihood =  -2308.172  
+
+Logistic regression                             Number of obs     =      3,834
+                                                LR chi2(3)        =     673.94
+                                                Prob > chi2       =     0.0000
+Log likelihood =  -2308.172                     Pseudo R2         =     0.1274
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0034045   .0029177     1.17   0.243    -.0023142    .0091232
+    HRWAG13X |  -.0543827   .0033164   -16.40   0.000    -.0608827   -.0478828
+    ACTDTY13 |          0  (omitted)
+     RACETHX |  -.7189657   .0417608   -17.22   0.000    -.8008153    -.637116
+       _cons |   2.034182   .1378561    14.76   0.000     1.763989    2.304375
+------------------------------------------------------------------------------
+(2659 missing values generated)
+(option pr assumed; Pr(unin))
+(2,659 missing values generated)
+
+note: ACTDTY13 != 2 predicts failure perfectly
+      ACTDTY13 dropped and 4 obs not used
+
+Iteration 0:   log likelihood = -2645.1415  
+Iteration 1:   log likelihood = -2273.7242  
+Iteration 2:   log likelihood = -2261.1645  
+Iteration 3:   log likelihood = -2261.0394  
+Iteration 4:   log likelihood = -2261.0394  
+
+Logistic regression                             Number of obs     =      3,834
+                                                LR chi2(4)        =     768.20
+                                                Prob > chi2       =     0.0000
+Log likelihood = -2261.0394                     Pseudo R2         =     0.1452
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0059899   .0029406     2.04   0.042     .0002264    .0117533
+    HRWAG13X |  -.0961713   .0061787   -15.56   0.000    -.1082814   -.0840612
+    ACTDTY13 |          0  (omitted)
+     RACETHX |  -.6870775   .0418074   -16.43   0.000    -.7690184   -.6051366
+     EMPST13 |  -.3931884   .0421673    -9.32   0.000    -.4758348    -.310542
+       _cons |   3.094338   .1846082    16.76   0.000     2.732513    3.456164
+------------------------------------------------------------------------------
+(2659 missing values generated)
+(option pr assumed; Pr(unin))
+(2,659 missing values generated)
+
+note: ACTDTY13 != 2 predicts failure perfectly
+      ACTDTY13 dropped and 4 obs not used
+
+Iteration 0:   log likelihood = -2645.1415  
+Iteration 1:   log likelihood = -2453.7702  
+Iteration 2:   log likelihood = -2453.7009  
+Iteration 3:   log likelihood = -2453.7009  
+
+Logistic regression                             Number of obs     =      3,834
+                                                LR chi2(3)        =     382.88
+                                                Prob > chi2       =     0.0000
+Log likelihood = -2453.7009                     Pseudo R2         =     0.0724
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |  -.0049463   .0027772    -1.78   0.075    -.0103895    .0004968
+    ACTDTY13 |          0  (omitted)
+     RACETHX |    -.71206    .041168   -17.30   0.000    -.7927478   -.6313723
+     EMPST13 |   .1727328    .024605     7.02   0.000     .1245079    .2209577
+       _cons |   1.366958   .1393283     9.81   0.000      1.09388    1.640037
+------------------------------------------------------------------------------
+(2659 missing values generated)
+(option pr assumed; Pr(unin))
+(2,659 missing values generated)
+===========================================================================
+
+note: ACTDTY13 != 2 predicts failure perfectly
+      ACTDTY13 dropped and 4 obs not used
+
+Iteration 0:   log likelihood = -2645.1415  
+Iteration 1:   log likelihood = -2309.5568  
+Iteration 2:   log likelihood = -2306.1293  
+Iteration 3:   log likelihood = -2306.1228  
+Iteration 4:   log likelihood = -2306.1228  
+
+Probit regression                               Number of obs     =      3,834
+                                                LR chi2(3)        =     678.04
+                                                Prob > chi2       =     0.0000
+Log likelihood = -2306.1228                     Pseudo R2         =     0.1282
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0019306   .0017508     1.10   0.270    -.0015008     .005362
+    HRWAG13X |  -.0330111    .001956   -16.88   0.000    -.0368447   -.0291774
+    ACTDTY13 |          0  (omitted)
+     RACETHX |  -.4447957    .025259   -17.61   0.000    -.4943025    -.395289
+       _cons |   1.255015   .0825895    15.20   0.000     1.093143    1.416887
+------------------------------------------------------------------------------
+(2659 missing values generated)
+(option pr assumed; Pr(unin))
+(2,659 missing values generated)
+
+note: ACTDTY13 != 2 predicts failure perfectly
+      ACTDTY13 dropped and 4 obs not used
+
+Iteration 0:   log likelihood = -2645.1415  
+Iteration 1:   log likelihood = -2273.0625  
+Iteration 2:   log likelihood = -2261.2238  
+Iteration 3:   log likelihood = -2261.1758  
+Iteration 4:   log likelihood = -2261.1758  
+
+Probit regression                               Number of obs     =      3,834
+                                                LR chi2(4)        =     767.93
+                                                Prob > chi2       =     0.0000
+Log likelihood = -2261.1758                     Pseudo R2         =     0.1452
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0033612   .0017661     1.90   0.057    -.0001002    .0068226
+    HRWAG13X |  -.0559028   .0034092   -16.40   0.000    -.0625846   -.0492209
+    ACTDTY13 |          0  (omitted)
+     RACETHX |  -.4269674   .0253882   -16.82   0.000    -.4767272   -.3772075
+     EMPST13 |  -.2245864   .0242855    -9.25   0.000    -.2721851   -.1769877
+       _cons |   1.857058   .1072495    17.32   0.000     1.646853    2.067263
+------------------------------------------------------------------------------
+(2659 missing values generated)
+(option pr assumed; Pr(unin))
+(2,659 missing values generated)
+
+note: ACTDTY13 != 2 predicts failure perfectly
+      ACTDTY13 dropped and 4 obs not used
+
+Iteration 0:   log likelihood = -2645.1415  
+Iteration 1:   log likelihood = -2452.1122  
+Iteration 2:   log likelihood = -2452.0149  
+Iteration 3:   log likelihood = -2452.0149  
+
+Probit regression                               Number of obs     =      3,834
+                                                LR chi2(3)        =     386.25
+                                                Prob > chi2       =     0.0000
+Log likelihood = -2452.0149                     Pseudo R2         =     0.0730
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |  -.0029678   .0016992    -1.75   0.081    -.0062981    .0003625
+    ACTDTY13 |          0  (omitted)
+     RACETHX |  -.4446417   .0249411   -17.83   0.000    -.4935254    -.395758
+     EMPST13 |   .1047718   .0149708     7.00   0.000     .0754295    .1341141
+       _cons |   .8560176   .0853944    10.02   0.000     .6886477    1.023387
+------------------------------------------------------------------------------
+(2659 missing values generated)
+(option pr assumed; Pr(unin))
+(2,659 missing values generated)
+===========================================================================
+
+. 
+. 
+. 
+. local list = "regress logit probit"
+
+. 
+. forval x = 1/3 {
+  2. 
+.         stderr regress_uhat`x' logit_uhat`x' probit_uhat`x' 
+  3.         matrix define stderr`x' = (regress_uhat`x', logit_uhat`x' ,probit_uhat`x' )
+  4. 
+. }
+stderr of regress_uhat1 = .45928419
+stderr of logit_uhat1 = 0
+stderr of probit_uhat1 = 0
+stderr of regress_uhat2 = .45690566
+stderr of logit_uhat2 = 0
+stderr of probit_uhat2 = 0
+stderr of regress_uhat3 = .47597393
+stderr of logit_uhat3 = 0
+stderr of probit_uhat3 = 0
+
+. 
+. matrix stderr = stderr1\stderr2\stderr3
+
+. matrix rownames stderr = stderr1 stderr2 stderr
+
+. matrix colnames stderr =  REGRESS LOGIT PROBIT
+
+. 
+. putexcel set "output2.csv", sheet(cooksd) modify
+
+. putexcel A1 = matrix(stderr), names nformat(number_d2)
+file output2.csv saved
+
+. 
+. 
+. capture {
+
+Probit model for unin
+
+              -------- True --------
+Classified |         D            ~D  |      Total
+-----------+--------------------------+-----------
+     +     |      1358           682  |       2040
+     -     |       713          1081  |       1794
+-----------+--------------------------+-----------
+   Total   |      2071          1763  |       3834
+
+Classified + if predicted Pr(D) >= .5
+True D defined as unin != 0
+--------------------------------------------------
+Sensitivity                     Pr( +| D)   65.57%
+Specificity                     Pr( -|~D)   61.32%
+Positive predictive value       Pr( D| +)   66.57%
+Negative predictive value       Pr(~D| -)   60.26%
+--------------------------------------------------
+False + rate for true ~D        Pr( +|~D)   38.68%
+False - rate for true D         Pr( -| D)   34.43%
+False + rate for classified +   Pr(~D| +)   33.43%
+False - rate for classified -   Pr( D| -)   39.74%
+--------------------------------------------------
+Correctly classified                        63.62%
+--------------------------------------------------
+
+Probit model for unin, goodness-of-fit test
+
+       number of observations =      3834
+ number of covariate patterns =       306
+            Pearson chi2(302) =      1365.87
+                  Prob > chi2 =         0.0000
+
+Probit model for unin, goodness-of-fit test
+
+  (Table collapsed on quantiles of estimated probabilities)
+
+       number of observations =      3834
+             number of groups =        10
+      Hosmer-Lemeshow chi2(8) =       314.22
+                  Prob > chi2 =         0.0000
+
+Probit model for unin, goodness-of-fit test
+
+  (Table collapsed on quantiles of estimated probabilities)
+  +--------------------------------------------------------+
+  | Group |   Prob | Obs_1 | Exp_1 | Obs_0 | Exp_0 | Total |
+  |-------+--------+-------+-------+-------+-------+-------|
+  |     1 | 0.3146 |   101 |  92.6 |   283 | 291.4 |   384 |
+  |     2 | 0.4447 |   271 | 144.9 |   118 | 244.1 |   389 |
+  |     3 | 0.4705 |   163 | 198.5 |   267 | 231.5 |   430 |
+  |     4 | 0.4883 |    94 | 163.1 |   245 | 175.9 |   339 |
+  |     5 | 0.5072 |   137 | 199.2 |   263 | 200.8 |   400 |
+  |-------+--------+-------+-------+-------+-------+-------|
+  |     6 | 0.6257 |   195 | 223.4 |   176 | 147.6 |   371 |
+  |     7 | 0.6545 |   255 | 262.6 |   153 | 145.4 |   408 |
+  |     8 | 0.6675 |   294 | 260.1 |    99 | 132.9 |   393 |
+  |     9 | 0.7552 |   260 | 237.2 |    82 | 104.8 |   342 |
+  |    10 | 0.7832 |   301 | 291.1 |    77 |  86.9 |   378 |
+  +--------------------------------------------------------+
+
+       number of observations =      3834
+             number of groups =        10
+      Hosmer-Lemeshow chi2(8) =       314.22
+                  Prob > chi2 =         0.0000
+
+. 
+. foreach x in `list' {
+  2. estimates table `x'_1 `x'_2 `x'_3, ///
+>   stats(N ll r2_p mrse) b(%7.3f) stfmt(%8.2f)
+  3.   
+. sum `x'_yhat1 `x'_yhat2 `x'_yhat3
+  4. sum `x'_uhat1 `x'_uhat2 `x'_uhat3
+  5. 
+. }
+
+-----------------------------------------------
+    Variable | regre~_1   regre~_2   regre~_3  
+-------------+---------------------------------
+      AGE13X |    0.001      0.001     -0.001  
+    HRWAG13X |   -0.010     -0.013             
+    ACTDTY13 |    0.216      0.218      0.325  
+     RACETHX |   -0.152     -0.146     -0.160  
+     EMPST13 |              -0.045      0.039  
+       _cons |    0.494      0.595      0.161  
+-------------+---------------------------------
+           N |     3838       3838       3838  
+          ll | -2441.90   -2421.22   -2579.07  
+        r2_p |                                 
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+regress_yh~1 |      7,892    .6855728    .2820066  -1.814546   1.340745
+regress_yh~2 |      7,892    .7396269    .3155643  -1.414939   1.671463
+regress_yh~3 |      7,892    .6482993    .3245865  -3.450539   1.388215
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+regress_uh~1 |      7,892    .1271353    .1794763     .00742   2.291788
+regress_uh~2 |      7,892    .1301917     .176981   .0090787   2.281123
+regress_uh~3 |      7,892    .1331845    .1855118   .0091031   2.373476
+
+--------------------------------------------------
+    Variable |  logit_1     logit_2     logit_3   
+-------------+------------------------------------
+      AGE13X |     0.003       0.006      -0.005  
+    HRWAG13X |    -0.054      -0.096              
+    ACTDTY13 | (omitted)   (omitted)   (omitted)  
+     RACETHX |    -0.719      -0.687      -0.712  
+     EMPST13 |                -0.393       0.173  
+       _cons |     2.034       3.094       1.367  
+-------------+------------------------------------
+           N |      3834        3834        3834  
+          ll |  -2308.17    -2261.04    -2453.70  
+        r2_p |      0.13        0.15        0.07  
+        mrse |                                    
+--------------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logit_yhat1 |      5,233    .5584643    .2075193   .0049083   .8799448
+ logit_yhat2 |      5,233      .59646    .2448118   .0003511   .9983137
+ logit_yhat3 |      5,233    .5013306    .1820337    .018695   .7801753
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logit_uhat1 |      7,892    .0500872    .0415937          0   .2710123
+ logit_uhat2 |      7,892      .07574    .0955482          0   .5427145
+ logit_uhat3 |      7,892    .0518332    .0530508          0   .3192918
+
+--------------------------------------------------
+    Variable | probit_1    probit_2    probit_3   
+-------------+------------------------------------
+      AGE13X |     0.002       0.003      -0.003  
+    HRWAG13X |    -0.033      -0.056              
+    ACTDTY13 | (omitted)   (omitted)   (omitted)  
+     RACETHX |    -0.445      -0.427      -0.445  
+     EMPST13 |                -0.225       0.105  
+       _cons |     1.255       1.857       0.856  
+-------------+------------------------------------
+           N |      3834        3834        3834  
+          ll |  -2306.12    -2261.18    -2452.01  
+        r2_p |      0.13        0.15        0.07  
+        mrse |                                    
+--------------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+probit_yhat1 |      5,233    .5569227    .2091731   .0005872   .8875307
+probit_yhat2 |      5,233     .595281    .2450482   1.45e-06   .9998917
+probit_yhat3 |      5,233    .5012123    .1846018   .0073895   .7831802
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+probit_uhat1 |      7,892    .0300464    .0249342          0   .1589243
+probit_uhat2 |      7,892    .0442343    .0546025          0   .3138556
+probit_uhat3 |      7,892     .031623    .0322641          0   .1924357
+
+. 
+. local list = "regress logit probit"
+
+. 
+. forval y = 1/3 {
+  2. foreach x in `list' {
+  3.         
+.                 estimates restore `x'_`y'
+  4.                 
+.                 noisily di "============================================================"
+  5.                 noisily di "Model `x'_`y' " e(cmdline)
+  6.                 noisily di "============================================================"
+  7. 
+.                 count if `x'_yhat`y' > .95 & ${depvar}==1 & e(sample)
+  8.                 scalar x = r(N)
+  9.                 count if ${depvar}==1 & e(sample)
+ 10.                 scalar y = r(N)
+ 11.                 scalar z1 = x/y
+ 12.                 noisily di "Correct Success Prediction Rate: " z1
+ 13.                 noisily di "predicted =" x ", Actual = " y
+ 14. 
+.                 noisily di "  "
+ 15. 
+.                 count if `x'_yhat`y'<.05 & ${depvar}==0 & e(sample)
+ 16.                 scalar x = r(N)
+ 17.                 count if ${depvar}==0 & e(sample) 
+ 18.                 scalar y = r(N)
+ 19.                 scalar z2 = x/y
+ 20.                 noisily di "Correct Failure Prediction Rate: " z2
+ 21.                 noisily di "predicted =" x ", Actual = " y
+ 22. 
+.                 noisily di " "
+ 23.                 
+.                 count if `x'_yhat`y'> .95 & ${depvar}==0 & e(sample)
+ 24.                 scalar x = r(N)
+ 25.                 count if ${depvar}==1 & e(sample)
+ 26.                 scalar y = r(N)
+ 27.                 scalar z3 = x/y
+ 28.                 noisily di "Incorrect Success Prediction Rate: " z3
+ 29.                 noisily di "predicted =" x ", Actual = " y
+ 30. 
+.                 noisily di " "
+ 31.                 
+.                 count if `x'_yhat`y'<.05 & ${depvar}==1 & e(sample)
+ 32.                 scalar x = r(N)
+ 33.                 count if ${depvar}==0 & e(sample)
+ 34.                 scalar y = r(N)
+ 35.                 scalar z4 = x/y
+ 36.                 noisily di "Incorrect Failure Prediction Rate: " z4
+ 37.                 noisily di "predicted =" x ", Actual = " y
+ 38.                 matrix define prediction`x'`y' = (z1, z2, z3, z4)
+ 39. 
+. di "==========================================================================="
+ 40. }
+ 41. }
+(results regress_1 are active now)
+============================================================
+Model regress_1 regress unin AGE13X HRWAG13X ACTDTY13 RACETHX if cooksd < 4/_N
+============================================================
+  0
+  2,071
+Correct Success Prediction Rate: 0
+predicted =0, Actual = 2071
+  
+  84
+  1,767
+Correct Failure Prediction Rate: .0475382
+predicted =84, Actual = 1767
+ 
+  0
+  2,071
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 2071
+ 
+  0
+  1,767
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 1767
+===========================================================================
+(results logit_1 are active now)
+============================================================
+Model logit_1 logit unin AGE13X HRWAG13X ACTDTY13 RACETHX if cooksd < 4/_N
+============================================================
+  0
+  2,071
+Correct Success Prediction Rate: 0
+predicted =0, Actual = 2071
+  
+  42
+  1,763
+Correct Failure Prediction Rate: .02382303
+predicted =42, Actual = 1763
+ 
+  0
+  2,071
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 2071
+ 
+  0
+  1,763
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 1763
+===========================================================================
+(results probit_1 are active now)
+============================================================
+Model probit_1 probit unin AGE13X HRWAG13X ACTDTY13 RACETHX if cooksd < 4/_N
+============================================================
+  0
+  2,071
+Correct Success Prediction Rate: 0
+predicted =0, Actual = 2071
+  
+  68
+  1,763
+Correct Failure Prediction Rate: .03857062
+predicted =68, Actual = 1763
+ 
+  0
+  2,071
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 2071
+ 
+  0
+  1,763
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 1763
+===========================================================================
+(results regress_2 are active now)
+============================================================
+Model regress_2 regress unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 if cooksd < 4/_N
+============================================================
+  0
+  2,071
+Correct Success Prediction Rate: 0
+predicted =0, Actual = 2071
+  
+  96
+  1,767
+Correct Failure Prediction Rate: .05432937
+predicted =96, Actual = 1767
+ 
+  0
+  2,071
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 2071
+ 
+  0
+  1,767
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 1767
+===========================================================================
+(results logit_2 are active now)
+============================================================
+Model logit_2 logit unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 if cooksd < 4/_N
+============================================================
+  0
+  2,071
+Correct Success Prediction Rate: 0
+predicted =0, Actual = 2071
+  
+  102
+  1,763
+Correct Failure Prediction Rate: .05785593
+predicted =102, Actual = 1763
+ 
+  0
+  2,071
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 2071
+ 
+  3
+  1,763
+Incorrect Failure Prediction Rate: .00170164
+predicted =3, Actual = 1763
+===========================================================================
+(results probit_2 are active now)
+============================================================
+Model probit_2 probit unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 if cooksd < 4/_N
+============================================================
+  0
+  2,071
+Correct Success Prediction Rate: 0
+predicted =0, Actual = 2071
+  
+  108
+  1,763
+Correct Failure Prediction Rate: .06125922
+predicted =108, Actual = 1763
+ 
+  0
+  2,071
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 2071
+ 
+  3
+  1,763
+Incorrect Failure Prediction Rate: .00170164
+predicted =3, Actual = 1763
+===========================================================================
+(results regress_3 are active now)
+============================================================
+Model regress_3 regress unin AGE13X ACTDTY13 RACETHX EMPST13 if cooksd < 4/_N
+============================================================
+  0
+  2,071
+Correct Success Prediction Rate: 0
+predicted =0, Actual = 2071
+  
+  26
+  1,767
+Correct Failure Prediction Rate: .0147142
+predicted =26, Actual = 1767
+ 
+  0
+  2,071
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 2071
+ 
+  0
+  1,767
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 1767
+===========================================================================
+(results logit_3 are active now)
+============================================================
+Model logit_3 logit unin AGE13X ACTDTY13 RACETHX EMPST13 if cooksd < 4/_N
+============================================================
+  0
+  2,071
+Correct Success Prediction Rate: 0
+predicted =0, Actual = 2071
+  
+  0
+  1,763
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 1763
+ 
+  0
+  2,071
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 2071
+ 
+  0
+  1,763
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 1763
+===========================================================================
+(results probit_3 are active now)
+============================================================
+Model probit_3 probit unin AGE13X ACTDTY13 RACETHX EMPST13 if cooksd < 4/_N
+============================================================
+  0
+  2,071
+Correct Success Prediction Rate: 0
+predicted =0, Actual = 2071
+  
+  0
+  1,763
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 1763
+ 
+  0
+  2,071
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 2071
+ 
+  0
+  1,763
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 1763
+===========================================================================
+
+. 
+. 
+. 
+. 
+. forval y = 1/3 {
+  2.         matrix accuracy`y' = (predictionregress`y' \ predictionlogit`y' \ predictionprobit`y')
+  3.         matrix colnames accuracy`y' = correct_success correct_failure   inaccurate_success inaccurate_failure
+  4.         matrix rownames accuracy`x'`y' = REGRESS LOGIT PROBIT
+  5.         putexcel set "prediction2.csv", sheet(COOKSD`y') modify
+  6.         putexcel A1 = matrix(accuracy`x'`y'), names nformat(number_d2)
+  7. 
+. }
+file prediction2.csv saved
+file prediction2.csv saved
+file prediction2.csv saved
+
+. 
+. 
+. ********************************************************************************
+. ********************************************************************************
+. * 
+. * Weighted, Clustered with household id
+. *
+. ********************************************************************************
+. ********************************************************************************
+. 
+. global option = "[pweight=WGTRU13], vce(cluster DUID)"
+
+. 
+. cap drop *_uhat* *_yhat*
+
+. 
+. foreach x in `list' {
+  2. 
+. `x' ${depvar} ${model1} ${option}
+  3. estimates store `x'_1
+  4. predict `x'_uhat1, stdp
+  5. predict `x'_yhat1 
+  6. 
+. `x' ${depvar} ${model2} ${option}
+  7. estimates store `x'_2
+  8. predict `x'_uhat2, stdp
+  9. predict `x'_yhat2 
+ 10. 
+. `x' ${depvar} ${model3} ${option}
+ 11. estimates store `x'_3
+ 12. predict `x'_uhat3, stdp
+ 13. predict `x'_yhat3 
+ 14. 
+. di "==========================================================================="
+ 15. }
+(sum of wgt is 76,989,281.280452)
+
+Linear regression                               Number of obs     =      7,735
+                                                F(4, 2225)        =      16.46
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1166
+                                                Root MSE          =     .46983
+
+                               (Std. Err. adjusted for 2,226 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0010936   .0008028     1.36   0.173    -.0004808     .002668
+    HRWAG13X |   -.008186    .001269    -6.45   0.000    -.0106745   -.0056975
+    ACTDTY13 |  -.2003062   .0294101    -6.81   0.000    -.2579803   -.1426322
+     RACETHX |  -.0319307   .0166488    -1.92   0.055    -.0645795    .0007181
+       _cons |   1.054441   .0778818    13.54   0.000      .901712    1.207169
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+(sum of wgt is 76,989,281.280452)
+
+Linear regression                               Number of obs     =      7,735
+                                                F(5, 2225)        =      13.44
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1286
+                                                Root MSE          =     .46667
+
+                               (Std. Err. adjusted for 2,226 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0020703   .0008763     2.36   0.018     .0003519    .0037888
+    HRWAG13X |  -.0085811   .0012938    -6.63   0.000    -.0111182    -.006044
+    ACTDTY13 |  -.2029184   .0325006    -6.24   0.000    -.2666531   -.1391837
+     RACETHX |  -.0336173   .0165456    -2.03   0.042    -.0660637   -.0011709
+     EMPST13 |  -.0224538   .0050971    -4.41   0.000    -.0324495   -.0124581
+       _cons |   1.057453   .0835966    12.65   0.000     .8935173    1.221388
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+(sum of wgt is 76,989,281.280452)
+
+Linear regression                               Number of obs     =      7,735
+                                                F(4, 2225)        =      17.06
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0847
+                                                Root MSE          =     .47824
+
+                               (Std. Err. adjusted for 2,226 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0008422   .0008169     1.03   0.303    -.0007599    .0024442
+    ACTDTY13 |  -.1675292   .0243482    -6.88   0.000    -.2152768   -.1197815
+     RACETHX |  -.0292328   .0164124    -1.78   0.075    -.0614181    .0029525
+     EMPST13 |  -.0186673   .0052523    -3.55   0.000    -.0289672   -.0083675
+       _cons |   .9465258    .066131    14.31   0.000     .8168409    1.076211
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+===========================================================================
+
+Iteration 0:   log pseudolikelihood =  -53320534  
+Iteration 1:   log pseudolikelihood =  -47918977  
+Iteration 2:   log pseudolikelihood =  -47901097  
+Iteration 3:   log pseudolikelihood =  -47901094  
+
+Logistic regression                             Number of obs     =      7,735
+                                                Wald chi2(4)      =      93.00
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -47901094               Pseudo R2         =     0.1016
+
+                               (Std. Err. adjusted for 2,226 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0056794   .0036169     1.57   0.116    -.0014097    .0127685
+    HRWAG13X |  -.0428548   .0071653    -5.98   0.000    -.0568986    -.028811
+    ACTDTY13 |  -1.092158   .1159287    -9.42   0.000    -1.319374   -.8649421
+     RACETHX |  -.1461136   .0763162    -1.91   0.056    -.2956906    .0034634
+       _cons |     2.9591   .3377135     8.76   0.000     2.297194    3.621006
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood =  -53320534  
+Iteration 1:   log pseudolikelihood =  -47098071  
+Iteration 2:   log pseudolikelihood =  -47050883  
+Iteration 3:   log pseudolikelihood =  -47050763  
+Iteration 4:   log pseudolikelihood =  -47050763  
+
+Logistic regression                             Number of obs     =      7,735
+                                                Wald chi2(5)      =     106.95
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -47050763               Pseudo R2         =     0.1176
+
+                               (Std. Err. adjusted for 2,226 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |     .01272   .0039027     3.26   0.001     .0050709    .0203692
+    HRWAG13X |  -.0481878   .0076134    -6.33   0.000    -.0631098   -.0332658
+    ACTDTY13 |  -1.198357   .1239907    -9.66   0.000    -1.441374   -.9553392
+     RACETHX |  -.1553781   .0773251    -2.01   0.044    -.3069325   -.0038236
+     EMPST13 |   -.150911   .0271314    -5.56   0.000    -.2040875   -.0977344
+       _cons |   3.201297   .3542775     9.04   0.000     2.506926    3.895668
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood =  -53320534  
+Iteration 1:   log pseudolikelihood =  -49452855  
+Iteration 2:   log pseudolikelihood =  -49432282  
+Iteration 3:   log pseudolikelihood =  -49432280  
+
+Logistic regression                             Number of obs     =      7,735
+                                                Wald chi2(4)      =     116.78
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -49432280               Pseudo R2         =     0.0729
+
+                               (Std. Err. adjusted for 2,226 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0041694   .0035994     1.16   0.247    -.0028852     .011224
+    ACTDTY13 |  -.8881314   .0916953    -9.69   0.000    -1.067851   -.7084118
+     RACETHX |  -.1245437   .0717504    -1.74   0.083    -.2651718    .0160844
+     EMPST13 |  -.1014847   .0236783    -4.29   0.000    -.1478932   -.0550761
+       _cons |   2.315727   .2713633     8.53   0.000     1.783864    2.847589
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+===========================================================================
+
+Iteration 0:   log pseudolikelihood =  -53320534  
+Iteration 1:   log pseudolikelihood =  -48108842  
+Iteration 2:   log pseudolikelihood =  -48049662  
+Iteration 3:   log pseudolikelihood =  -48049651  
+Iteration 4:   log pseudolikelihood =  -48049651  
+
+Probit regression                               Number of obs     =      7,735
+                                                Wald chi2(4)      =      90.40
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -48049651               Pseudo R2         =     0.0989
+
+                               (Std. Err. adjusted for 2,226 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0035219   .0021981     1.60   0.109    -.0007862    .0078301
+    HRWAG13X |  -.0245833   .0044514    -5.52   0.000    -.0333079   -.0158587
+    ACTDTY13 |  -.6412557   .0694036    -9.24   0.000    -.7772842   -.5052273
+     RACETHX |  -.0864771   .0456163    -1.90   0.058    -.1758834    .0029293
+       _cons |   1.734522   .2010273     8.63   0.000     1.340516    2.128529
+------------------------------------------------------------------------------
+Note: 0 failures and 3 successes completely determined.
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood =  -53320534  
+Iteration 1:   log pseudolikelihood =  -47255989  
+Iteration 2:   log pseudolikelihood =  -47206459  
+Iteration 3:   log pseudolikelihood =  -47206443  
+Iteration 4:   log pseudolikelihood =  -47206443  
+
+Probit regression                               Number of obs     =      7,735
+                                                Wald chi2(5)      =     113.88
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -47206443               Pseudo R2         =     0.1147
+
+                               (Std. Err. adjusted for 2,226 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0076754   .0023329     3.29   0.001      .003103    .0122478
+    HRWAG13X |  -.0272925   .0046401    -5.88   0.000    -.0363868   -.0181981
+    ACTDTY13 |  -.6952974   .0724315    -9.60   0.000    -.8372606   -.5533342
+     RACETHX |  -.0910246   .0457847    -1.99   0.047    -.1807609   -.0012882
+     EMPST13 |  -.0893107   .0154962    -5.76   0.000    -.1196827   -.0589388
+       _cons |   1.852618   .2070408     8.95   0.000     1.446826    2.258411
+------------------------------------------------------------------------------
+Note: 0 failures and 3 successes completely determined.
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood =  -53320534  
+Iteration 1:   log pseudolikelihood =  -49459248  
+Iteration 2:   log pseudolikelihood =  -49428779  
+Iteration 3:   log pseudolikelihood =  -49428777  
+
+Probit regression                               Number of obs     =      7,735
+                                                Wald chi2(4)      =     128.46
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -49428777               Pseudo R2         =     0.0730
+
+                               (Std. Err. adjusted for 2,226 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0027881   .0022116     1.26   0.207    -.0015466    .0071227
+    ACTDTY13 |  -.5419335   .0541287   -10.01   0.000    -.6480239   -.4358432
+     RACETHX |  -.0748806   .0436246    -1.72   0.086    -.1603834    .0106221
+     EMPST13 |  -.0637493   .0146176    -4.36   0.000    -.0923992   -.0350994
+       _cons |   1.408149    .160861     8.75   0.000     1.092867    1.723431
+------------------------------------------------------------------------------
+Note: 0 failures and 3 successes completely determined.
+(option pr assumed; Pr(unin))
+===========================================================================
+
+. 
+. local list = "regress logit probit"
+
+. 
+. forval x = 1/3 {
+  2. 
+.         stderr regress_uhat`x' logit_uhat`x' probit_uhat`x' 
+  3.         matrix define stderr`x' = (regress_uhat`x', logit_uhat`x' ,probit_uhat`x' )
+  4. 
+. }
+stderr of regress_uhat1 = .03802396
+stderr of logit_uhat1 = .19188794
+stderr of probit_uhat1 = .11246198
+stderr of regress_uhat2 = .04080202
+stderr of logit_uhat2 = .20578778
+stderr of probit_uhat2 = .11722059
+stderr of regress_uhat3 = .03674621
+stderr of logit_uhat3 = .18782979
+stderr of probit_uhat3 = .10716254
+
+. 
+. matrix stderr = stderr1\stderr2\stderr3
+
+. matrix rownames stderr = stderr1 stderr2 stderr
+
+. matrix colnames stderr =  REGRESS LOGIT PROBIT
+
+. 
+. putexcel set "output2.csv", sheet(wgt_clus) modify
+
+. putexcel A1 = matrix(stderr), names nformat(number_d2)
+file output2.csv saved
+
+. 
+. 
+. capture {
+pweights not allowed
+
+. 
+. foreach x in `list' {
+  2.         estimates table `x'_1 `x'_2 `x'_3 , ///
+>           stats(N ll r2_p mrse) b(%7.3f) stfmt(%8.2f)
+  3.           
+.         sum `x'_yhat1 `x'_yhat2 `x'_yhat3 ${depvar}
+  4.         
+.         sum `x'_uhat1 `x'_uhat2 `x'_uhat3 ${depvar}
+  5. }
+
+-----------------------------------------------
+    Variable | regre~_1   regre~_2   regre~_3  
+-------------+---------------------------------
+      AGE13X |    0.001      0.002      0.001  
+    HRWAG13X |   -0.008     -0.009             
+    ACTDTY13 |   -0.200     -0.203     -0.168  
+     RACETHX |   -0.032     -0.034     -0.029  
+     EMPST13 |              -0.022     -0.019  
+       _cons |    1.054      1.057      0.947  
+-------------+---------------------------------
+           N |     7735       7735       7735  
+          ll | -5130.15   -5077.31   -5267.39  
+        r2_p |                                 
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+regress_yh~1 |      7,892     .482949    .1702757  -.3499826     2.6209
+regress_yh~2 |      7,892    .4820063    .1770488  -.3539855   2.861497
+regress_yh~3 |      7,892    .4767224    .1453525   .1069494   2.411459
+        unin |      7,892          .5    .5000317          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+regress_uh~1 |      7,892    .0346582    .0128038   .0194611   .3089506
+regress_uh~2 |      7,892    .0370565    .0145561   .0200414   .3623433
+regress_uh~3 |      7,892    .0324845    .0116766   .0194925   .2682595
+        unin |      7,892          .5    .5000317          0          1
+
+-----------------------------------------------
+    Variable | logit_1    logit_2    logit_3   
+-------------+---------------------------------
+      AGE13X |    0.006      0.013      0.004  
+    HRWAG13X |   -0.043     -0.048             
+    ACTDTY13 |   -1.092     -1.198     -0.888  
+     RACETHX |   -0.146     -0.155     -0.125  
+     EMPST13 |              -0.151     -0.101  
+       _cons |    2.959      3.201      2.316  
+-------------+---------------------------------
+           N |     7735       7735       7735  
+          ll | -4.8e+07   -4.7e+07   -4.9e+07  
+        r2_p |     0.10       0.12       0.07  
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logit_yhat1 |      7,892    .4829899     .184132   .0109117   .9999903
+ logit_yhat2 |      7,892    .4817668    .1953886   .0080092   .9999993
+ logit_yhat3 |      7,892    .4756217    .1580558     .11804   .9999613
+        unin |      7,892          .5    .5000317          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logit_uhat1 |      7,892     .157057    .0644479   .0748474   1.210936
+ logit_uhat2 |      7,892    .1705908    .0742076   .0762985   1.390232
+ logit_uhat3 |      7,892    .1395569    .0534283   .0738641   .9864782
+        unin |      7,892          .5    .5000317          0          1
+
+-----------------------------------------------
+    Variable | probit_1   probit_2   probit_3  
+-------------+---------------------------------
+      AGE13X |    0.004      0.008      0.003  
+    HRWAG13X |   -0.025     -0.027             
+    ACTDTY13 |   -0.641     -0.695     -0.542  
+     RACETHX |   -0.086     -0.091     -0.075  
+     EMPST13 |              -0.089     -0.064  
+       _cons |    1.735      1.853      1.408  
+-------------+---------------------------------
+           N |     7735       7735       7735  
+          ll | -4.8e+07   -4.7e+07   -4.9e+07  
+        r2_p |     0.10       0.11       0.07  
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+probit_yhat1 |      7,892    .4843466    .1775294   .0046687          1
+probit_yhat2 |      7,892    .4832936    .1891541   .0030635          1
+probit_yhat3 |      7,892     .476095    .1582155   .1114386          1
+        unin |      7,892          .5    .5000317          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+probit_uhat1 |      7,892    .0953391    .0389095   .0461663    .727118
+probit_uhat2 |      7,892    .1021353      .04309   .0464713   .8027251
+probit_uhat3 |      7,892    .0846667    .0314024   .0458813   .5856447
+        unin |      7,892          .5    .5000317          0          1
+
+. 
+. local list = "regress logit probit"
+
+. 
+. forval y = 1/3 {
+  2. foreach x in `list' {
+  3.         
+.                 estimates restore `x'_`y'
+  4.                 
+.                 noisily di "============================================================"
+  5.                 noisily di "Model `x'_`y' " e(cmdline)
+  6.                 noisily di "============================================================"
+  7. 
+.                 count if `x'_yhat`y' > .95 & ${depvar}==1 & e(sample)
+  8.                 scalar x = r(N)
+  9.                 count if ${depvar}==1 & e(sample)
+ 10.                 scalar y = r(N)
+ 11.                 scalar z1 = x/y
+ 12.                 noisily di "Correct Success Prediction Rate: " z1
+ 13.                 noisily di "predicted =" x ", Actual = " y
+ 14. 
+.                 noisily di "  "
+ 15. 
+.                 count if `x'_yhat`y'<.05 & ${depvar}==0 & e(sample)
+ 16.                 scalar x = r(N)
+ 17.                 count if ${depvar}==0 & e(sample) 
+ 18.                 scalar y = r(N)
+ 19.                 scalar z2 = x/y
+ 20.                 noisily di "Correct Failure Prediction Rate: " z2
+ 21.                 noisily di "predicted =" x ", Actual = " y
+ 22. 
+.                 noisily di " "
+ 23.                 
+.                 count if `x'_yhat`y'> .95 & ${depvar}==0 & e(sample)
+ 24.                 scalar x = r(N)
+ 25.                 count if ${depvar}==1 & e(sample)
+ 26.                 scalar y = r(N)
+ 27.                 scalar z3 = x/y
+ 28.                 noisily di "Incorrect Success Prediction Rate: " z3
+ 29.                 noisily di "predicted =" x ", Actual = " y
+ 30. 
+.                 noisily di " "
+ 31.                 
+.                 count if `x'_yhat`y'<.05 & ${depvar}==1 & e(sample)
+ 32.                 scalar x = r(N)
+ 33.                 count if ${depvar}==0 & e(sample)
+ 34.                 scalar y = r(N)
+ 35.                 scalar z4 = x/y
+ 36.                 noisily di "Incorrect Failure Prediction Rate: " z4
+ 37.                 noisily di "predicted =" x ", Actual = " y
+ 38.                 matrix define prediction`x'`y' = (z1, z2, z3, z4)
+ 39. 
+. di "==========================================================================="
+ 40. }
+ 41. }
+(results regress_1 are active now)
+============================================================
+Model regress_1 regress unin AGE13X HRWAG13X ACTDTY13 RACETHX [pweight=WGTRU13], vce(cluster DUID)
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  63
+  3,875
+Correct Failure Prediction Rate: .01625806
+predicted =63, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  31
+  3,875
+Incorrect Failure Prediction Rate: .008
+predicted =31, Actual = 3875
+===========================================================================
+(results logit_1 are active now)
+============================================================
+Model logit_1 logit unin AGE13X HRWAG13X ACTDTY13 RACETHX [pweight=WGTRU13], vce(cluster DUID)
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  25
+  3,875
+Correct Failure Prediction Rate: .00645161
+predicted =25, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  19
+  3,875
+Incorrect Failure Prediction Rate: .00490323
+predicted =19, Actual = 3875
+===========================================================================
+(results probit_1 are active now)
+============================================================
+Model probit_1 probit unin AGE13X HRWAG13X ACTDTY13 RACETHX [pweight=WGTRU13], vce(cluster DUID)
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  32
+  3,875
+Correct Failure Prediction Rate: .00825806
+predicted =32, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  19
+  3,875
+Incorrect Failure Prediction Rate: .00490323
+predicted =19, Actual = 3875
+===========================================================================
+(results regress_2 are active now)
+============================================================
+Model regress_2 regress unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 [pweight=WGTRU13], vce(cluster DUID)
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  53
+  3,875
+Correct Failure Prediction Rate: .01367742
+predicted =53, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  21
+  3,875
+Incorrect Failure Prediction Rate: .00541935
+predicted =21, Actual = 3875
+===========================================================================
+(results logit_2 are active now)
+============================================================
+Model logit_2 logit unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 [pweight=WGTRU13], vce(cluster DUID)
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  36
+  3,875
+Correct Failure Prediction Rate: .00929032
+predicted =36, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  19
+  3,875
+Incorrect Failure Prediction Rate: .00490323
+predicted =19, Actual = 3875
+===========================================================================
+(results probit_2 are active now)
+============================================================
+Model probit_2 probit unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 [pweight=WGTRU13], vce(cluster DUID)
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  42
+  3,875
+Correct Failure Prediction Rate: .01083871
+predicted =42, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  19
+  3,875
+Incorrect Failure Prediction Rate: .00490323
+predicted =19, Actual = 3875
+===========================================================================
+(results regress_3 are active now)
+============================================================
+Model regress_3 regress unin AGE13X ACTDTY13 RACETHX EMPST13 [pweight=WGTRU13], vce(cluster DUID)
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  0
+  3,875
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  0
+  3,875
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 3875
+===========================================================================
+(results logit_3 are active now)
+============================================================
+Model logit_3 logit unin AGE13X ACTDTY13 RACETHX EMPST13 [pweight=WGTRU13], vce(cluster DUID)
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  0
+  3,875
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  0
+  3,875
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 3875
+===========================================================================
+(results probit_3 are active now)
+============================================================
+Model probit_3 probit unin AGE13X ACTDTY13 RACETHX EMPST13 [pweight=WGTRU13], vce(cluster DUID)
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  0
+  3,875
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  0
+  3,875
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 3875
+===========================================================================
+
+. 
+. 
+. forval y = 1/3 {
+  2. 
+.         matrix accuracy`y' = (predictionregress`y' \ predictionlogit`y' \ predictionprobit`y')
+  3.         matrix colnames accuracy`y' = correct_success correct_failure   inaccurate_success inaccurate_failure
+  4.         matrix rownames accuracy`x'`y' = REGRESS LOGIT PROBIT
+  5.         putexcel set "prediction2.csv", sheet(WGT_CLUS_`y') modify
+  6.         putexcel A1 = matrix(accuracy`x'`y'), names nformat(number_d2)
+  7. 
+. }
+file prediction2.csv saved
+file prediction2.csv saved
+file prediction2.csv saved
+
+. 
+. 
+. ********************************************************************************
+. ********************************************************************************
+. * 
+. * Weighted Only
+. *
+. ********************************************************************************
+. ********************************************************************************
+. 
+. cap drop *uhat* *_yhat*
+
+. global option = "[pweight=WGTRU13]"
+
+. 
+. local list = "regress logit probit"
+
+. 
+. foreach x in `list' {
+  2. 
+. `x' ${depvar} ${model1} ${option}
+  3. estimates store `x'_1
+  4. predict `x'_uhat1, stdp
+  5. predict `x'_yhat1 
+  6. 
+. `x' ${depvar} ${model2} ${option}
+  7. estimates store `x'_2
+  8. predict `x'_uhat2, stdp
+  9. predict `x'_yhat2 
+ 10. 
+. `x' ${depvar} ${model3} ${option}
+ 11. estimates store `x'_3
+ 12. predict `x'_uhat3, stdp
+ 13. predict `x'_yhat3 
+ 14. di "==========================================================================="
+ 15. }
+(sum of wgt is 76,989,281.280452)
+
+Linear regression                               Number of obs     =      7,735
+                                                F(4, 7730)        =      61.16
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1166
+                                                Root MSE          =     .46983
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0010936   .0003997     2.74   0.006       .00031    .0018771
+    HRWAG13X |   -.008186   .0006016   -13.61   0.000    -.0093654   -.0070067
+    ACTDTY13 |  -.2003062   .0194464   -10.30   0.000    -.2384265    -.162186
+     RACETHX |  -.0319307   .0066409    -4.81   0.000    -.0449487   -.0189126
+       _cons |   1.054441   .0459059    22.97   0.000     .9644526    1.144429
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+(sum of wgt is 76,989,281.280452)
+
+Linear regression                               Number of obs     =      7,735
+                                                F(5, 7729)        =      46.04
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1286
+                                                Root MSE          =     .46667
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0020703   .0004762     4.35   0.000     .0011369    .0030038
+    HRWAG13X |  -.0085811    .000644   -13.33   0.000    -.0098435   -.0073188
+    ACTDTY13 |  -.2029184   .0220842    -9.19   0.000    -.2462094   -.1596274
+     RACETHX |  -.0336173   .0066198    -5.08   0.000     -.046594   -.0206407
+     EMPST13 |  -.0224538    .002847    -7.89   0.000    -.0280347   -.0168729
+       _cons |   1.057453    .051105    20.69   0.000     .9572733    1.157632
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+(sum of wgt is 76,989,281.280452)
+
+Linear regression                               Number of obs     =      7,735
+                                                F(4, 7730)        =      45.40
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0847
+                                                Root MSE          =     .47824
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0008422   .0004081     2.06   0.039     .0000421    .0016422
+    ACTDTY13 |  -.1675292   .0162285   -10.32   0.000    -.1993415   -.1357169
+     RACETHX |  -.0292328   .0066765    -4.38   0.000    -.0423205    -.016145
+     EMPST13 |  -.0186673   .0026661    -7.00   0.000    -.0238936    -.013441
+       _cons |   .9465258   .0382609    24.74   0.000     .8715241    1.021527
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+===========================================================================
+
+Iteration 0:   log pseudolikelihood =  -53320534  
+Iteration 1:   log pseudolikelihood =  -47918977  
+Iteration 2:   log pseudolikelihood =  -47901097  
+Iteration 3:   log pseudolikelihood =  -47901094  
+
+Logistic regression                             Number of obs     =      7,735
+                                                Wald chi2(4)      =     517.63
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -47901094               Pseudo R2         =     0.1016
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0056794   .0016066     3.54   0.000     .0025305    .0088282
+    HRWAG13X |  -.0428548    .003087   -13.88   0.000    -.0489053   -.0368043
+    ACTDTY13 |  -1.092158   .0503103   -21.71   0.000    -1.190764   -.9935519
+     RACETHX |  -.1461136   .0300283    -4.87   0.000    -.2049679   -.0872593
+       _cons |     2.9591   .1438947    20.56   0.000     2.677072    3.241128
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood =  -53320534  
+Iteration 1:   log pseudolikelihood =  -47098071  
+Iteration 2:   log pseudolikelihood =  -47050883  
+Iteration 3:   log pseudolikelihood =  -47050763  
+Iteration 4:   log pseudolikelihood =  -47050763  
+
+Logistic regression                             Number of obs     =      7,735
+                                                Wald chi2(5)      =     580.27
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -47050763               Pseudo R2         =     0.1176
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |     .01272   .0017733     7.17   0.000     .0092443    .0161957
+    HRWAG13X |  -.0481878   .0033176   -14.52   0.000    -.0546902   -.0416854
+    ACTDTY13 |  -1.198357   .0530591   -22.59   0.000     -1.30235   -1.094363
+     RACETHX |  -.1553781   .0304681    -5.10   0.000    -.2150944   -.0956617
+     EMPST13 |   -.150911   .0131442   -11.48   0.000    -.1766731   -.1251489
+       _cons |   3.201297   .1503364    21.29   0.000     2.906643    3.495951
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood =  -53320534  
+Iteration 1:   log pseudolikelihood =  -49452855  
+Iteration 2:   log pseudolikelihood =  -49432282  
+Iteration 3:   log pseudolikelihood =  -49432280  
+
+Logistic regression                             Number of obs     =      7,735
+                                                Wald chi2(4)      =     530.35
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -49432280               Pseudo R2         =     0.0729
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0041694   .0016345     2.55   0.011     .0009659    .0073729
+    ACTDTY13 |  -.8881314   .0434117   -20.46   0.000    -.9732167   -.8030461
+     RACETHX |  -.1245437   .0290682    -4.28   0.000    -.1815164    -.067571
+     EMPST13 |  -.1014847   .0111297    -9.12   0.000    -.1232985   -.0796708
+       _cons |   2.315727    .125393    18.47   0.000     2.069961    2.561492
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+===========================================================================
+
+Iteration 0:   log pseudolikelihood =  -53320534  
+Iteration 1:   log pseudolikelihood =  -48108842  
+Iteration 2:   log pseudolikelihood =  -48049662  
+Iteration 3:   log pseudolikelihood =  -48049651  
+Iteration 4:   log pseudolikelihood =  -48049651  
+
+Probit regression                               Number of obs     =      7,735
+                                                Wald chi2(4)      =     545.99
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -48049651               Pseudo R2         =     0.0989
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0035219   .0009798     3.59   0.000     .0016016    .0054423
+    HRWAG13X |  -.0245833   .0018204   -13.50   0.000    -.0281512   -.0210155
+    ACTDTY13 |  -.6412557   .0290532   -22.07   0.000    -.6981989   -.5843125
+     RACETHX |  -.0864771   .0181019    -4.78   0.000    -.1219561   -.0509981
+       _cons |   1.734522   .0833009    20.82   0.000     1.571255    1.897789
+------------------------------------------------------------------------------
+Note: 0 failures and 3 successes completely determined.
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood =  -53320534  
+Iteration 1:   log pseudolikelihood =  -47255989  
+Iteration 2:   log pseudolikelihood =  -47206459  
+Iteration 3:   log pseudolikelihood =  -47206443  
+Iteration 4:   log pseudolikelihood =  -47206443  
+
+Probit regression                               Number of obs     =      7,735
+                                                Wald chi2(5)      =     649.66
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -47206443               Pseudo R2         =     0.1147
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0076754   .0010667     7.20   0.000     .0055848     .009766
+    HRWAG13X |  -.0272925   .0019168   -14.24   0.000    -.0310494   -.0235355
+    ACTDTY13 |  -.6952974   .0298918   -23.26   0.000    -.7538842   -.6367107
+     RACETHX |  -.0910246   .0182504    -4.99   0.000    -.1267947   -.0552544
+     EMPST13 |  -.0893107   .0076352   -11.70   0.000    -.1042754   -.0743461
+       _cons |   1.852618   .0854427    21.68   0.000     1.685154    2.020083
+------------------------------------------------------------------------------
+Note: 0 failures and 3 successes completely determined.
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood =  -53320534  
+Iteration 1:   log pseudolikelihood =  -49459248  
+Iteration 2:   log pseudolikelihood =  -49428779  
+Iteration 3:   log pseudolikelihood =  -49428777  
+
+Probit regression                               Number of obs     =      7,735
+                                                Wald chi2(4)      =     577.42
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -49428777               Pseudo R2         =     0.0730
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0027881   .0010053     2.77   0.006     .0008177    .0047584
+    ACTDTY13 |  -.5419335   .0256883   -21.10   0.000    -.5922816   -.4915855
+     RACETHX |  -.0748806   .0177543    -4.22   0.000    -.1096784   -.0400828
+     EMPST13 |  -.0637493   .0068904    -9.25   0.000    -.0772543   -.0502444
+       _cons |   1.408149   .0744925    18.90   0.000     1.262146    1.554152
+------------------------------------------------------------------------------
+Note: 0 failures and 3 successes completely determined.
+(option pr assumed; Pr(unin))
+===========================================================================
+
+. 
+. local list = "regress logit probit"
+
+. 
+. forval x = 1/3 {
+  2. 
+.         stderr regress_uhat`x' logit_uhat`x' probit_uhat`x' 
+  3.         matrix define stderr`x' = (regress_uhat`x', logit_uhat`x' ,probit_uhat`x' )
+  4. 
+. }
+stderr of regress_uhat1 = .02136603
+stderr of logit_uhat1 = .08760671
+stderr of probit_uhat1 = .05024455
+stderr of regress_uhat2 = .02445399
+stderr of logit_uhat2 = .09250861
+stderr of probit_uhat2 = .05157676
+stderr of regress_uhat3 = .02149213
+stderr of logit_uhat3 = .0863905
+stderr of probit_uhat3 = .04946928
+
+. 
+. matrix stderr = stderr1\stderr2\stderr3
+
+. matrix rownames stderr = stderr1 stderr2 stderr3
+
+. matrix colnames stderr =  REGRESS LOGIT PROBIT
+
+. 
+. putexcel set "output2.csv", sheet(weighted) modify
+
+. putexcel A1 = matrix(stderr), names nformat(number_d2)
+file output2.csv saved
+
+. 
+.  
+. capture {
+pweights not allowed
+
+. 
+. local list = "regress logit probit"
+
+. foreach x in `list' {
+  2.         estimates table `x'_1 `x'_2 `x'_3, ///
+>           stats(N ll r2_p mrse) b(%7.3f) stfmt(%8.2f)
+  3.           
+.         sum `x'_yhat1 `x'_yhat2 `x'_yhat3 ${depvar}
+  4.         
+.         sum `x'_uhat1 `x'_uhat2 `x'_uhat3 
+  5.         di "==========================================================================="
+  6. }
+
+-----------------------------------------------
+    Variable | regre~_1   regre~_2   regre~_3  
+-------------+---------------------------------
+      AGE13X |    0.001      0.002      0.001  
+    HRWAG13X |   -0.008     -0.009             
+    ACTDTY13 |   -0.200     -0.203     -0.168  
+     RACETHX |   -0.032     -0.034     -0.029  
+     EMPST13 |              -0.022     -0.019  
+       _cons |    1.054      1.057      0.947  
+-------------+---------------------------------
+           N |     7735       7735       7735  
+          ll | -5130.15   -5077.31   -5267.39  
+        r2_p |                                 
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+regress_yh~1 |      7,892     .482949    .1702757  -.3499826     2.6209
+regress_yh~2 |      7,892    .4820063    .1770488  -.3539855   2.861497
+regress_yh~3 |      7,892    .4767224    .1453525   .1069494   2.411459
+        unin |      7,892          .5    .5000317          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+regress_uh~1 |      7,892    .0178715    .0074094   .0097658   .2038077
+regress_uh~2 |      7,892     .019561    .0093123   .0098615   .2489053
+regress_uh~3 |      7,892    .0166066    .0067767   .0096857   .1801055
+===========================================================================
+
+-----------------------------------------------
+    Variable | logit_1    logit_2    logit_3   
+-------------+---------------------------------
+      AGE13X |    0.006      0.013      0.004  
+    HRWAG13X |   -0.043     -0.048             
+    ACTDTY13 |   -1.092     -1.198     -0.888  
+     RACETHX |   -0.146     -0.155     -0.125  
+     EMPST13 |              -0.151     -0.101  
+       _cons |    2.959      3.201      2.316  
+-------------+---------------------------------
+           N |     7735       7735       7735  
+          ll | -4.8e+07   -4.7e+07   -4.9e+07  
+        r2_p |     0.10       0.12       0.07  
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logit_yhat1 |      7,892    .4829899     .184132   .0109117   .9999903
+ logit_yhat2 |      7,892    .4817668    .1953886   .0080092   .9999993
+ logit_yhat3 |      7,892    .4756217    .1580558     .11804   .9999613
+        unin |      7,892          .5    .5000317          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logit_uhat1 |      7,892    .0680348    .0269347   .0338131   .5241793
+ logit_uhat2 |      7,892    .0747939    .0321818   .0343903   .5991457
+ logit_uhat3 |      7,892     .062416    .0238205   .0336797   .4642266
+===========================================================================
+
+-----------------------------------------------
+    Variable | probit_1   probit_2   probit_3  
+-------------+---------------------------------
+      AGE13X |    0.004      0.008      0.003  
+    HRWAG13X |   -0.025     -0.027             
+    ACTDTY13 |   -0.641     -0.695     -0.542  
+     RACETHX |   -0.086     -0.091     -0.075  
+     EMPST13 |              -0.089     -0.064  
+       _cons |    1.735      1.853      1.408  
+-------------+---------------------------------
+           N |     7735       7735       7735  
+          ll | -4.8e+07   -4.7e+07   -4.9e+07  
+        r2_p |     0.10       0.11       0.07  
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+probit_yhat1 |      7,892    .4843466    .1775294   .0046687          1
+probit_yhat2 |      7,892    .4832936    .1891541   .0030635          1
+probit_yhat3 |      7,892     .476095    .1582155   .1114386          1
+        unin |      7,892          .5    .5000317          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+probit_uhat1 |      7,892    .0406729    .0154571   .0208528   .3031282
+probit_uhat2 |      7,892     .044246    .0179323    .021093   .3335125
+probit_uhat3 |      7,892    .0379351    .0140044   .0209153   .2762012
+===========================================================================
+
+. 
+. local list = "regress logit probit"
+
+. 
+. forval y = 1/3 {
+  2. foreach x in `list' {
+  3.         
+.                 estimates restore `x'_`y'
+  4.                 
+.                 noisily di "============================================================"
+  5.                 noisily di "Model `x'_`y' " e(cmdline)
+  6.                 noisily di "============================================================"
+  7. 
+.                 count if `x'_yhat`y' > .95 & ${depvar}==1 & e(sample)
+  8.                 scalar x = r(N)
+  9.                 count if ${depvar}==1 & e(sample)
+ 10.                 scalar y = r(N)
+ 11.                 scalar z1 = x/y
+ 12.                 noisily di "Correct Success Prediction Rate: " z1
+ 13.                 noisily di "predicted =" x ", Actual = " y
+ 14. 
+.                 noisily di "  "
+ 15. 
+.                 count if `x'_yhat`y'<.05 & ${depvar}==0 & e(sample)
+ 16.                 scalar x = r(N)
+ 17.                 count if ${depvar}==0 & e(sample) 
+ 18.                 scalar y = r(N)
+ 19.                 scalar z2 = x/y
+ 20.                 noisily di "Correct Failure Prediction Rate: " z2
+ 21.                 noisily di "predicted =" x ", Actual = " y
+ 22. 
+.                 noisily di " "
+ 23.                 
+.                 count if `x'_yhat`y'> .95 & ${depvar}==0 & e(sample)
+ 24.                 scalar x = r(N)
+ 25.                 count if ${depvar}==1 & e(sample)
+ 26.                 scalar y = r(N)
+ 27.                 scalar z3 = x/y
+ 28.                 noisily di "Incorrect Success Prediction Rate: " z3
+ 29.                 noisily di "predicted =" x ", Actual = " y
+ 30. 
+.                 noisily di " "
+ 31.                 
+.                 count if `x'_yhat`y'<.05 & ${depvar}==1 & e(sample)
+ 32.                 scalar x = r(N)
+ 33.                 count if ${depvar}==0 & e(sample)
+ 34.                 scalar y = r(N)
+ 35.                 scalar z4 = x/y
+ 36.                 noisily di "Incorrect Failure Prediction Rate: " z4
+ 37.                 noisily di "predicted =" x ", Actual = " y
+ 38.                 matrix define prediction`x'`y' = (z1, z2, z3, z4)
+ 39. 
+. di "==========================================================================="
+ 40. }
+ 41. }
+(results regress_1 are active now)
+============================================================
+Model regress_1 regress unin AGE13X HRWAG13X ACTDTY13 RACETHX [pweight=WGTRU13]
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  63
+  3,875
+Correct Failure Prediction Rate: .01625806
+predicted =63, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  31
+  3,875
+Incorrect Failure Prediction Rate: .008
+predicted =31, Actual = 3875
+===========================================================================
+(results logit_1 are active now)
+============================================================
+Model logit_1 logit unin AGE13X HRWAG13X ACTDTY13 RACETHX [pweight=WGTRU13]
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  25
+  3,875
+Correct Failure Prediction Rate: .00645161
+predicted =25, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  19
+  3,875
+Incorrect Failure Prediction Rate: .00490323
+predicted =19, Actual = 3875
+===========================================================================
+(results probit_1 are active now)
+============================================================
+Model probit_1 probit unin AGE13X HRWAG13X ACTDTY13 RACETHX [pweight=WGTRU13]
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  32
+  3,875
+Correct Failure Prediction Rate: .00825806
+predicted =32, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  19
+  3,875
+Incorrect Failure Prediction Rate: .00490323
+predicted =19, Actual = 3875
+===========================================================================
+(results regress_2 are active now)
+============================================================
+Model regress_2 regress unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 [pweight=WGTRU13]
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  53
+  3,875
+Correct Failure Prediction Rate: .01367742
+predicted =53, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  21
+  3,875
+Incorrect Failure Prediction Rate: .00541935
+predicted =21, Actual = 3875
+===========================================================================
+(results logit_2 are active now)
+============================================================
+Model logit_2 logit unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 [pweight=WGTRU13]
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  36
+  3,875
+Correct Failure Prediction Rate: .00929032
+predicted =36, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  19
+  3,875
+Incorrect Failure Prediction Rate: .00490323
+predicted =19, Actual = 3875
+===========================================================================
+(results probit_2 are active now)
+============================================================
+Model probit_2 probit unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 [pweight=WGTRU13]
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  42
+  3,875
+Correct Failure Prediction Rate: .01083871
+predicted =42, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  19
+  3,875
+Incorrect Failure Prediction Rate: .00490323
+predicted =19, Actual = 3875
+===========================================================================
+(results regress_3 are active now)
+============================================================
+Model regress_3 regress unin AGE13X ACTDTY13 RACETHX EMPST13 [pweight=WGTRU13]
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  0
+  3,875
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  0
+  3,875
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 3875
+===========================================================================
+(results logit_3 are active now)
+============================================================
+Model logit_3 logit unin AGE13X ACTDTY13 RACETHX EMPST13 [pweight=WGTRU13]
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  0
+  3,875
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  0
+  3,875
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 3875
+===========================================================================
+(results probit_3 are active now)
+============================================================
+Model probit_3 probit unin AGE13X ACTDTY13 RACETHX EMPST13 [pweight=WGTRU13]
+============================================================
+  3
+  3,860
+Correct Success Prediction Rate: .0007772
+predicted =3, Actual = 3860
+  
+  0
+  3,875
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 3875
+ 
+  0
+  3,860
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3860
+ 
+  0
+  3,875
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 3875
+===========================================================================
+
+. 
+. 
+. 
+. 
+. forval y = 1/3 {
+  2.         matrix accuracy`y' = (predictionregress`y' \ predictionlogit`y' \ predictionprobit`y')
+  3.         matrix colnames accuracy`y' = correct_success correct_failure   inaccurate_success inaccurate_failure
+  4.         matrix rownames accuracy`x'`y' = REGRESS LOGIT PROBIT
+  5.         putexcel set "prediction2.csv", sheet(wgt`y') modify
+  6.         putexcel A1 = matrix(accuracy`x'`y'), names nformat(number_d2)
+  7. 
+. }
+file prediction2.csv saved
+file prediction2.csv saved
+file prediction2.csv saved
+
+. 
+. 
+. ********************************************************************************
+. ********************************************************************************
+. *
+. * Clustered Only
+. *
+. ********************************************************************************
+. ********************************************************************************
+. 
+. cap drop *_uhat* *_yhat*
+
+. 
+. global option = ", vce(cluster DUID)"
+
+. 
+. local list = "regress logit probit"
+
+. 
+. 
+. foreach x in `list' {
+  2. 
+. `x' ${depvar} ${model1} ${option}
+  3. estimates store `x'_1
+  4. predict `x'_uhat1, stdp
+  5. predict `x'_yhat1 
+  6. 
+. `x' ${depvar} ${model2} ${option}
+  7. estimates store `x'_2
+  8. predict `x'_uhat2, stdp
+  9. predict `x'_yhat2 
+ 10. 
+. `x' ${depvar} ${model3} ${option}
+ 11. estimates store `x'_3
+ 12. predict `x'_uhat3, stdp
+ 13. predict `x'_yhat3 
+ 14. di "==========================================================================="
+ 15. }
+
+Linear regression                               Number of obs     =      7,892
+                                                F(4, 2278)        =      34.05
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1371
+                                                Root MSE          =     .46462
+
+                               (Std. Err. adjusted for 2,279 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0009609   .0006225     1.54   0.123    -.0002597    .0021816
+    HRWAG13X |  -.0079121   .0011147    -7.10   0.000     -.010098   -.0057263
+    ACTDTY13 |  -.2156046   .0225297    -9.57   0.000    -.2597854   -.1714238
+     RACETHX |  -.0543788   .0126019    -4.32   0.000    -.0790913   -.0296663
+       _cons |   1.159208   .0578675    20.03   0.000      1.04573    1.272687
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+
+Linear regression                               Number of obs     =      7,892
+                                                F(5, 2278)        =      30.43
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1460
+                                                Root MSE          =     .46222
+
+                               (Std. Err. adjusted for 2,279 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0019428   .0006608     2.94   0.003     .0006469    .0032386
+    HRWAG13X |   -.008374   .0011154    -7.51   0.000    -.0105613   -.0061867
+    ACTDTY13 |  -.2203806   .0233321    -9.45   0.000    -.2661349   -.1746263
+     RACETHX |  -.0547713    .012669    -4.32   0.000    -.0796152   -.0299274
+     EMPST13 |  -.0199415   .0038185    -5.22   0.000    -.0274296   -.0124534
+       _cons |   1.162945   .0591104    19.67   0.000     1.047029    1.278861
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+
+Linear regression                               Number of obs     =      7,892
+                                                F(4, 2278)        =      42.20
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1070
+                                                Root MSE          =     .47264
+
+                               (Std. Err. adjusted for 2,279 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0006865   .0006357     1.08   0.280      -.00056    .0019331
+    ACTDTY13 |  -.1862111     .01807   -10.30   0.000    -.2216465   -.1507756
+     RACETHX |   -.051499   .0128706    -4.00   0.000    -.0767383   -.0262596
+     EMPST13 |  -.0151637    .004264    -3.56   0.000    -.0235254    -.006802
+       _cons |    1.06363   .0486321    21.87   0.000     .9682624    1.158998
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+===========================================================================
+
+Iteration 0:   log pseudolikelihood = -5470.3175  
+Iteration 1:   log pseudolikelihood = -4836.4364  
+Iteration 2:   log pseudolikelihood = -4832.8148  
+Iteration 3:   log pseudolikelihood = -4832.8135  
+Iteration 4:   log pseudolikelihood = -4832.8135  
+
+Logistic regression                             Number of obs     =      7,892
+                                                Wald chi2(4)      =     133.09
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -4832.8135               Pseudo R2         =     0.1165
+
+                               (Std. Err. adjusted for 2,279 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0052274   .0027749     1.88   0.060    -.0002113    .0106661
+    HRWAG13X |  -.0426277   .0065891    -6.47   0.000    -.0555422   -.0297133
+    ACTDTY13 |  -1.140381   .1036613   -11.00   0.000    -1.343554   -.9372089
+     RACETHX |  -.2457845   .0589032    -4.17   0.000    -.3612326   -.1303363
+       _cons |   3.374541   .2993305    11.27   0.000     2.787864    3.961218
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood = -5470.3175  
+Iteration 1:   log pseudolikelihood =  -4777.574  
+Iteration 2:   log pseudolikelihood = -4773.7236  
+Iteration 3:   log pseudolikelihood = -4773.7223  
+Iteration 4:   log pseudolikelihood = -4773.7223  
+
+Logistic regression                             Number of obs     =      7,892
+                                                Wald chi2(5)      =     139.43
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -4773.7223               Pseudo R2         =     0.1273
+
+                               (Std. Err. adjusted for 2,279 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |    .011678   .0030326     3.85   0.000     .0057343    .0176217
+    HRWAG13X |  -.0473184   .0069959    -6.76   0.000    -.0610301   -.0336066
+    ACTDTY13 |  -1.220561   .1106548   -11.03   0.000    -1.437441   -1.003682
+     RACETHX |  -.2467364   .0599517    -4.12   0.000    -.3642397   -.1292331
+     EMPST13 |  -.1256464   .0228821    -5.49   0.000    -.1704944   -.0807984
+       _cons |   3.526045   .3129048    11.27   0.000     2.912763    4.139327
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood = -5470.3175  
+Iteration 1:   log pseudolikelihood = -4994.1911  
+Iteration 2:   log pseudolikelihood = -4989.5023  
+Iteration 3:   log pseudolikelihood = -4989.4932  
+Iteration 4:   log pseudolikelihood = -4989.4932  
+
+Logistic regression                             Number of obs     =      7,892
+                                                Wald chi2(4)      =     156.27
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -4989.4932               Pseudo R2         =     0.0879
+
+                               (Std. Err. adjusted for 2,279 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |    .003254   .0028378     1.15   0.252    -.0023079    .0088159
+    ACTDTY13 |  -.9345965   .0814137   -11.48   0.000    -1.094164   -.7750286
+     RACETHX |  -.2197685   .0579582    -3.79   0.000    -.3333645   -.1061725
+     EMPST13 |  -.0793527   .0202458    -3.92   0.000    -.1190339   -.0396716
+       _cons |    2.73682   .2363794    11.58   0.000     2.273525    3.200115
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+===========================================================================
+
+Iteration 0:   log pseudolikelihood = -5470.3175  
+Iteration 1:   log pseudolikelihood =   -4852.21  
+Iteration 2:   log pseudolikelihood = -4847.6641  
+Iteration 3:   log pseudolikelihood = -4847.6635  
+Iteration 4:   log pseudolikelihood = -4847.6635  
+
+Probit regression                               Number of obs     =      7,892
+                                                Wald chi2(4)      =     134.14
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -4847.6635               Pseudo R2         =     0.1138
+
+                               (Std. Err. adjusted for 2,279 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0031976   .0016875     1.89   0.058      -.00011    .0065051
+    HRWAG13X |  -.0242995   .0042696    -5.69   0.000    -.0326678   -.0159312
+    ACTDTY13 |  -.6707392   .0623925   -10.75   0.000    -.7930262   -.5484521
+     RACETHX |  -.1471095   .0353426    -4.16   0.000    -.2163798   -.0778392
+       _cons |   1.989966   .1789849    11.12   0.000     1.639162     2.34077
+------------------------------------------------------------------------------
+Note: 0 failures and 7 successes completely determined.
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood = -5470.3175  
+Iteration 1:   log pseudolikelihood = -4796.1272  
+Iteration 2:   log pseudolikelihood = -4788.6611  
+Iteration 3:   log pseudolikelihood = -4788.6595  
+Iteration 4:   log pseudolikelihood = -4788.6595  
+
+Probit regression                               Number of obs     =      7,892
+                                                Wald chi2(5)      =     149.31
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -4788.6595               Pseudo R2         =     0.1246
+
+                               (Std. Err. adjusted for 2,279 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0069933   .0018145     3.85   0.000      .003437    .0105496
+    HRWAG13X |  -.0267763   .0044543    -6.01   0.000    -.0355066   -.0180461
+    ACTDTY13 |  -.7129604   .0651954   -10.94   0.000     -.840741   -.5851798
+     RACETHX |  -.1472022   .0357964    -4.11   0.000    -.2173619   -.0770425
+     EMPST13 |  -.0744561   .0131503    -5.66   0.000    -.1002303   -.0486819
+       _cons |   2.065206   .1845843    11.19   0.000     1.703427    2.426984
+------------------------------------------------------------------------------
+Note: 0 failures and 7 successes completely determined.
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood = -5470.3175  
+Iteration 1:   log pseudolikelihood =  -4993.369  
+Iteration 2:   log pseudolikelihood = -4990.1473  
+Iteration 3:   log pseudolikelihood = -4990.1465  
+Iteration 4:   log pseudolikelihood = -4990.1465  
+
+Probit regression                               Number of obs     =      7,892
+                                                Wald chi2(4)      =     172.47
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -4990.1465               Pseudo R2         =     0.0878
+
+                               (Std. Err. adjusted for 2,279 clusters in DUID)
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0021896   .0017397     1.26   0.208    -.0012202    .0055994
+    ACTDTY13 |  -.5697437   .0478219   -11.91   0.000     -.663473   -.4760144
+     RACETHX |  -.1337044   .0351823    -3.80   0.000    -.2026604   -.0647483
+     EMPST13 |  -.0498038   .0125299    -3.97   0.000     -.074362   -.0252457
+       _cons |   1.667862   .1392259    11.98   0.000     1.394984    1.940739
+------------------------------------------------------------------------------
+Note: 0 failures and 3 successes completely determined.
+(option pr assumed; Pr(unin))
+===========================================================================
+
+. 
+. local list = "regress logit probit"
+
+. 
+. forval x = 1/3 {
+  2. 
+.         stderr regress_uhat`x' logit_uhat`x' probit_uhat`x' 
+  3.         matrix define stderr`x' = (regress_uhat`x', logit_uhat`x' ,probit_uhat`x' )
+  4. 
+. }
+stderr of regress_uhat1 = .029954
+stderr of logit_uhat1 = .17001788
+stderr of probit_uhat1 = .09890293
+stderr of regress_uhat2 = .03050372
+stderr of logit_uhat2 = .18389197
+stderr of probit_uhat2 = .10467958
+stderr of regress_uhat3 = .02866232
+stderr of logit_uhat3 = .17199568
+stderr of probit_uhat3 = .09796987
+
+. 
+. matrix stderr = stderr1\stderr2\stderr3
+
+. matrix rownames stderr = stderr1 stderr2 stderr
+
+. matrix colnames stderr =  REGRESS LOGIT PROBIT
+
+. 
+. putexcel set "output2.csv", sheet(CLUSTERED) modify
+
+. putexcel A1 = matrix(stderr), names nformat(number_d2)
+file output2.csv saved
+
+. 
+. capture {
+
+Probit model for unin
+
+              -------- True --------
+Classified |         D            ~D  |      Total
+-----------+--------------------------+-----------
+     +     |      2947          1865  |       4812
+     -     |       999          2081  |       3080
+-----------+--------------------------+-----------
+   Total   |      3946          3946  |       7892
+
+Classified + if predicted Pr(D) >= .5
+True D defined as unin != 0
+--------------------------------------------------
+Sensitivity                     Pr( +| D)   74.68%
+Specificity                     Pr( -|~D)   52.74%
+Positive predictive value       Pr( D| +)   61.24%
+Negative predictive value       Pr(~D| -)   67.56%
+--------------------------------------------------
+False + rate for true ~D        Pr( +|~D)   47.26%
+False - rate for true D         Pr( -| D)   25.32%
+False + rate for classified +   Pr(~D| +)   38.76%
+False - rate for classified -   Pr( D| -)   32.44%
+--------------------------------------------------
+Correctly classified                        63.71%
+--------------------------------------------------
+
+Probit model for unin, goodness-of-fit test
+
+       number of observations =      7892
+ number of covariate patterns =       673
+            Pearson chi2(668) =      2936.17
+                  Prob > chi2 =         0.0000
+
+Probit model for unin, goodness-of-fit test
+
+  (Table collapsed on quantiles of estimated probabilities)
+
+       number of observations =      7892
+             number of groups =        10
+      Hosmer-Lemeshow chi2(8) =       190.05
+                  Prob > chi2 =         0.0000
+
+Probit model for unin, goodness-of-fit test
+
+  (Table collapsed on quantiles of estimated probabilities)
+  +--------------------------------------------------------+
+  | Group |   Prob | Obs_1 | Exp_1 | Obs_0 | Exp_0 | Total |
+  |-------+--------+-------+-------+-------+-------+-------|
+  |     1 | 0.1863 |   113 | 131.6 |   680 | 661.4 |   793 |
+  |     2 | 0.3587 |   224 | 206.4 |   570 | 587.6 |   794 |
+  |     3 | 0.4528 |   334 | 330.3 |   469 | 472.7 |   803 |
+  |     4 | 0.5054 |   393 | 364.6 |   380 | 408.4 |   773 |
+  |     5 | 0.5604 |   460 | 422.5 |   324 | 361.5 |   784 |
+  |-------+--------+-------+-------+-------+-------+-------|
+  |     6 | 0.5998 |   443 | 465.7 |   363 | 340.3 |   806 |
+  |     7 | 0.6148 |   425 | 474.7 |   356 | 306.3 |   781 |
+  |     8 | 0.6316 |   362 | 497.4 |   436 | 300.6 |   798 |
+  |     9 | 0.6649 |   583 | 534.8 |   234 | 282.2 |   817 |
+  |    10 | 1.0000 |   609 | 523.7 |   134 | 219.3 |   743 |
+  +--------------------------------------------------------+
+
+       number of observations =      7892
+             number of groups =        10
+      Hosmer-Lemeshow chi2(8) =       190.05
+                  Prob > chi2 =         0.0000
+
+. 
+. foreach x in `list' {
+  2.         estimates table `x'_1 `x'_2 `x'_3, ///
+>           stats(N ll r2_p mrse) b(%7.3f) stfmt(%8.2f)
+  3.           
+.         sum `x'_yhat1 `x'_yhat2 `x'_yhat3 ${depvar}
+  4. 
+. }
+
+-----------------------------------------------
+    Variable | regre~_1   regre~_2   regre~_3  
+-------------+---------------------------------
+      AGE13X |    0.001      0.002      0.001  
+    HRWAG13X |   -0.008     -0.008             
+    ACTDTY13 |   -0.216     -0.220     -0.186  
+     RACETHX |   -0.054     -0.055     -0.051  
+     EMPST13 |              -0.020     -0.015  
+       _cons |    1.159      1.163      1.064  
+-------------+---------------------------------
+           N |     7892       7892       7892  
+          ll | -5146.27   -5104.95   -5281.38  
+        r2_p |                                 
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+regress_yh~1 |      7,892          .5     .185119  -.3625387   2.800497
+regress_yh~2 |      7,892          .5    .1910935  -.3724487   3.039264
+regress_yh~3 |      7,892          .5    .1635649   .0425156   2.599152
+        unin |      7,892          .5    .5000317          0          1
+
+-----------------------------------------------
+    Variable | logit_1    logit_2    logit_3   
+-------------+---------------------------------
+      AGE13X |    0.005      0.012      0.003  
+    HRWAG13X |   -0.043     -0.047             
+    ACTDTY13 |   -1.140     -1.221     -0.935  
+     RACETHX |   -0.246     -0.247     -0.220  
+     EMPST13 |              -0.126     -0.079  
+       _cons |    3.375      3.526      2.737  
+-------------+---------------------------------
+           N |     7892       7892       7892  
+          ll | -4832.81   -4773.72   -4989.49  
+        r2_p |     0.12       0.13       0.09  
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logit_yhat1 |      7,892          .5    .1944302   .0100048   .9999947
+ logit_yhat2 |      7,892          .5    .2015844   .0078945   .9999993
+ logit_yhat3 |      7,892          .5    .1695152   .0980284   .9999737
+        unin |      7,892          .5    .5000317          0          1
+
+-----------------------------------------------
+    Variable | probit_1   probit_2   probit_3  
+-------------+---------------------------------
+      AGE13X |    0.003      0.007      0.002  
+    HRWAG13X |   -0.024     -0.027             
+    ACTDTY13 |   -0.671     -0.713     -0.570  
+     RACETHX |   -0.147     -0.147     -0.134  
+     EMPST13 |              -0.074     -0.050  
+       _cons |    1.990      2.065      1.668  
+-------------+---------------------------------
+           N |     7892       7892       7892  
+          ll | -4847.66   -4788.66   -4990.15  
+        r2_p |     0.11       0.12       0.09  
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+probit_yhat1 |      7,892    .5017745    .1882863   .0041035          1
+probit_yhat2 |      7,892    .5019141    .1957694   .0029127          1
+probit_yhat3 |      7,892    .5007347    .1691116   .0892665          1
+        unin |      7,892          .5    .5000317          0          1
+
+. 
+. local list = "regress logit probit"
+
+. 
+. forval y = 1/3 {
+  2. foreach x in `list' {
+  3.         
+.                 estimates restore `x'_`y'
+  4.                 
+.                 noisily di "============================================================"
+  5.                 noisily di "Model `x'_`y' " e(cmdline)
+  6.                 noisily di "============================================================"
+  7. 
+.                 count if `x'_yhat`y' > .95 & ${depvar}==1 & e(sample)
+  8.                 scalar x = r(N)
+  9.                 count if ${depvar}==1 & e(sample)
+ 10.                 scalar y = r(N)
+ 11.                 scalar z1 = x/y
+ 12.                 noisily di "Correct Success Prediction Rate: " z1
+ 13.                 noisily di "predicted =" x ", Actual = " y
+ 14. 
+.                 noisily di "  "
+ 15. 
+.                 count if `x'_yhat`y'<.05 & ${depvar}==0 & e(sample)
+ 16.                 scalar x = r(N)
+ 17.                 count if ${depvar}==0 & e(sample) 
+ 18.                 scalar y = r(N)
+ 19.                 scalar z2 = x/y
+ 20.                 noisily di "Correct Failure Prediction Rate: " z2
+ 21.                 noisily di "predicted =" x ", Actual = " y
+ 22. 
+.                 noisily di " "
+ 23.                 
+.                 count if `x'_yhat`y'> .95 & ${depvar}==0 & e(sample)
+ 24.                 scalar x = r(N)
+ 25.                 count if ${depvar}==1 & e(sample)
+ 26.                 scalar y = r(N)
+ 27.                 scalar z3 = x/y
+ 28.                 noisily di "Incorrect Success Prediction Rate: " z3
+ 29.                 noisily di "predicted =" x ", Actual = " y
+ 30. 
+.                 noisily di " "
+ 31.                 
+.                 count if `x'_yhat`y'<.05 & ${depvar}==1 & e(sample)
+ 32.                 scalar x = r(N)
+ 33.                 count if ${depvar}==0 & e(sample)
+ 34.                 scalar y = r(N)
+ 35.                 scalar z4 = x/y
+ 36.                 noisily di "Incorrect Failure Prediction Rate: " z4
+ 37.                 noisily di "predicted =" x ", Actual = " y
+ 38.                 matrix define prediction`x'`y' = (z1, z2, z3, z4)
+ 39. 
+. di "==========================================================================="
+ 40. }
+ 41. }
+(results regress_1 are active now)
+============================================================
+Model regress_1 regress unin AGE13X HRWAG13X ACTDTY13 RACETHX , vce(cluster DUID)
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  68
+  3,946
+Correct Failure Prediction Rate: .01723264
+predicted =68, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  31
+  3,946
+Incorrect Failure Prediction Rate: .00785606
+predicted =31, Actual = 3946
+===========================================================================
+(results logit_1 are active now)
+============================================================
+Model logit_1 logit unin AGE13X HRWAG13X ACTDTY13 RACETHX , vce(cluster DUID)
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  28
+  3,946
+Correct Failure Prediction Rate: .00709579
+predicted =28, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  19
+  3,946
+Incorrect Failure Prediction Rate: .004815
+predicted =19, Actual = 3946
+===========================================================================
+(results probit_1 are active now)
+============================================================
+Model probit_1 probit unin AGE13X HRWAG13X ACTDTY13 RACETHX , vce(cluster DUID)
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  31
+  3,946
+Correct Failure Prediction Rate: .00785606
+predicted =31, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  19
+  3,946
+Incorrect Failure Prediction Rate: .004815
+predicted =19, Actual = 3946
+===========================================================================
+(results regress_2 are active now)
+============================================================
+Model regress_2 regress unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 , vce(cluster DUID)
+============================================================
+  14
+  3,946
+Correct Success Prediction Rate: .0035479
+predicted =14, Actual = 3946
+  
+  60
+  3,946
+Correct Failure Prediction Rate: .01520527
+predicted =60, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  26
+  3,946
+Incorrect Failure Prediction Rate: .00658895
+predicted =26, Actual = 3946
+===========================================================================
+(results logit_2 are active now)
+============================================================
+Model logit_2 logit unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 , vce(cluster DUID)
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  40
+  3,946
+Correct Failure Prediction Rate: .01013685
+predicted =40, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  19
+  3,946
+Incorrect Failure Prediction Rate: .004815
+predicted =19, Actual = 3946
+===========================================================================
+(results probit_2 are active now)
+============================================================
+Model probit_2 probit unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 , vce(cluster DUID)
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  42
+  3,946
+Correct Failure Prediction Rate: .01064369
+predicted =42, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  19
+  3,946
+Incorrect Failure Prediction Rate: .004815
+predicted =19, Actual = 3946
+===========================================================================
+(results regress_3 are active now)
+============================================================
+Model regress_3 regress unin AGE13X ACTDTY13 RACETHX EMPST13 , vce(cluster DUID)
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  18
+  3,946
+Correct Failure Prediction Rate: .00456158
+predicted =18, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  2
+  3,946
+Incorrect Failure Prediction Rate: .00050684
+predicted =2, Actual = 3946
+===========================================================================
+(results logit_3 are active now)
+============================================================
+Model logit_3 logit unin AGE13X ACTDTY13 RACETHX EMPST13 , vce(cluster DUID)
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  0
+  3,946
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 3946
+===========================================================================
+(results probit_3 are active now)
+============================================================
+Model probit_3 probit unin AGE13X ACTDTY13 RACETHX EMPST13 , vce(cluster DUID)
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  0
+  3,946
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 3946
+===========================================================================
+
+. 
+. 
+. 
+. forval y = 1/3 {
+  2.         matrix accuracy`y' = (predictionregress`y' \ predictionlogit`y' \ predictionprobit`y')  
+  3. matrix colnames accuracy`y' = correct_success correct_failure   inaccurate_success inaccurate_failure
+  4.         matrix rownames accuracy`x'`y' = REGRESS LOGIT PROBIT
+  5.         putexcel set "prediction.csv", sheet(clus`y') modify
+  6.         putexcel A1 = matrix(accuracy`x'`y'), names nformat(number_d2)
+  7. 
+. }
+file prediction.csv saved
+file prediction.csv saved
+file prediction.csv saved
+
+. 
+. ********************************************************************************
+. ********************************************************************************
+. *
+. * NO OPTIONS
+. *
+. ********************************************************************************
+. ********************************************************************************
+. 
+. cap drop *uhat* *_yhat*
+
+. 
+. global option = " "
+
+. 
+. local list = "regress logit probit"
+
+. 
+. 
+. foreach x in `list' {
+  2. 
+. `x' ${depvar} ${model1} ${option}
+  3. estimates store `x'_1
+  4. predict `x'_uhat1, stdp
+  5. predict `x'_yhat1 
+  6. 
+. `x' ${depvar} ${model2} ${option}
+  7. estimates store `x'_2
+  8. predict `x'_uhat2, stdp
+  9. predict `x'_yhat2 
+ 10. 
+. `x' ${depvar} ${model3} ${option}
+ 11. estimates store `x'_3
+ 12. predict `x'_uhat3, stdp
+ 13. predict `x'_yhat3 
+ 14. di "==========================================================================="
+ 15. }
+
+      Source |       SS           df       MS      Number of obs   =     7,892
+-------------+----------------------------------   F(4, 7887)      =    313.17
+       Model |  270.417135         4  67.6042838   Prob > F        =    0.0000
+    Residual |  1702.58286     7,887  .215872051   R-squared       =    0.1371
+-------------+----------------------------------   Adj R-squared   =    0.1366
+       Total |        1973     7,891  .250031682   Root MSE        =    .46462
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0009609   .0002758     3.48   0.000     .0004203    .0015016
+    HRWAG13X |  -.0079121   .0004403   -17.97   0.000    -.0087753    -.007049
+    ACTDTY13 |  -.2156046   .0070047   -30.78   0.000    -.2293356   -.2018736
+     RACETHX |  -.0543788   .0052086   -10.44   0.000    -.0645891   -.0441685
+       _cons |   1.159208   .0209129    55.43   0.000     1.118214    1.200203
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+
+      Source |       SS           df       MS      Number of obs   =     7,892
+-------------+----------------------------------   F(5, 7886)      =    269.74
+       Model |  288.153436         5  57.6306871   Prob > F        =    0.0000
+    Residual |  1684.84656     7,886  .213650338   R-squared       =    0.1460
+-------------+----------------------------------   Adj R-squared   =    0.1455
+       Total |        1973     7,891  .250031682   Root MSE        =    .46222
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0019428   .0002948     6.59   0.000     .0013649    .0025206
+    HRWAG13X |   -.008374    .000441   -18.99   0.000    -.0092385   -.0075096
+    ACTDTY13 |  -.2203806   .0069882   -31.54   0.000    -.2340794   -.2066819
+     RACETHX |  -.0547713   .0051819   -10.57   0.000    -.0649292   -.0446133
+     EMPST13 |  -.0199415   .0021887    -9.11   0.000    -.0242318   -.0156511
+       _cons |   1.162945   .0208091    55.89   0.000     1.122154    1.203736
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+
+      Source |       SS           df       MS      Number of obs   =     7,892
+-------------+----------------------------------   F(4, 7887)      =    236.26
+       Model |  211.111704         4  52.7779259   Prob > F        =    0.0000
+    Residual |   1761.8883     7,887  .223391441   R-squared       =    0.1070
+-------------+----------------------------------   Adj R-squared   =    0.1065
+       Total |        1973     7,891  .250031682   Root MSE        =    .47264
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0006865   .0002937     2.34   0.019     .0001108    .0012623
+    ACTDTY13 |  -.1862111   .0069048   -26.97   0.000    -.1997463   -.1726758
+     RACETHX |   -.051499   .0052958    -9.72   0.000    -.0618802   -.0411178
+     EMPST13 |  -.0151637   .0022232    -6.82   0.000    -.0195217   -.0108057
+       _cons |    1.06363   .0205951    51.64   0.000     1.023258    1.104002
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+===========================================================================
+
+Iteration 0:   log likelihood = -5470.3175  
+Iteration 1:   log likelihood = -4836.4364  
+Iteration 2:   log likelihood = -4832.8148  
+Iteration 3:   log likelihood = -4832.8135  
+Iteration 4:   log likelihood = -4832.8135  
+
+Logistic regression                             Number of obs     =      7,892
+                                                LR chi2(4)        =    1275.01
+                                                Prob > chi2       =     0.0000
+Log likelihood = -4832.8135                     Pseudo R2         =     0.1165
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0052274   .0012968     4.03   0.000     .0026858    .0077691
+    HRWAG13X |  -.0426277   .0024113   -17.68   0.000    -.0473538   -.0379016
+    ACTDTY13 |  -1.140381   .0386584   -29.50   0.000     -1.21615   -1.064612
+     RACETHX |  -.2457845   .0243706   -10.09   0.000    -.2935499    -.198019
+       _cons |   3.374541   .1134657    29.74   0.000     3.152152    3.596929
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log likelihood = -5470.3175  
+Iteration 1:   log likelihood =  -4777.574  
+Iteration 2:   log likelihood = -4773.7236  
+Iteration 3:   log likelihood = -4773.7223  
+Iteration 4:   log likelihood = -4773.7223  
+
+Logistic regression                             Number of obs     =      7,892
+                                                LR chi2(5)        =    1393.19
+                                                Prob > chi2       =     0.0000
+Log likelihood = -4773.7223                     Pseudo R2         =     0.1273
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |    .011678   .0014605     8.00   0.000     .0088155    .0145405
+    HRWAG13X |  -.0473184   .0025259   -18.73   0.000     -.052269   -.0423677
+    ACTDTY13 |  -1.220561   .0406362   -30.04   0.000    -1.300207   -1.140916
+     RACETHX |  -.2467364      .0245   -10.07   0.000    -.2947554   -.1987174
+     EMPST13 |  -.1256464   .0123615   -10.16   0.000    -.1498744   -.1014184
+       _cons |   3.526045   .1170292    30.13   0.000     3.296672    3.755418
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log likelihood = -5470.3175  
+Iteration 1:   log likelihood = -4994.1911  
+Iteration 2:   log likelihood = -4989.5023  
+Iteration 3:   log likelihood = -4989.4932  
+Iteration 4:   log likelihood = -4989.4932  
+
+Logistic regression                             Number of obs     =      7,892
+                                                LR chi2(4)        =     961.65
+                                                Prob > chi2       =     0.0000
+Log likelihood = -4989.4932                     Pseudo R2         =     0.0879
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |    .003254   .0013403     2.43   0.015     .0006271    .0058809
+    ACTDTY13 |  -.9345965   .0359928   -25.97   0.000    -1.005141   -.8640519
+     RACETHX |  -.2197685   .0238526    -9.21   0.000    -.2665187   -.1730183
+     EMPST13 |  -.0793527   .0105596    -7.51   0.000    -.1000491   -.0586564
+       _cons |    2.73682   .1046652    26.15   0.000      2.53168     2.94196
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+===========================================================================
+
+Iteration 0:   log likelihood = -5470.3175  
+Iteration 1:   log likelihood =   -4852.21  
+Iteration 2:   log likelihood = -4847.6641  
+Iteration 3:   log likelihood = -4847.6635  
+Iteration 4:   log likelihood = -4847.6635  
+
+Probit regression                               Number of obs     =      7,892
+                                                LR chi2(4)        =    1245.31
+                                                Prob > chi2       =     0.0000
+Log likelihood = -4847.6635                     Pseudo R2         =     0.1138
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0031976    .000788     4.06   0.000     .0016531     .004742
+    HRWAG13X |  -.0242995    .001375   -17.67   0.000    -.0269944   -.0216046
+    ACTDTY13 |  -.6707392   .0221268   -30.31   0.000    -.7141069   -.6273715
+     RACETHX |  -.1471095   .0147045   -10.00   0.000    -.1759297   -.1182893
+       _cons |   1.989966   .0647089    30.75   0.000     1.863139    2.116794
+------------------------------------------------------------------------------
+Note: 0 failures and 7 successes completely determined.
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log likelihood = -5470.3175  
+Iteration 1:   log likelihood = -4796.1272  
+Iteration 2:   log likelihood = -4788.6611  
+Iteration 3:   log likelihood = -4788.6595  
+Iteration 4:   log likelihood = -4788.6595  
+
+Probit regression                               Number of obs     =      7,892
+                                                LR chi2(5)        =    1363.32
+                                                Prob > chi2       =     0.0000
+Log likelihood = -4788.6595                     Pseudo R2         =     0.1246
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0069933   .0008772     7.97   0.000      .005274    .0087126
+    HRWAG13X |  -.0267763   .0014168   -18.90   0.000    -.0295533   -.0239994
+    ACTDTY13 |  -.7129604   .0228167   -31.25   0.000    -.7576803   -.6682405
+     RACETHX |  -.1472022   .0147469    -9.98   0.000    -.1761055   -.1182989
+     EMPST13 |  -.0744561   .0072134   -10.32   0.000    -.0885941    -.060318
+       _cons |   2.065206   .0658804    31.35   0.000     1.936082    2.194329
+------------------------------------------------------------------------------
+Note: 0 failures and 7 successes completely determined.
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log likelihood = -5470.3175  
+Iteration 1:   log likelihood =  -4993.369  
+Iteration 2:   log likelihood = -4990.1473  
+Iteration 3:   log likelihood = -4990.1465  
+Iteration 4:   log likelihood = -4990.1465  
+
+Probit regression                               Number of obs     =      7,892
+                                                LR chi2(4)        =     960.34
+                                                Prob > chi2       =     0.0000
+Log likelihood = -4990.1465                     Pseudo R2         =     0.0878
+
+------------------------------------------------------------------------------
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0021896   .0008221     2.66   0.008     .0005783    .0038009
+    ACTDTY13 |  -.5697437   .0212394   -26.82   0.000    -.6113721   -.5281153
+     RACETHX |  -.1337044   .0145267    -9.20   0.000    -.1621761   -.1052326
+     EMPST13 |  -.0498038   .0064818    -7.68   0.000     -.062508   -.0370996
+       _cons |   1.667862   .0615932    27.08   0.000     1.547141    1.788582
+------------------------------------------------------------------------------
+Note: 0 failures and 3 successes completely determined.
+(option pr assumed; Pr(unin))
+===========================================================================
+
+. 
+. 
+. local list = "regress logit probit"
+
+. 
+. forval x = 1/3 {
+  2. 
+.         stderr regress_uhat`x' logit_uhat`x' probit_uhat`x' 
+  3.         matrix define stderr`x' = (regress_uhat`x', logit_uhat`x' ,probit_uhat`x' )
+  4. 
+. }
+stderr of regress_uhat1 = .01372877
+stderr of logit_uhat1 = .07376154
+stderr of probit_uhat1 = .0421246
+stderr of regress_uhat2 = .01379841
+stderr of logit_uhat2 = .07786456
+stderr of probit_uhat2 = .04368879
+stderr of regress_uhat3 = .0139036
+stderr of logit_uhat3 = .0760645
+stderr of probit_uhat3 = .04342752
+
+. 
+. matrix stderr = stderr1\stderr2\stderr3
+
+. matrix rownames stderr = stderr1 stderr2 stderr
+
+. matrix colnames stderr =  REGRESS LOGIT PROBIT
+
+. 
+. putexcel set "output2.csv", sheet(NO OPTIONS) modify
+
+. putexcel A1 = matrix(stderr), names nformat(number_d2)
+file output2.csv saved
+
+. 
+. capture {
+
+Probit model for unin
+
+              -------- True --------
+Classified |         D            ~D  |      Total
+-----------+--------------------------+-----------
+     +     |      2947          1865  |       4812
+     -     |       999          2081  |       3080
+-----------+--------------------------+-----------
+   Total   |      3946          3946  |       7892
+
+Classified + if predicted Pr(D) >= .5
+True D defined as unin != 0
+--------------------------------------------------
+Sensitivity                     Pr( +| D)   74.68%
+Specificity                     Pr( -|~D)   52.74%
+Positive predictive value       Pr( D| +)   61.24%
+Negative predictive value       Pr(~D| -)   67.56%
+--------------------------------------------------
+False + rate for true ~D        Pr( +|~D)   47.26%
+False - rate for true D         Pr( -| D)   25.32%
+False + rate for classified +   Pr(~D| +)   38.76%
+False - rate for classified -   Pr( D| -)   32.44%
+--------------------------------------------------
+Correctly classified                        63.71%
+--------------------------------------------------
+
+Probit model for unin, goodness-of-fit test
+
+       number of observations =      7892
+ number of covariate patterns =       673
+            Pearson chi2(668) =      2936.17
+                  Prob > chi2 =         0.0000
+
+Probit model for unin, goodness-of-fit test
+
+  (Table collapsed on quantiles of estimated probabilities)
+
+       number of observations =      7892
+             number of groups =        10
+      Hosmer-Lemeshow chi2(8) =       190.05
+                  Prob > chi2 =         0.0000
+
+Probit model for unin, goodness-of-fit test
+
+  (Table collapsed on quantiles of estimated probabilities)
+  +--------------------------------------------------------+
+  | Group |   Prob | Obs_1 | Exp_1 | Obs_0 | Exp_0 | Total |
+  |-------+--------+-------+-------+-------+-------+-------|
+  |     1 | 0.1863 |   113 | 131.6 |   680 | 661.4 |   793 |
+  |     2 | 0.3587 |   224 | 206.4 |   570 | 587.6 |   794 |
+  |     3 | 0.4528 |   334 | 330.3 |   469 | 472.7 |   803 |
+  |     4 | 0.5054 |   393 | 364.6 |   380 | 408.4 |   773 |
+  |     5 | 0.5604 |   460 | 422.5 |   324 | 361.5 |   784 |
+  |-------+--------+-------+-------+-------+-------+-------|
+  |     6 | 0.5998 |   443 | 465.7 |   363 | 340.3 |   806 |
+  |     7 | 0.6148 |   425 | 474.7 |   356 | 306.3 |   781 |
+  |     8 | 0.6316 |   362 | 497.4 |   436 | 300.6 |   798 |
+  |     9 | 0.6649 |   583 | 534.8 |   234 | 282.2 |   817 |
+  |    10 | 1.0000 |   609 | 523.7 |   134 | 219.3 |   743 |
+  +--------------------------------------------------------+
+
+       number of observations =      7892
+             number of groups =        10
+      Hosmer-Lemeshow chi2(8) =       190.05
+                  Prob > chi2 =         0.0000
+
+. 
+. foreach x in `list' {
+  2. 
+.         estimates table `x'_1 `x'_2 `x'_3, ///
+>           stats(N ll r2_p mrse) b(%7.3f) stfmt(%8.2f)
+  3.           
+.         sum `x'_yhat1 `x'_yhat2 `x'_yhat3 ${depvar}
+  4.         sum `x'_uhat1 `x'_uhat2 `x'_uhat3 
+  5. }
+
+-----------------------------------------------
+    Variable | regre~_1   regre~_2   regre~_3  
+-------------+---------------------------------
+      AGE13X |    0.001      0.002      0.001  
+    HRWAG13X |   -0.008     -0.008             
+    ACTDTY13 |   -0.216     -0.220     -0.186  
+     RACETHX |   -0.054     -0.055     -0.051  
+     EMPST13 |              -0.020     -0.015  
+       _cons |    1.159      1.163      1.064  
+-------------+---------------------------------
+           N |     7892       7892       7892  
+          ll | -5146.27   -5104.95   -5281.38  
+        r2_p |                                 
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+regress_yh~1 |      7,892          .5     .185119  -.3625387   2.800497
+regress_yh~2 |      7,892          .5    .1910935  -.3724487   3.039264
+regress_yh~3 |      7,892          .5    .1635649   .0425156   2.599152
+        unin |      7,892          .5    .5000317          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+regress_uh~1 |      7,892    .0110828    .0037335   .0061246   .0736763
+regress_uh~2 |      7,892     .011976    .0043599   .0060979   .0780304
+regress_uh~3 |      7,892    .0111556    .0041334   .0062235    .076172
+
+-----------------------------------------------
+    Variable | logit_1    logit_2    logit_3   
+-------------+---------------------------------
+      AGE13X |    0.005      0.012      0.003  
+    HRWAG13X |   -0.043     -0.047             
+    ACTDTY13 |   -1.140     -1.221     -0.935  
+     RACETHX |   -0.246     -0.247     -0.220  
+     EMPST13 |              -0.126     -0.079  
+       _cons |    3.375      3.526      2.737  
+-------------+---------------------------------
+           N |     7892       7892       7892  
+          ll | -4832.81   -4773.72   -4989.49  
+        r2_p |     0.12       0.13       0.09  
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logit_yhat1 |      7,892          .5    .1944302   .0100048   .9999947
+ logit_yhat2 |      7,892          .5    .2015844   .0078945   .9999993
+ logit_yhat3 |      7,892          .5    .1695152   .0980284   .9999737
+        unin |      7,892          .5    .5000317          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logit_uhat1 |      7,892    .0550227    .0208396   .0287549   .4046778
+ logit_uhat2 |      7,892    .0613247    .0264365   .0292853   .4732372
+ logit_uhat3 |      7,892    .0525173     .021433    .028106    .401235
+
+-----------------------------------------------
+    Variable | probit_1   probit_2   probit_3  
+-------------+---------------------------------
+      AGE13X |    0.003      0.007      0.002  
+    HRWAG13X |   -0.024     -0.027             
+    ACTDTY13 |   -0.671     -0.713     -0.570  
+     RACETHX |   -0.147     -0.147     -0.134  
+     EMPST13 |              -0.074     -0.050  
+       _cons |    1.990      2.065      1.668  
+-------------+---------------------------------
+           N |     7892       7892       7892  
+          ll | -4847.66   -4788.66   -4990.15  
+        r2_p |     0.11       0.12       0.09  
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+probit_yhat1 |      7,892    .5017745    .1882863   .0041035          1
+probit_yhat2 |      7,892    .5019141    .1957694   .0029127          1
+probit_yhat3 |      7,892    .5007347    .1691116   .0892665          1
+        unin |      7,892          .5    .5000317          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+probit_uhat1 |      7,892    .0326225    .0116902   .0176164    .232191
+probit_uhat2 |      7,892    .0361139    .0146812   .0178552   .2639321
+probit_uhat3 |      7,892    .0318011     .012571   .0173502   .2375836
+
+. 
+. local list = "regress logit probit"
+
+. 
+. forval y = 1/3 {
+  2. foreach x in `list' {
+  3.         
+.                 estimates restore `x'_`y'
+  4.                 
+.                 noisily di "============================================================"
+  5.                 noisily di "Model `x'_`y' " e(cmdline)
+  6.                 noisily di "============================================================"
+  7. 
+.                 count if `x'_yhat`y' > .95 & ${depvar}==1 & e(sample)
+  8.                 scalar x = r(N)
+  9.                 count if ${depvar}==1 & e(sample)
+ 10.                 scalar y = r(N)
+ 11.                 scalar z1 = x/y
+ 12.                 noisily di "Correct Success Prediction Rate: " z1
+ 13.                 noisily di "predicted =" x ", Actual = " y
+ 14. 
+.                 noisily di "  "
+ 15. 
+.                 count if `x'_yhat`y'<.05 & ${depvar}==0 & e(sample)
+ 16.                 scalar x = r(N)
+ 17.                 count if ${depvar}==0 & e(sample) 
+ 18.                 scalar y = r(N)
+ 19.                 scalar z2 = x/y
+ 20.                 noisily di "Correct Failure Prediction Rate: " z2
+ 21.                 noisily di "predicted =" x ", Actual = " y
+ 22. 
+.                 noisily di " "
+ 23.                 
+.                 count if `x'_yhat`y'> .95 & ${depvar}==0 & e(sample)
+ 24.                 scalar x = r(N)
+ 25.                 count if ${depvar}==1 & e(sample)
+ 26.                 scalar y = r(N)
+ 27.                 scalar z3 = x/y
+ 28.                 noisily di "Incorrect Success Prediction Rate: " z3
+ 29.                 noisily di "predicted =" x ", Actual = " y
+ 30. 
+.                 noisily di " "
+ 31.                 
+.                 count if `x'_yhat`y'<.05 & ${depvar}==1 & e(sample)
+ 32.                 scalar x = r(N)
+ 33.                 count if ${depvar}==0 & e(sample)
+ 34.                 scalar y = r(N)
+ 35.                 scalar z4 = x/y
+ 36.                 noisily di "Incorrect Failure Prediction Rate: " z4
+ 37.                 noisily di "predicted =" x ", Actual = " y
+ 38.                 matrix define prediction`x'`y' = (z1, z2, z3, z4)
+ 39. 
+. di "==========================================================================="
+ 40. }
+ 41. }
+(results regress_1 are active now)
+============================================================
+Model regress_1 regress unin AGE13X HRWAG13X ACTDTY13 RACETHX  
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  68
+  3,946
+Correct Failure Prediction Rate: .01723264
+predicted =68, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  31
+  3,946
+Incorrect Failure Prediction Rate: .00785606
+predicted =31, Actual = 3946
+===========================================================================
+(results logit_1 are active now)
+============================================================
+Model logit_1 logit unin AGE13X HRWAG13X ACTDTY13 RACETHX  
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  28
+  3,946
+Correct Failure Prediction Rate: .00709579
+predicted =28, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  19
+  3,946
+Incorrect Failure Prediction Rate: .004815
+predicted =19, Actual = 3946
+===========================================================================
+(results probit_1 are active now)
+============================================================
+Model probit_1 probit unin AGE13X HRWAG13X ACTDTY13 RACETHX  
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  31
+  3,946
+Correct Failure Prediction Rate: .00785606
+predicted =31, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  19
+  3,946
+Incorrect Failure Prediction Rate: .004815
+predicted =19, Actual = 3946
+===========================================================================
+(results regress_2 are active now)
+============================================================
+Model regress_2 regress unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13  
+============================================================
+  14
+  3,946
+Correct Success Prediction Rate: .0035479
+predicted =14, Actual = 3946
+  
+  60
+  3,946
+Correct Failure Prediction Rate: .01520527
+predicted =60, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  26
+  3,946
+Incorrect Failure Prediction Rate: .00658895
+predicted =26, Actual = 3946
+===========================================================================
+(results logit_2 are active now)
+============================================================
+Model logit_2 logit unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13  
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  40
+  3,946
+Correct Failure Prediction Rate: .01013685
+predicted =40, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  19
+  3,946
+Incorrect Failure Prediction Rate: .004815
+predicted =19, Actual = 3946
+===========================================================================
+(results probit_2 are active now)
+============================================================
+Model probit_2 probit unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13  
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  42
+  3,946
+Correct Failure Prediction Rate: .01064369
+predicted =42, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  19
+  3,946
+Incorrect Failure Prediction Rate: .004815
+predicted =19, Actual = 3946
+===========================================================================
+(results regress_3 are active now)
+============================================================
+Model regress_3 regress unin AGE13X ACTDTY13 RACETHX EMPST13  
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  18
+  3,946
+Correct Failure Prediction Rate: .00456158
+predicted =18, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  2
+  3,946
+Incorrect Failure Prediction Rate: .00050684
+predicted =2, Actual = 3946
+===========================================================================
+(results logit_3 are active now)
+============================================================
+Model logit_3 logit unin AGE13X ACTDTY13 RACETHX EMPST13  
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  0
+  3,946
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 3946
+===========================================================================
+(results probit_3 are active now)
+============================================================
+Model probit_3 probit unin AGE13X ACTDTY13 RACETHX EMPST13  
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  0
+  3,946
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 3946
+===========================================================================
+
+. 
+. 
+. 
+. 
+. forval y = 1/3 {
+  2.         matrix accuracy`y' = (predictionregress`y' \ predictionlogit`y' \ predictionprobit`y')
+  3.         matrix colnames accuracy`y' = correct_success correct_failure   inaccurate_success inaccurate_failure
+  4.         matrix rownames accuracy`x'`y' = REGRESS LOGIT PROBIT
+  5.         putexcel set "prediction2.csv", sheet(nooptions`y') modify
+  6.         putexcel A1 = matrix(accuracy`x'`y'), names nformat(number_d2)
+  7. 
+. }
+file prediction2.csv saved
+file prediction2.csv saved
+file prediction2.csv saved
+
+. 
+. 
+. ********************************************************************************
+. ********************************************************************************
+. *
+. * ROBUST ONLY 
+. *
+. ********************************************************************************
+. ********************************************************************************
+. cap drop *_uhat* *_yhat*
+
+. 
+. global option = ", robust "
+
+. 
+. local list = "regress logit probit"
+
+. 
+. 
+. foreach x in `list' {
+  2. 
+. `x' ${depvar} ${model1} ${option}
+  3. estimates store `x'_1
+  4. predict `x'_uhat1, stdp
+  5. predict `x'_yhat1 
+  6. 
+. `x' ${depvar} ${model2} ${option}
+  7. estimates store `x'_2
+  8. predict `x'_uhat2, stdp
+  9. predict `x'_yhat2 
+ 10. 
+. `x' ${depvar} ${model3} ${option}
+ 11. estimates store `x'_3
+ 12. predict `x'_uhat3, stdp
+ 13. predict `x'_yhat3 
+ 14. di "==========================================================================="
+ 15. 
+. }
+
+Linear regression                               Number of obs     =      7,892
+                                                F(4, 7887)        =     163.89
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1371
+                                                Root MSE          =     .46462
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0009609   .0002972     3.23   0.001     .0003783    .0015436
+    HRWAG13X |  -.0079121   .0004496   -17.60   0.000    -.0087935   -.0070308
+    ACTDTY13 |  -.2156046   .0118609   -18.18   0.000     -.238855   -.1923542
+     RACETHX |  -.0543788    .005352   -10.16   0.000    -.0648702   -.0438874
+       _cons |   1.159208   .0283532    40.88   0.000     1.103629    1.214788
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+
+Linear regression                               Number of obs     =      7,892
+                                                F(5, 7886)        =     130.35
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1460
+                                                Root MSE          =     .46222
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0019428   .0003319     5.85   0.000     .0012921    .0025934
+    HRWAG13X |   -.008374   .0004613   -18.15   0.000    -.0092783   -.0074698
+    ACTDTY13 |  -.2203806   .0126959   -17.36   0.000    -.2452679   -.1954933
+     RACETHX |  -.0547713   .0053624   -10.21   0.000     -.065283   -.0442595
+     EMPST13 |  -.0199415   .0019782   -10.08   0.000    -.0238192   -.0160637
+       _cons |   1.162945   .0297327    39.11   0.000     1.104661    1.221229
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+
+Linear regression                               Number of obs     =      7,892
+                                                F(4, 7887)        =     158.58
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.1070
+                                                Root MSE          =     .47264
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0006865   .0003042     2.26   0.024     .0000901    .0012829
+    ACTDTY13 |  -.1862111   .0098239   -18.95   0.000    -.2054685   -.1669536
+     RACETHX |   -.051499   .0054375    -9.47   0.000    -.0621578   -.0408401
+     EMPST13 |  -.0151637   .0020499    -7.40   0.000     -.019182   -.0111454
+       _cons |    1.06363   .0241613    44.02   0.000     1.016268    1.110993
+------------------------------------------------------------------------------
+(option xb assumed; fitted values)
+===========================================================================
+
+Iteration 0:   log pseudolikelihood = -5470.3175  
+Iteration 1:   log pseudolikelihood = -4836.4364  
+Iteration 2:   log pseudolikelihood = -4832.8148  
+Iteration 3:   log pseudolikelihood = -4832.8135  
+Iteration 4:   log pseudolikelihood = -4832.8135  
+
+Logistic regression                             Number of obs     =      7,892
+                                                Wald chi2(4)      =     791.40
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -4832.8135               Pseudo R2         =     0.1165
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0052274   .0012654     4.13   0.000     .0027473    .0077076
+    HRWAG13X |  -.0426277   .0025386   -16.79   0.000    -.0476033   -.0376522
+    ACTDTY13 |  -1.140381   .0428976   -26.58   0.000    -1.224459   -1.056304
+     RACETHX |  -.2457845   .0248437    -9.89   0.000    -.2944772   -.1970917
+       _cons |   3.374541   .1230955    27.41   0.000     3.133278    3.615803
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood = -5470.3175  
+Iteration 1:   log pseudolikelihood =  -4777.574  
+Iteration 2:   log pseudolikelihood = -4773.7236  
+Iteration 3:   log pseudolikelihood = -4773.7223  
+Iteration 4:   log pseudolikelihood = -4773.7223  
+
+Logistic regression                             Number of obs     =      7,892
+                                                Wald chi2(5)      =     831.52
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -4773.7223               Pseudo R2         =     0.1273
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |    .011678   .0014157     8.25   0.000     .0089032    .0144528
+    HRWAG13X |  -.0473184   .0026974   -17.54   0.000    -.0526052   -.0420316
+    ACTDTY13 |  -1.220561   .0451188   -27.05   0.000    -1.308992    -1.13213
+     RACETHX |  -.2467364   .0251495    -9.81   0.000    -.2960286   -.1974442
+     EMPST13 |  -.1256464    .011063   -11.36   0.000    -.1473294   -.1039634
+       _cons |   3.526045   .1272492    27.71   0.000     3.276641    3.775449
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood = -5470.3175  
+Iteration 1:   log pseudolikelihood = -4994.1911  
+Iteration 2:   log pseudolikelihood = -4989.5023  
+Iteration 3:   log pseudolikelihood = -4989.4932  
+Iteration 4:   log pseudolikelihood = -4989.4932  
+
+Logistic regression                             Number of obs     =      7,892
+                                                Wald chi2(4)      =     782.95
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -4989.4932               Pseudo R2         =     0.0879
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |    .003254   .0013051     2.49   0.013      .000696     .005812
+    ACTDTY13 |  -.9345965   .0367074   -25.46   0.000    -1.006542   -.8626512
+     RACETHX |  -.2197685   .0243894    -9.01   0.000    -.2675708   -.1719662
+     EMPST13 |  -.0793527   .0094607    -8.39   0.000    -.0978953   -.0608102
+       _cons |    2.73682    .105538    25.93   0.000      2.52997    2.943671
+------------------------------------------------------------------------------
+(option pr assumed; Pr(unin))
+===========================================================================
+
+Iteration 0:   log pseudolikelihood = -5470.3175  
+Iteration 1:   log pseudolikelihood =   -4852.21  
+Iteration 2:   log pseudolikelihood = -4847.6641  
+Iteration 3:   log pseudolikelihood = -4847.6635  
+Iteration 4:   log pseudolikelihood = -4847.6635  
+
+Probit regression                               Number of obs     =      7,892
+                                                Wald chi2(4)      =     833.86
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -4847.6635               Pseudo R2         =     0.1138
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0031976   .0007706     4.15   0.000     .0016873    .0047078
+    HRWAG13X |  -.0242995    .001524   -15.94   0.000    -.0272864   -.0213126
+    ACTDTY13 |  -.6707392   .0247674   -27.08   0.000    -.7192823    -.622196
+     RACETHX |  -.1471095   .0150047    -9.80   0.000    -.1765182   -.1177008
+       _cons |   1.989966   .0710943    27.99   0.000     1.850624    2.129309
+------------------------------------------------------------------------------
+Note: 0 failures and 7 successes completely determined.
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood = -5470.3175  
+Iteration 1:   log pseudolikelihood = -4796.1272  
+Iteration 2:   log pseudolikelihood = -4788.6611  
+Iteration 3:   log pseudolikelihood = -4788.6595  
+Iteration 4:   log pseudolikelihood = -4788.6595  
+
+Probit regression                               Number of obs     =      7,892
+                                                Wald chi2(5)      =     909.18
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -4788.6595               Pseudo R2         =     0.1246
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0069933   .0008486     8.24   0.000     .0053301    .0086565
+    HRWAG13X |  -.0267763   .0015912   -16.83   0.000    -.0298951   -.0236576
+    ACTDTY13 |  -.7129604   .0255566   -27.90   0.000    -.7630504   -.6628704
+     RACETHX |  -.1472022   .0151323    -9.73   0.000     -.176861   -.1175435
+     EMPST13 |  -.0744561   .0064573   -11.53   0.000    -.0871121   -.0618001
+       _cons |   2.065206   .0726987    28.41   0.000     1.922719    2.207692
+------------------------------------------------------------------------------
+Note: 0 failures and 7 successes completely determined.
+(option pr assumed; Pr(unin))
+
+Iteration 0:   log pseudolikelihood = -5470.3175  
+Iteration 1:   log pseudolikelihood =  -4993.369  
+Iteration 2:   log pseudolikelihood = -4990.1473  
+Iteration 3:   log pseudolikelihood = -4990.1465  
+Iteration 4:   log pseudolikelihood = -4990.1465  
+
+Probit regression                               Number of obs     =      7,892
+                                                Wald chi2(4)      =     855.72
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -4990.1465               Pseudo R2         =     0.0878
+
+------------------------------------------------------------------------------
+             |               Robust
+        unin |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      AGE13X |   .0021896   .0008004     2.74   0.006     .0006209    .0037583
+    ACTDTY13 |  -.5697437   .0216369   -26.33   0.000    -.6121513   -.5273362
+     RACETHX |  -.1337044   .0148629    -9.00   0.000    -.1628352   -.1045736
+     EMPST13 |  -.0498038   .0058664    -8.49   0.000    -.0613018   -.0383058
+       _cons |   1.667862   .0623482    26.75   0.000     1.545661    1.790062
+------------------------------------------------------------------------------
+Note: 0 failures and 3 successes completely determined.
+(option pr assumed; Pr(unin))
+===========================================================================
+
+. 
+. local list = "regress logit probit"
+
+. 
+. forval x = 1/3 {
+  2. 
+.         stderr regress_uhat`x' logit_uhat`x' probit_uhat`x' 
+  3.         matrix define stderr`x' = (regress_uhat`x', logit_uhat`x' ,probit_uhat`x' )
+  4. 
+. }
+stderr of regress_uhat1 = .01445886
+stderr of logit_uhat1 = .07535157
+stderr of probit_uhat1 = .0430455
+stderr of regress_uhat2 = .01508149
+stderr of logit_uhat2 = .07955029
+stderr of probit_uhat2 = .04456613
+stderr of regress_uhat3 = .01393571
+stderr of logit_uhat3 = .07545869
+stderr of probit_uhat3 = .04308227
+
+. 
+. matrix stderr = stderr1\stderr2\stderr3
+
+. matrix rownames stderr = stderr1 stderr2 stderr
+
+. matrix colnames stderr =  REGRESS LOGIT PROBIT
+
+. 
+. putexcel set "output2.csv", sheet(ROBUST) modify
+
+. putexcel A1 = matrix(stderr), names nformat(number_d2)
+file output2.csv saved
+
+. 
+. 
+. capture {
+
+Probit model for unin
+
+              -------- True --------
+Classified |         D            ~D  |      Total
+-----------+--------------------------+-----------
+     +     |      2947          1865  |       4812
+     -     |       999          2081  |       3080
+-----------+--------------------------+-----------
+   Total   |      3946          3946  |       7892
+
+Classified + if predicted Pr(D) >= .5
+True D defined as unin != 0
+--------------------------------------------------
+Sensitivity                     Pr( +| D)   74.68%
+Specificity                     Pr( -|~D)   52.74%
+Positive predictive value       Pr( D| +)   61.24%
+Negative predictive value       Pr(~D| -)   67.56%
+--------------------------------------------------
+False + rate for true ~D        Pr( +|~D)   47.26%
+False - rate for true D         Pr( -| D)   25.32%
+False + rate for classified +   Pr(~D| +)   38.76%
+False - rate for classified -   Pr( D| -)   32.44%
+--------------------------------------------------
+Correctly classified                        63.71%
+--------------------------------------------------
+
+Probit model for unin, goodness-of-fit test
+
+       number of observations =      7892
+ number of covariate patterns =       673
+            Pearson chi2(668) =      2936.17
+                  Prob > chi2 =         0.0000
+
+Probit model for unin, goodness-of-fit test
+
+  (Table collapsed on quantiles of estimated probabilities)
+
+       number of observations =      7892
+             number of groups =        10
+      Hosmer-Lemeshow chi2(8) =       190.05
+                  Prob > chi2 =         0.0000
+
+Probit model for unin, goodness-of-fit test
+
+  (Table collapsed on quantiles of estimated probabilities)
+  +--------------------------------------------------------+
+  | Group |   Prob | Obs_1 | Exp_1 | Obs_0 | Exp_0 | Total |
+  |-------+--------+-------+-------+-------+-------+-------|
+  |     1 | 0.1863 |   113 | 131.6 |   680 | 661.4 |   793 |
+  |     2 | 0.3587 |   224 | 206.4 |   570 | 587.6 |   794 |
+  |     3 | 0.4528 |   334 | 330.3 |   469 | 472.7 |   803 |
+  |     4 | 0.5054 |   393 | 364.6 |   380 | 408.4 |   773 |
+  |     5 | 0.5604 |   460 | 422.5 |   324 | 361.5 |   784 |
+  |-------+--------+-------+-------+-------+-------+-------|
+  |     6 | 0.5998 |   443 | 465.7 |   363 | 340.3 |   806 |
+  |     7 | 0.6148 |   425 | 474.7 |   356 | 306.3 |   781 |
+  |     8 | 0.6316 |   362 | 497.4 |   436 | 300.6 |   798 |
+  |     9 | 0.6649 |   583 | 534.8 |   234 | 282.2 |   817 |
+  |    10 | 1.0000 |   609 | 523.7 |   134 | 219.3 |   743 |
+  +--------------------------------------------------------+
+
+       number of observations =      7892
+             number of groups =        10
+      Hosmer-Lemeshow chi2(8) =       190.05
+                  Prob > chi2 =         0.0000
+
+. 
+. foreach x in `list' {
+  2. 
+. estimates table `x'_1 `x'_2 `x'_3, ///
+>   stats(N ll r2_p mrse) b(%7.3f) stfmt(%8.2f)
+  3.   
+. sum `x'_yhat1 `x'_yhat2 `x'_yhat3 ${depvar}
+  4. 
+. sum `x'_uhat1 `x'_uhat2 `x'_uhat3
+  5. di "==========================================================================="
+  6. }
+
+-----------------------------------------------
+    Variable | regre~_1   regre~_2   regre~_3  
+-------------+---------------------------------
+      AGE13X |    0.001      0.002      0.001  
+    HRWAG13X |   -0.008     -0.008             
+    ACTDTY13 |   -0.216     -0.220     -0.186  
+     RACETHX |   -0.054     -0.055     -0.051  
+     EMPST13 |              -0.020     -0.015  
+       _cons |    1.159      1.163      1.064  
+-------------+---------------------------------
+           N |     7892       7892       7892  
+          ll | -5146.27   -5104.95   -5281.38  
+        r2_p |                                 
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+regress_yh~1 |      7,892          .5     .185119  -.3625387   2.800497
+regress_yh~2 |      7,892          .5    .1910935  -.3724487   3.039264
+regress_yh~3 |      7,892          .5    .1635649   .0425156   2.599152
+        unin |      7,892          .5    .5000317          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+regress_uh~1 |      7,892    .0126517    .0047795   .0071352   .1257268
+regress_uh~2 |      7,892    .0135752    .0054449   .0072239   .1412505
+regress_uh~3 |      7,892    .0120119    .0044087   .0071723   .1078835
+===========================================================================
+
+-----------------------------------------------
+    Variable | logit_1    logit_2    logit_3   
+-------------+---------------------------------
+      AGE13X |    0.005      0.012      0.003  
+    HRWAG13X |   -0.043     -0.047             
+    ACTDTY13 |   -1.140     -1.221     -0.935  
+     RACETHX |   -0.246     -0.247     -0.220  
+     EMPST13 |              -0.126     -0.079  
+       _cons |    3.375      3.526      2.737  
+-------------+---------------------------------
+           N |     7892       7892       7892  
+          ll | -4832.81   -4773.72   -4989.49  
+        r2_p |     0.12       0.13       0.09  
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logit_yhat1 |      7,892          .5    .1944302   .0100048   .9999947
+ logit_yhat2 |      7,892          .5    .2015844   .0078945   .9999993
+ logit_yhat3 |      7,892          .5    .1695152   .0980284   .9999737
+        unin |      7,892          .5    .5000317          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+ logit_uhat1 |      7,892    .0561557    .0228466   .0281074   .4495087
+ logit_uhat2 |      7,892    .0618137    .0272283   .0284633   .5101009
+ logit_uhat3 |      7,892    .0519124    .0206942   .0278162   .3968805
+===========================================================================
+
+-----------------------------------------------
+    Variable | probit_1   probit_2   probit_3  
+-------------+---------------------------------
+      AGE13X |    0.003      0.007      0.002  
+    HRWAG13X |   -0.024     -0.027             
+    ACTDTY13 |   -0.671     -0.713     -0.570  
+     RACETHX |   -0.147     -0.147     -0.134  
+     EMPST13 |              -0.074     -0.050  
+       _cons |    1.990      2.065      1.668  
+-------------+---------------------------------
+           N |     7892       7892       7892  
+          ll | -4847.66   -4788.66   -4990.15  
+        r2_p |     0.11       0.12       0.09  
+        mrse |                                 
+-----------------------------------------------
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+probit_yhat1 |      7,892    .5017745    .1882863   .0041035          1
+probit_yhat2 |      7,892    .5019141    .1957694   .0029127          1
+probit_yhat3 |      7,892    .5007347    .1691116   .0892665          1
+        unin |      7,892          .5    .5000317          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+probit_uhat1 |      7,892    .0336337    .0132313   .0172167   .2599235
+probit_uhat2 |      7,892     .036718    .0153698   .0173592   .2863829
+probit_uhat3 |      7,892    .0314598    .0121001    .017194   .2354644
+===========================================================================
+
+. 
+. 
+. local list = "regress logit probit"
+
+. 
+. forval y = 1/3 {
+  2. foreach x in `list' {
+  3.         
+.                 estimates restore `x'_`y'
+  4.                 
+.                 noisily di "============================================================"
+  5.                 noisily di "Model `x'_`y' " e(cmdline)
+  6.                 noisily di "============================================================"
+  7. 
+.                 count if `x'_yhat`y' > .95 & ${depvar}==1 & e(sample)
+  8.                 scalar x = r(N)
+  9.                 count if ${depvar}==1 & e(sample)
+ 10.                 scalar y = r(N)
+ 11.                 scalar z1 = x/y
+ 12.                 noisily di "Correct Success Prediction Rate: " z1
+ 13.                 noisily di "predicted =" x ", Actual = " y
+ 14. 
+.                 noisily di "  "
+ 15. 
+.                 count if `x'_yhat`y'<.05 & ${depvar}==0 & e(sample)
+ 16.                 scalar x = r(N)
+ 17.                 count if ${depvar}==0 & e(sample) 
+ 18.                 scalar y = r(N)
+ 19.                 scalar z2 = x/y
+ 20.                 noisily di "Correct Failure Prediction Rate: " z2
+ 21.                 noisily di "predicted =" x ", Actual = " y
+ 22. 
+.                 noisily di " "
+ 23.                 
+.                 count if `x'_yhat`y'> .95 & ${depvar}==0 & e(sample)
+ 24.                 scalar x = r(N)
+ 25.                 count if ${depvar}==1 & e(sample)
+ 26.                 scalar y = r(N)
+ 27.                 scalar z3 = x/y
+ 28.                 noisily di "Incorrect Success Prediction Rate: " z3
+ 29.                 noisily di "predicted =" x ", Actual = " y
+ 30. 
+.                 noisily di " "
+ 31.                 
+.                 count if `x'_yhat`y'<.05 & ${depvar}==1 & e(sample)
+ 32.                 scalar x = r(N)
+ 33.                 count if ${depvar}==0 & e(sample)
+ 34.                 scalar y = r(N)
+ 35.                 scalar z4 = x/y
+ 36.                 noisily di "Incorrect Failure Prediction Rate: " z4
+ 37.                 noisily di "predicted =" x ", Actual = " y
+ 38.                 matrix define prediction`x'`y' = (z1, z2, z3, z4)
+ 39. 
+. di "==========================================================================="
+ 40. }
+ 41. }
+(results regress_1 are active now)
+============================================================
+Model regress_1 regress unin AGE13X HRWAG13X ACTDTY13 RACETHX , robust 
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  68
+  3,946
+Correct Failure Prediction Rate: .01723264
+predicted =68, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  31
+  3,946
+Incorrect Failure Prediction Rate: .00785606
+predicted =31, Actual = 3946
+===========================================================================
+(results logit_1 are active now)
+============================================================
+Model logit_1 logit unin AGE13X HRWAG13X ACTDTY13 RACETHX , robust 
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  28
+  3,946
+Correct Failure Prediction Rate: .00709579
+predicted =28, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  19
+  3,946
+Incorrect Failure Prediction Rate: .004815
+predicted =19, Actual = 3946
+===========================================================================
+(results probit_1 are active now)
+============================================================
+Model probit_1 probit unin AGE13X HRWAG13X ACTDTY13 RACETHX , robust 
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  31
+  3,946
+Correct Failure Prediction Rate: .00785606
+predicted =31, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  19
+  3,946
+Incorrect Failure Prediction Rate: .004815
+predicted =19, Actual = 3946
+===========================================================================
+(results regress_2 are active now)
+============================================================
+Model regress_2 regress unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 , robust 
+============================================================
+  14
+  3,946
+Correct Success Prediction Rate: .0035479
+predicted =14, Actual = 3946
+  
+  60
+  3,946
+Correct Failure Prediction Rate: .01520527
+predicted =60, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  26
+  3,946
+Incorrect Failure Prediction Rate: .00658895
+predicted =26, Actual = 3946
+===========================================================================
+(results logit_2 are active now)
+============================================================
+Model logit_2 logit unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 , robust 
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  40
+  3,946
+Correct Failure Prediction Rate: .01013685
+predicted =40, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  19
+  3,946
+Incorrect Failure Prediction Rate: .004815
+predicted =19, Actual = 3946
+===========================================================================
+(results probit_2 are active now)
+============================================================
+Model probit_2 probit unin AGE13X HRWAG13X ACTDTY13 RACETHX EMPST13 , robust 
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  42
+  3,946
+Correct Failure Prediction Rate: .01064369
+predicted =42, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  19
+  3,946
+Incorrect Failure Prediction Rate: .004815
+predicted =19, Actual = 3946
+===========================================================================
+(results regress_3 are active now)
+============================================================
+Model regress_3 regress unin AGE13X ACTDTY13 RACETHX EMPST13 , robust 
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  18
+  3,946
+Correct Failure Prediction Rate: .00456158
+predicted =18, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  2
+  3,946
+Incorrect Failure Prediction Rate: .00050684
+predicted =2, Actual = 3946
+===========================================================================
+(results logit_3 are active now)
+============================================================
+Model logit_3 logit unin AGE13X ACTDTY13 RACETHX EMPST13 , robust 
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  0
+  3,946
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 3946
+===========================================================================
+(results probit_3 are active now)
+============================================================
+Model probit_3 probit unin AGE13X ACTDTY13 RACETHX EMPST13 , robust 
+============================================================
+  7
+  3,946
+Correct Success Prediction Rate: .00177395
+predicted =7, Actual = 3946
+  
+  0
+  3,946
+Correct Failure Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Success Prediction Rate: 0
+predicted =0, Actual = 3946
+ 
+  0
+  3,946
+Incorrect Failure Prediction Rate: 0
+predicted =0, Actual = 3946
+===========================================================================
+
+. 
+. 
+. 
+. forval y = 1/3 {
+  2.         matrix accuracy`y' = (predictionregress`y' \ predictionlogit`y' \ predictionprobit`y')
+  3.         matrix colnames accuracy`y' = correct_success correct_failure   inaccurate_success inaccurate_failure
+  4.         matrix rownames accuracy`x'`y' = REGRESS LOGIT PROBIT
+  5.         putexcel set "prediction2.csv", sheet(robust`y') modify
+  6.         putexcel A1 = matrix(accuracy`x'`y'), names nformat(number_d2)
+  7. 
+. }
+file prediction2.csv saved
+file prediction2.csv saved
+file prediction2.csv saved
+
+. 
+end of do-file
+
+. bsample 3946, strata(${depvar})
+
+. do "C:\Users\rayde\AppData\Local\Temp\
+> STD968_000000.tmp"
+
+. global depvar = "ins"
+
+. 
+end of do-file
+
+. bsample 3946, strata(${depvar})
+
+. bsample 3946, strata()
+
+. bsample 3946, strata(ins)
+resample sizes must not be greater than 
+> number of observations with strata
+r(498);
+
+. bsample 3946, strata(ynin)
+variable ynin not found
+(error in option strata())
+r(111);
+
+. bsample 3946, strata(unin)
+resample sizes must not be greater than 
+> number of observations with strata
+r(498);
+
+. do "C:\Users\rayde\AppData\Local\Temp\
+> STD968_000000.tmp"
+
+. bsample 3946, strata(${depvar})
+resample sizes must not be greater than 
+> number of observations with strata
+r(498);
+
+end of do-file
+
+r(498);
+
+. do "C:\Users\rayde\AppData\Local\Temp\
+> STD968_000000.tmp"
+
+. cap log close

@@ -1,0 +1,1098 @@
+-------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\dray\Downloads\ecls_lab_class.log
+  log type:  text
+ opened on:  10 Nov 2018, 17:15:16
+
+. use ecls_lab_class.dta
+(Written by R.              )
+
+. codebook
+
+-------------------------------------------------------------------------------------------
+childid                                                         child identification number
+-------------------------------------------------------------------------------------------
+
+                  type:  string (str8)
+
+         unique values:  11,078                   missing "":  0/11,078
+
+              examples:  "0301018C"
+                         "0531008C"
+                         "0834001C"
+                         "1136007C"
+
+-------------------------------------------------------------------------------------------
+catholic                                                     dummy: 1= catholic, 0 = public
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  0/11,078
+
+            tabulation:  Freq.  Value
+                         9,568  0
+                         1,510  1
+
+-------------------------------------------------------------------------------------------
+race_white                                              dummy: 1= race==white, 0= not white
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  0/11,078
+
+            tabulation:  Freq.  Value
+                         4,662  0
+                         6,416  1
+
+-------------------------------------------------------------------------------------------
+race_black                                              dummy: 1= race==black, 0= not black
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  0/11,078
+
+            tabulation:  Freq.  Value
+                         9,691  0
+                         1,387  1
+
+-------------------------------------------------------------------------------------------
+race_hispanic                                     dummy: 1= race==hispanic, 0= not hispanic
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  0/11,078
+
+            tabulation:  Freq.  Value
+                         9,145  0
+                         1,933  1
+
+-------------------------------------------------------------------------------------------
+race_asian                                              dummy: 1= race==asian, 0= not asian
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  0/11,078
+
+            tabulation:  Freq.  Value
+                        10,364  0
+                           714  1
+
+-------------------------------------------------------------------------------------------
+p5numpla   fall 3rd grade: # of places child has lived for at least 4 months since 1st grad
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [1,6]                        units:  1
+         unique values:  6                        missing .:  1,575/11,078
+
+            tabulation:  Freq.  Value
+                         8,441  1
+                           953  2
+                            85  3
+                            14  4
+                             9  5
+                             1  6
+                         1,575  .
+
+-------------------------------------------------------------------------------------------
+p5hmage                                                       fall 3rd grade: age of mother
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [19,76]                      units:  1
+         unique values:  55                       missing .:  1,615/11,078
+
+                  mean:   37.8541
+              std. dev:   6.44008
+
+           percentiles:        10%       25%       50%       75%       90%
+                                30        33        38        42        46
+
+-------------------------------------------------------------------------------------------
+p5hdage                                                       fall 3rd grade: age of father
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [22,81]                      units:  1
+         unique values:  57                       missing .:  3,232/11,078
+
+                  mean:   40.6406
+              std. dev:   6.88183
+
+           percentiles:        10%       25%       50%       75%       90%
+                                32        36        40        45        49
+
+-------------------------------------------------------------------------------------------
+w3momscr                               fall 3rd grade: mother's occupational prestige score
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [29.6,77.5]                  units:  .01
+         unique values:  21                       missing .:  3,755/11,078
+
+                  mean:   43.7863
+              std. dev:   11.2216
+
+           percentiles:        10%       25%       50%       75%       90%
+                             34.95     34.95     38.18      53.5     62.87
+
+-------------------------------------------------------------------------------------------
+w3dadscr                               fall 3rd grade: father's occupational prestige score
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [29.6,77.5]                  units:  .01
+         unique values:  21                       missing .:  3,571/11,078
+
+                  mean:   43.2963
+              std. dev:   10.8417
+
+           percentiles:        10%       25%       50%       75%       90%
+                             33.42     35.78     39.18      53.5        59
+
+-------------------------------------------------------------------------------------------
+w3povrty                                                                poverty score dummy
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  1,374/11,078
+
+            tabulation:  Freq.  Value
+                         7,830  0
+                         1,874  1
+                         1,374  .
+
+-------------------------------------------------------------------------------------------
+p5fstamp                                                                   food stamp dummy
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  1,524/11,078
+
+            tabulation:  Freq.  Value
+                         8,475  0
+                         1,079  1
+                         1,524  .
+
+-------------------------------------------------------------------------------------------
+rcdadcoll                                       Father's Education (1 if post HS or beyond)
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (float)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  3,210/11,078
+
+            tabulation:  Freq.  Value
+                         3,112  0
+                         4,756  1
+                         3,210  .
+
+-------------------------------------------------------------------------------------------
+rcmomcoll                                       Mother's Education (1 if post HS or beyond)
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (float)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  1,592/11,078
+
+            tabulation:  Freq.  Value
+                         3,544  0
+                         5,942  1
+                         1,592  .
+
+-------------------------------------------------------------------------------------------
+rcinclvl1                                                                      Income < 25k
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (byte)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  1,374/11,078
+
+            tabulation:  Freq.  Value
+                         7,430  0
+                         2,274  1
+                         1,374  .
+
+-------------------------------------------------------------------------------------------
+rcinclvl2                                                              Income 25,001 -  75k
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (byte)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  1,374/11,078
+
+            tabulation:  Freq.  Value
+                         4,810  0
+                         4,894  1
+                         1,374  .
+
+-------------------------------------------------------------------------------------------
+rcinclvl3                                                                    Income 75,001+
+-------------------------------------------------------------------------------------------
+
+                  type:  numeric (byte)
+
+                 range:  [0,1]                        units:  1
+         unique values:  2                        missing .:  1,374/11,078
+
+            tabulation:  Freq.  Value
+                         7,168  0
+                         2,536  1
+                         1,374  .
+
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. set more off
+
+. sum childid catholic race_white race_black race_hispanic race_asian p5numpla p5hmage p5hdage w3momscr w3dadscr w3povrty p5fstamp rc
+> dadcoll rcmomcoll rcinclvl1 rcinclvl2 rcinclvl3
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     childid |          0
+    catholic |     11,078    .1363062    .3431289          0          1
+  race_white |     11,078    .5791659    .4937153          0          1
+  race_black |     11,078    .1252031     .330964          0          1
+race_hispa~c |     11,078      .17449    .3795474          0          1
+-------------+---------------------------------------------------------
+  race_asian |     11,078    .0644521    .2455676          0          1
+    p5numpla |      9,503    1.126907    .3886072          1          6
+     p5hmage |      9,463    37.85406    6.440084         19         76
+     p5hdage |      7,846    40.64058    6.881835         22         81
+    w3momscr |      7,323    43.78626     11.2216       29.6       77.5
+-------------+---------------------------------------------------------
+    w3dadscr |      7,507     43.2963    10.84169       29.6       77.5
+    w3povrty |      9,704    .1931162    .3947637          0          1
+    p5fstamp |      9,554     .112937    .3165323          0          1
+   rcdadcoll |      7,868    .6044738    .4889945          0          1
+   rcmomcoll |      9,486    .6263968    .4837856          0          1
+-------------+---------------------------------------------------------
+   rcinclvl1 |      9,704    .2343364    .4236051          0          1
+   rcinclvl2 |      9,704    .5043281     .500007          0          1
+   rcinclvl3 |      9,704    .2613355     .439385          0          1
+
+. sum childid catholic race_white race_black race_hispanic race_asian p5numpla p5hmage p5hdage w3momscr w3dadscr w3povrty p5fstamp rc
+> dadcoll rcmomcoll rcinclvl1 rcinclvl2 rcinclvl3, by(catholic)
+option by() not allowed
+r(198);
+
+. bysort catholic: sum childid catholic race_white race_black race_hispanic race_asian p5numpla p5hmage p5hdage w3momscr w3dadscr w3p
+> ovrty p5fstamp rcdadcoll rcmomcoll rcinclvl1 rcinclvl2 rcinclvl3, by(catholic)
+
+-------------------------------------------------------------------------------------------------------------------------------------
+-> catholic = 0
+option by() not allowed
+r(198);
+
+. bysort catholic: sum childid catholic race_white race_black race_hispanic race_asian p5numpla p5hmage p5hdage w3momscr w3dadscr w3p
+> ovrty p5fstamp rcdadcoll rcmomcoll rcinclvl1 rcinclvl2 rcinclvl3
+
+-------------------------------------------------------------------------------------------------------------------------------------
+-> catholic = 0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     childid |          0
+    catholic |      9,568           0           0          0          0
+  race_white |      9,568    .5561246     .496866          0          1
+  race_black |      9,568    .1364967    .3433331          0          1
+race_hispa~c |      9,568    .1813336    .3853145          0          1
+-------------+---------------------------------------------------------
+  race_asian |      9,568    .0663671    .2489356          0          1
+    p5numpla |      8,133    1.132669    .4004194          1          6
+     p5hmage |      8,086    37.56097    6.578365         19         76
+     p5hdage |      6,623    40.39182    7.033555         22         81
+    w3momscr |      6,198    43.11358    11.00466       29.6       77.5
+-------------+---------------------------------------------------------
+    w3dadscr |      6,305    42.71306    10.58232       29.6       77.5
+    w3povrty |      8,308    .2191863    .4137201          0          1
+    p5fstamp |      8,184    .1292766    .3355264          0          1
+   rcdadcoll |      6,642    .5701596    .4950904          0          1
+   rcmomcoll |      8,104    .5934107    .4912273          0          1
+-------------+---------------------------------------------------------
+   rcinclvl1 |      8,308    .2637217    .4406767          0          1
+   rcinclvl2 |      8,308    .5097496     .499935          0          1
+   rcinclvl3 |      8,308    .2265286    .4186102          0          1
+
+-------------------------------------------------------------------------------------------------------------------------------------
+-> catholic = 1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     childid |          0
+    catholic |      1,510           1           0          1          1
+  race_white |      1,510    .7251656    .4465787          0          1
+  race_black |      1,510    .0536424    .2253853          0          1
+race_hispa~c |      1,510    .1311258    .3376497          0          1
+-------------+---------------------------------------------------------
+  race_asian |      1,510    .0523179    .2227411          0          1
+    p5numpla |      1,370    1.092701     .307238          1          3
+     p5hmage |      1,377    39.57516    5.240056         25         74
+     p5hdage |      1,223    41.98774    5.814285         26         76
+    w3momscr |      1,125     47.4923    11.67811       29.6       77.5
+-------------+---------------------------------------------------------
+    w3dadscr |      1,202    46.35568    11.64709       29.6       77.5
+    w3povrty |      1,396    .0379656    .1911816          0          1
+    p5fstamp |      1,370    .0153285    .1229005          0          1
+   rcdadcoll |      1,226    .7903752    .4072069          0          1
+   rcmomcoll |      1,382    .8198263    .3844712          0          1
+-------------+---------------------------------------------------------
+   rcinclvl1 |      1,396    .0594556    .2365602          0          1
+   rcinclvl2 |      1,396     .472063    .4993978          0          1
+   rcinclvl3 |      1,396    .4684814    .4991844          0          1
+
+
+. help fsum
+
+. bysort catholic: fsum childid catholic race_white race_black race_hispanic race_asian p5numpla p5hmage p5hdage w3momscr w3dadscr w3
+> povrty p5fstamp rcdadcoll rcmomcoll rcinclvl1 rcinclvl2 rcinclvl3
+command fsum is unrecognized
+r(199);
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. global tablecovars race_white race_black race_hispanic race_asian ///
+>         p5numpla p5hmage p5hdage rcdadcoll rcmomcoll w3povrty w3momscr w3
+> dadscr ///
+>         rcinclvl1 rcinclvl2 rcinclvl3 p5fstamp
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. fsum $tablecovars , stats(n mean sd)
+command fsum is unrecognized
+r(199);
+
+end of do-file
+
+r(199);
+
+. help fsum
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. fsum $tablecovars , stats(n mean sd)
+
+      Variable |        N     Mean       SD                                                                                                                                                
+---------------+---------------------------
+    race_white |    11078     0.58     0.49  
+    race_black |    11078     0.13     0.33  
+ race_hispanic |    11078     0.17     0.38  
+    race_asian |    11078     0.06     0.25  
+      p5numpla |     9503     1.13     0.39  
+       p5hmage |     9463    37.85     6.44  
+       p5hdage |     7846    40.64     6.88  
+     rcdadcoll |     7868     0.60     0.49  
+     rcmomcoll |     9486     0.63     0.48  
+      w3povrty |     9704     0.19     0.39  
+      w3momscr |     7323    43.79    11.22  
+      w3dadscr |     7507    43.30    10.84  
+     rcinclvl1 |     9704     0.23     0.42  
+     rcinclvl2 |     9704     0.50     0.50  
+     rcinclvl3 |     9704     0.26     0.44  
+      p5fstamp |     9554     0.11     0.32  
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. bysort catholic: fsum $tablecovars, stats(n mean sd)
+
+---------------------------------------------------------------------------
+-> catholic = 0
+
+      Variable |        N     Mean       SD                                                                                                                                                
+---------------+---------------------------
+    race_white |     9568     0.56     0.50  
+    race_black |     9568     0.14     0.34  
+ race_hispanic |     9568     0.18     0.39  
+    race_asian |     9568     0.07     0.25  
+      p5numpla |     8133     1.13     0.40  
+       p5hmage |     8086    37.56     6.58  
+       p5hdage |     6623    40.39     7.03  
+     rcdadcoll |     6642     0.57     0.50  
+     rcmomcoll |     8104     0.59     0.49  
+      w3povrty |     8308     0.22     0.41  
+      w3momscr |     6198    43.11    11.00  
+      w3dadscr |     6305    42.71    10.58  
+     rcinclvl1 |     8308     0.26     0.44  
+     rcinclvl2 |     8308     0.51     0.50  
+     rcinclvl3 |     8308     0.23     0.42  
+      p5fstamp |     8184     0.13     0.34  
+
+---------------------------------------------------------------------------
+-> catholic = 1
+
+      Variable |        N     Mean       SD                                                                                                                                                
+---------------+---------------------------
+    race_white |     1510     0.73     0.45  
+    race_black |     1510     0.05     0.23  
+ race_hispanic |     1510     0.13     0.34  
+    race_asian |     1510     0.05     0.22  
+      p5numpla |     1370     1.09     0.31  
+       p5hmage |     1377    39.58     5.24  
+       p5hdage |     1223    41.99     5.81  
+     rcdadcoll |     1226     0.79     0.41  
+     rcmomcoll |     1382     0.82     0.38  
+      w3povrty |     1396     0.04     0.19  
+      w3momscr |     1125    47.49    11.68  
+      w3dadscr |     1202    46.36    11.65  
+     rcinclvl1 |     1396     0.06     0.24  
+     rcinclvl2 |     1396     0.47     0.50  
+     rcinclvl3 |     1396     0.47     0.50  
+      p5fstamp |     1370     0.02     0.12  
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. global rmcovars  race_black race_hispanic race_asian
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. global fmcovars race_black race_hispanic race_asian ///
+>         p5numpla p5hmage p5hdage rcdadcoll rcmomcoll  w3povrty w3momscr w
+> 3dadscr ///
+>         rcinclvl2 rcinclvl3 p5fstamp
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. logit catholic $rmcovars, robust
+
+Iteration 0:   log pseudolikelihood = -4411.2714  
+Iteration 1:   log pseudolikelihood = -4336.2652  
+Iteration 2:   log pseudolikelihood = -4333.7908  
+Iteration 3:   log pseudolikelihood = -4333.7822  
+Iteration 4:   log pseudolikelihood = -4333.7822  
+
+Logistic regression                             Number of obs     =     11,
+> 078
+                                                Wald chi2(3)      =     130
+> .51
+                                                Prob > chi2       =     0.0
+> 000
+Log pseudolikelihood = -4333.7822               Pseudo R2         =     0.0
+> 176
+
+---------------------------------------------------------------------------
+> ---
+             |               Robust
+    catholic |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interv
+> al]
+-------------+-------------------------------------------------------------
+> ---
+  race_black |  -1.148179   .1189556    -9.65   0.000    -1.381328   -.9150
+> 306
+race_hispa~c |  -.5383997    .081641    -6.59   0.000    -.6984131   -.3783
+> 863
+  race_asian |  -.4520812   .1235807    -3.66   0.000    -.6942949   -.2098
+> 675
+       _cons |  -1.632096    .032216   -50.66   0.000    -1.695238   -1.568
+> 954
+---------------------------------------------------------------------------
+> ---
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. estimates store logit1
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. logit catholic $fmcovars, robust
+
+Iteration 0:   log pseudolikelihood = -2486.1841  
+Iteration 1:   log pseudolikelihood = -2335.6343  
+Iteration 2:   log pseudolikelihood = -2320.6983  
+Iteration 3:   log pseudolikelihood =  -2320.177  
+Iteration 4:   log pseudolikelihood = -2320.1763  
+Iteration 5:   log pseudolikelihood = -2320.1763  
+
+Logistic regression                             Number of obs     =      5,
+> 429
+                                                Wald chi2(14)     =     291
+> .94
+                                                Prob > chi2       =     0.0
+> 000
+Log pseudolikelihood = -2320.1763               Pseudo R2         =     0.0
+> 668
+
+---------------------------------------------------------------------------
+> ---
+             |               Robust
+    catholic |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interv
+> al]
+-------------+-------------------------------------------------------------
+> ---
+  race_black |  -.4454649   .1911945    -2.33   0.020    -.8201991   -.0707
+> 306
+race_hispa~c |   .1322709   .1188522     1.11   0.266    -.1006752     .365
+> 217
+  race_asian |  -.4779762   .1729319    -2.76   0.006    -.8169165   -.1390
+> 358
+    p5numpla |  -.1702755   .1173772    -1.45   0.147    -.4003306    .0597
+> 795
+     p5hmage |   .0273417   .0096821     2.82   0.005     .0083651    .0463
+> 182
+     p5hdage |   .0110788   .0085558     1.29   0.195    -.0056902    .0278
+> 479
+   rcdadcoll |   .3357823   .0994498     3.38   0.001     .1408642    .5307
+> 004
+   rcmomcoll |    .378349   .1078786     3.51   0.000     .1669109    .5897
+> 871
+    w3povrty |  -.5711972   .3414727    -1.67   0.094    -1.240471     .098
+> 077
+    w3momscr |   .0043929   .0034303     1.28   0.200    -.0023305    .0111
+> 162
+    w3dadscr |   .0031064   .0035945     0.86   0.387    -.0039387    .0101
+> 516
+   rcinclvl2 |   .6643858   .3086318     2.15   0.031     .0594787    1.269
+> 293
+   rcinclvl3 |   1.102316   .3162876     3.49   0.000     .4824037    1.722
+> 228
+    p5fstamp |  -.7595007   .4323217    -1.76   0.079    -1.606836    .0878
+> 342
+       _cons |  -4.500016    .448512   -10.03   0.000    -5.379083   -3.620
+> 948
+---------------------------------------------------------------------------
+> ---
+
+. estimates store logit2  
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. logit catholic $fmcovars, robust
+
+Iteration 0:   log pseudolikelihood = -2486.1841  
+Iteration 1:   log pseudolikelihood = -2335.6343  
+Iteration 2:   log pseudolikelihood = -2320.6983  
+Iteration 3:   log pseudolikelihood =  -2320.177  
+Iteration 4:   log pseudolikelihood = -2320.1763  
+Iteration 5:   log pseudolikelihood = -2320.1763  
+
+Logistic regression                             Number of obs     =      5,429
+                                                Wald chi2(14)     =     291.94
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -2320.1763               Pseudo R2         =     0.0668
+
+-------------------------------------------------------------------------------
+              |               Robust
+     catholic |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+   race_black |  -.4454649   .1911945    -2.33   0.020    -.8201991   -.0707306
+race_hispanic |   .1322709   .1188522     1.11   0.266    -.1006752     .365217
+   race_asian |  -.4779762   .1729319    -2.76   0.006    -.8169165   -.1390358
+     p5numpla |  -.1702755   .1173772    -1.45   0.147    -.4003306    .0597795
+      p5hmage |   .0273417   .0096821     2.82   0.005     .0083651    .0463182
+      p5hdage |   .0110788   .0085558     1.29   0.195    -.0056902    .0278479
+    rcdadcoll |   .3357823   .0994498     3.38   0.001     .1408642    .5307004
+    rcmomcoll |    .378349   .1078786     3.51   0.000     .1669109    .5897871
+     w3povrty |  -.5711972   .3414727    -1.67   0.094    -1.240471     .098077
+     w3momscr |   .0043929   .0034303     1.28   0.200    -.0023305    .0111162
+     w3dadscr |   .0031064   .0035945     0.86   0.387    -.0039387    .0101516
+    rcinclvl2 |   .6643858   .3086318     2.15   0.031     .0594787    1.269293
+    rcinclvl3 |   1.102316   .3162876     3.49   0.000     .4824037    1.722228
+     p5fstamp |  -.7595007   .4323217    -1.76   0.079    -1.606836    .0878342
+        _cons |  -4.500016    .448512   -10.03   0.000    -5.379083   -3.620948
+-------------------------------------------------------------------------------
+
+. estimates store logit2  
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. estat classification
+
+Logistic model for catholic
+
+              -------- True --------
+Classified |         D            ~D  |      Total
+-----------+--------------------------+-----------
+     +     |         0             0  |          0
+     -     |       930          4499  |       5429
+-----------+--------------------------+-----------
+   Total   |       930          4499  |       5429
+
+Classified + if predicted Pr(D) >= .5
+True D defined as catholic != 0
+--------------------------------------------------
+Sensitivity                     Pr( +| D)    0.00%
+Specificity                     Pr( -|~D)  100.00%
+Positive predictive value       Pr( D| +)       .%
+Negative predictive value       Pr(~D| -)   82.87%
+--------------------------------------------------
+False + rate for true ~D        Pr( +|~D)    0.00%
+False - rate for true D         Pr( -| D)  100.00%
+False + rate for classified +   Pr(~D| +)       .%
+False - rate for classified -   Pr( D| -)   17.13%
+--------------------------------------------------
+Correctly classified                        82.87%
+--------------------------------------------------
+
+. 
+end of do-file
+
+. browse catholic _est_logit2 _est_logit1
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. fsum $tablecovars , stats(n mean sd)
+
+      Variable |        N     Mean       SD                                                                                                                                                
+---------------+---------------------------
+    race_white |    11078     0.58     0.49  
+    race_black |    11078     0.13     0.33  
+ race_hispanic |    11078     0.17     0.38  
+    race_asian |    11078     0.06     0.25  
+      p5numpla |     9503     1.13     0.39  
+       p5hmage |     9463    37.85     6.44  
+       p5hdage |     7846    40.64     6.88  
+     rcdadcoll |     7868     0.60     0.49  
+     rcmomcoll |     9486     0.63     0.48  
+      w3povrty |     9704     0.19     0.39  
+      w3momscr |     7323    43.79    11.22  
+      w3dadscr |     7507    43.30    10.84  
+     rcinclvl1 |     9704     0.23     0.42  
+     rcinclvl2 |     9704     0.50     0.50  
+     rcinclvl3 |     9704     0.26     0.44  
+      p5fstamp |     9554     0.11     0.32  
+
+. bysort catholic: fsum $tablecovars, stats(n mean sd)
+
+-------------------------------------------------------------------------------------------------------------------------------------
+-> catholic = 0
+
+      Variable |        N     Mean       SD                                                                                                                                                
+---------------+---------------------------
+    race_white |     9568     0.56     0.50  
+    race_black |     9568     0.14     0.34  
+ race_hispanic |     9568     0.18     0.39  
+    race_asian |     9568     0.07     0.25  
+      p5numpla |     8133     1.13     0.40  
+       p5hmage |     8086    37.56     6.58  
+       p5hdage |     6623    40.39     7.03  
+     rcdadcoll |     6642     0.57     0.50  
+     rcmomcoll |     8104     0.59     0.49  
+      w3povrty |     8308     0.22     0.41  
+      w3momscr |     6198    43.11    11.00  
+      w3dadscr |     6305    42.71    10.58  
+     rcinclvl1 |     8308     0.26     0.44  
+     rcinclvl2 |     8308     0.51     0.50  
+     rcinclvl3 |     8308     0.23     0.42  
+      p5fstamp |     8184     0.13     0.34  
+
+-------------------------------------------------------------------------------------------------------------------------------------
+-> catholic = 1
+
+      Variable |        N     Mean       SD                                                                                                                                                
+---------------+---------------------------
+    race_white |     1510     0.73     0.45  
+    race_black |     1510     0.05     0.23  
+ race_hispanic |     1510     0.13     0.34  
+    race_asian |     1510     0.05     0.22  
+      p5numpla |     1370     1.09     0.31  
+       p5hmage |     1377    39.58     5.24  
+       p5hdage |     1223    41.99     5.81  
+     rcdadcoll |     1226     0.79     0.41  
+     rcmomcoll |     1382     0.82     0.38  
+      w3povrty |     1396     0.04     0.19  
+      w3momscr |     1125    47.49    11.68  
+      w3dadscr |     1202    46.36    11.65  
+     rcinclvl1 |     1396     0.06     0.24  
+     rcinclvl2 |     1396     0.47     0.50  
+     rcinclvl3 |     1396     0.47     0.50  
+      p5fstamp |     1370     0.02     0.12  
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. qui logit catholic $rmcovars, robust
+
+. margins, dydx(*) post
+
+Average marginal effects                        Number of obs     =     11,078
+Model VCE    : Robust
+
+Expression   : Pr(catholic), predict()
+dy/dx w.r.t. : race_black race_hispanic race_asian
+
+-------------------------------------------------------------------------------
+              |            Delta-method
+              |      dy/dx   Std. Err.      z    P>|z|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+   race_black |  -.1334787   .0138983    -9.60   0.000    -.1607188   -.1062386
+race_hispanic |  -.0625903   .0094992    -6.59   0.000    -.0812084   -.0439722
+   race_asian |  -.0525556   .0143693    -3.66   0.000     -.080719   -.0243922
+-------------------------------------------------------------------------------
+
+. estimates store mfxlogit1
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. qui logit catholic $fmcovars, robust
+
+. margins, dydx(*) post
+
+Average marginal effects                        Number of obs     =      5,429
+Model VCE    : Robust
+
+Expression   : Pr(catholic), predict()
+dy/dx w.r.t. : race_black race_hispanic race_asian p5numpla p5hmage p5hdage rcdadcoll rcmomcoll w3povrty w3momscr w3dadscr
+               rcinclvl2 rcinclvl3 p5fstamp
+
+-------------------------------------------------------------------------------
+              |            Delta-method
+              |      dy/dx   Std. Err.      z    P>|z|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+   race_black |  -.0596415   .0255813    -2.33   0.020    -.1097799   -.0095032
+race_hispanic |   .0177092   .0158991     1.11   0.265    -.0134524    .0488708
+   race_asian |  -.0639943   .0231377    -2.77   0.006    -.1093434   -.0186453
+     p5numpla |  -.0227975   .0157134    -1.45   0.147    -.0535953    .0080002
+      p5hmage |   .0036607   .0012974     2.82   0.005     .0011177    .0062036
+      p5hdage |   .0014833   .0011453     1.30   0.195    -.0007614     .003728
+    rcdadcoll |   .0449566   .0132991     3.38   0.001     .0188908    .0710223
+    rcmomcoll |   .0506557   .0144488     3.51   0.000     .0223365    .0789748
+     w3povrty |  -.0764753     .04574    -1.67   0.095     -.166124    .0131733
+     w3momscr |   .0005881   .0004592     1.28   0.200     -.000312    .0014882
+     w3dadscr |   .0004159   .0004812     0.86   0.387    -.0005272    .0013591
+    rcinclvl2 |    .088952   .0412936     2.15   0.031     .0080179    .1698861
+    rcinclvl3 |   .1475847   .0422568     3.49   0.000     .0647629    .2304065
+     p5fstamp |  -.1016866    .057951    -1.75   0.079    -.2152684    .0118952
+-------------------------------------------------------------------------------
+
+. estimates store mfxlogit2       
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. regress catholic $rmcovars, robust
+
+Linear regression                               Number of obs     =     11,078
+                                                F(3, 11074)       =      66.60
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0125
+                                                Root MSE          =     .34102
+
+-------------------------------------------------------------------------------
+              |               Robust
+     catholic |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+   race_black |   -.105144   .0076868   -13.68   0.000    -.1202116   -.0900764
+race_hispanic |   -.061112   .0081858    -7.47   0.000    -.0771576   -.0450663
+   race_asian |  -.0528992   .0125417    -4.22   0.000    -.0774832   -.0283151
+        _cons |   .1635434   .0044076    37.10   0.000     .1549037    .1721832
+-------------------------------------------------------------------------------
+
+. estimates store lpm1    
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. regress catholic $fmcovars, robust
+
+Linear regression                               Number of obs     =      5,429
+                                                F(14, 5414)       =      34.84
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0545
+                                                Root MSE          =     .36686
+
+-------------------------------------------------------------------------------
+              |               Robust
+     catholic |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+   race_black |  -.0445978   .0169508    -2.63   0.009    -.0778281   -.0113675
+race_hispanic |   .0140554   .0141832     0.99   0.322    -.0137493    .0418601
+   race_asian |  -.0592252   .0189803    -3.12   0.002    -.0964342   -.0220162
+     p5numpla |  -.0188797   .0125284    -1.51   0.132    -.0434404     .005681
+      p5hmage |   .0034911   .0012445     2.81   0.005     .0010514    .0059309
+      p5hdage |   .0013207   .0011017     1.20   0.231    -.0008392    .0034806
+    rcdadcoll |    .040228    .011544     3.48   0.000     .0175971    .0628588
+    rcmomcoll |   .0394145   .0113918     3.46   0.001      .017082    .0617471
+     w3povrty |   -.025427   .0177496    -1.43   0.152    -.0602233    .0093694
+     w3momscr |   .0008063   .0005305     1.52   0.129    -.0002338    .0018463
+     w3dadscr |    .000672   .0005741     1.17   0.242    -.0004535    .0017976
+    rcinclvl2 |   .0395111   .0174003     2.27   0.023     .0053996    .0736227
+    rcinclvl3 |    .113443    .021417     5.30   0.000     .0714572    .1554289
+     p5fstamp |  -.0248192   .0147705    -1.68   0.093    -.0537752    .0041368
+        _cons |  -.1643839   .0456283    -3.60   0.000    -.2538336   -.0749342
+-------------------------------------------------------------------------------
+
+. estimates store lpm2
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. // q3-q5 models in one table
+. esttab logit1 logit2 mfxlogit1 mfxlogit2 lpm1 lpm2 using q3-q5lpms.csv, ///
+>   star se stats(N ll r2_p r2_a)  replace // b(%7.3f) stfmt(%8.2f)
+(note: file q3-q5lpms.csv not found)
+(output written to q3-q5lpms.csv)
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. esttab logit1 logit2 mfxlogit1 mfxlogit2 lpm1 lpm2, ///
+>   star se stats(N ll r2_p r2_a)  replace // b(%7.3f) stfmt(%8.2f)
+
+------------------------------------------------------------------------------------
+> ------------------------
+                      (1)             (2)             (3)             (4)           
+>   (5)             (6)   
+                 catholic        catholic                                        cat
+> holic        catholic   
+------------------------------------------------------------------------------------
+> ------------------------
+main                                                                                
+>                         
+race_black         -1.148***       -0.445*         -0.133***      -0.0596*         -
+> 0.105***      -0.0446** 
+                  (0.119)         (0.191)        (0.0139)        (0.0256)       (0.0
+> 0769)        (0.0170)   
+
+race_hispa~c       -0.538***        0.132         -0.0626***       0.0177         -0
+> .0611***       0.0141   
+                 (0.0816)         (0.119)       (0.00950)        (0.0159)       (0.0
+> 0819)        (0.0142)   
+
+race_asian         -0.452***       -0.478**       -0.0526***      -0.0640**       -0
+> .0529***      -0.0592** 
+                  (0.124)         (0.173)        (0.0144)        (0.0231)        (0.
+> 0125)        (0.0190)   
+
+p5numpla                           -0.170                         -0.0228           
+>               -0.0189   
+                                  (0.117)                        (0.0157)           
+>              (0.0125)   
+
+p5hmage                            0.0273**                       0.00366**         
+>               0.00349** 
+                                (0.00968)                       (0.00130)           
+>             (0.00124)   
+
+p5hdage                            0.0111                         0.00148           
+>               0.00132   
+                                (0.00856)                       (0.00115)           
+>             (0.00110)   
+
+rcdadcoll                           0.336***                       0.0450***        
+>                0.0402***
+                                 (0.0994)                        (0.0133)           
+>              (0.0115)   
+
+rcmomcoll                           0.378***                       0.0507***        
+>                0.0394***
+                                  (0.108)                        (0.0144)           
+>              (0.0114)   
+
+w3povrty                           -0.571                         -0.0765           
+>               -0.0254   
+                                  (0.341)                        (0.0457)           
+>              (0.0177)   
+
+w3momscr                          0.00439                        0.000588           
+>              0.000806   
+                                (0.00343)                      (0.000459)           
+>            (0.000531)   
+
+w3dadscr                          0.00311                        0.000416           
+>              0.000672   
+                                (0.00359)                      (0.000481)           
+>            (0.000574)   
+
+rcinclvl2                           0.664*                         0.0890*          
+>                0.0395*  
+                                  (0.309)                        (0.0413)           
+>              (0.0174)   
+
+rcinclvl3                           1.102***                        0.148***        
+>                 0.113***
+                                  (0.316)                        (0.0423)           
+>              (0.0214)   
+
+p5fstamp                           -0.760                          -0.102           
+>               -0.0248   
+                                  (0.432)                        (0.0580)           
+>              (0.0148)   
+
+_cons              -1.632***       -4.500***                                        
+> 0.164***       -0.164***
+                 (0.0322)         (0.449)                                       (0.0
+> 0441)        (0.0456)   
+------------------------------------------------------------------------------------
+> ------------------------
+N                   11078            5429           11078            5429           
+> 11078            5429   
+ll                -4333.8         -2320.2                                         -3
+> 799.1         -2251.8   
+r2_p               0.0176          0.0668                                           
+>                         
+r2_a                                                                               0
+> .0123          0.0521   
+------------------------------------------------------------------------------------
+> ------------------------
+Standard errors in parentheses
+* p<0.05, ** p<0.01, *** p<0.001
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. esttab logit1 logit2 mfxlogit1 mfxlogit2 lpm1 lpm2, ///
+>   star se stats(N ll r2_p r2_a)  replace // b(%7.3f) stfmt(%8.2f)
+
+------------------------------------------------------------------------------------------------------------
+                      (1)             (2)             (3)             (4)             (5)             (6)   
+                 catholic        catholic                                        catholic        catholic   
+------------------------------------------------------------------------------------------------------------
+main                                                                                                        
+race_black         -1.148***       -0.445*         -0.133***      -0.0596*         -0.105***      -0.0446** 
+                  (0.119)         (0.191)        (0.0139)        (0.0256)       (0.00769)        (0.0170)   
+
+race_hispa~c       -0.538***        0.132         -0.0626***       0.0177         -0.0611***       0.0141   
+                 (0.0816)         (0.119)       (0.00950)        (0.0159)       (0.00819)        (0.0142)   
+
+race_asian         -0.452***       -0.478**       -0.0526***      -0.0640**       -0.0529***      -0.0592** 
+                  (0.124)         (0.173)        (0.0144)        (0.0231)        (0.0125)        (0.0190)   
+
+p5numpla                           -0.170                         -0.0228                         -0.0189   
+                                  (0.117)                        (0.0157)                        (0.0125)   
+
+p5hmage                            0.0273**                       0.00366**                       0.00349** 
+                                (0.00968)                       (0.00130)                       (0.00124)   
+
+p5hdage                            0.0111                         0.00148                         0.00132   
+                                (0.00856)                       (0.00115)                       (0.00110)   
+
+rcdadcoll                           0.336***                       0.0450***                       0.0402***
+                                 (0.0994)                        (0.0133)                        (0.0115)   
+
+rcmomcoll                           0.378***                       0.0507***                       0.0394***
+                                  (0.108)                        (0.0144)                        (0.0114)   
+
+w3povrty                           -0.571                         -0.0765                         -0.0254   
+                                  (0.341)                        (0.0457)                        (0.0177)   
+
+w3momscr                          0.00439                        0.000588                        0.000806   
+                                (0.00343)                      (0.000459)                      (0.000531)   
+
+w3dadscr                          0.00311                        0.000416                        0.000672   
+                                (0.00359)                      (0.000481)                      (0.000574)   
+
+rcinclvl2                           0.664*                         0.0890*                         0.0395*  
+                                  (0.309)                        (0.0413)                        (0.0174)   
+
+rcinclvl3                           1.102***                        0.148***                        0.113***
+                                  (0.316)                        (0.0423)                        (0.0214)   
+
+p5fstamp                           -0.760                          -0.102                         -0.0248   
+                                  (0.432)                        (0.0580)                        (0.0148)   
+
+_cons              -1.632***       -4.500***                                        0.164***       -0.164***
+                 (0.0322)         (0.449)                                       (0.00441)        (0.0456)   
+------------------------------------------------------------------------------------------------------------
+N                   11078            5429           11078            5429           11078            5429   
+ll                -4333.8         -2320.2                                         -3799.1         -2251.8   
+r2_p               0.0176          0.0668                                                                   
+r2_a                                                                               0.0123          0.0521   
+------------------------------------------------------------------------------------------------------------
+Standard errors in parentheses
+* p<0.05, ** p<0.01, *** p<0.001
+
+. 
+end of do-file
+
+. do "C:\Users\dray\AppData\Local\Temp\STD05000000.tmp"
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\dray\Downloads\ecls_lab_class.log
+  log type:  text
+ closed on:  10 Nov 2018, 17:30:22
+----------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,126 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class4.log
+  log type:  text
+ opened on:  18 Feb 2018, 16:46:36
+
+. clear all 
+
+. import excel ceos.xls, sheet("Sheet1") firstrow
+
+. clear
+
+. 
+. /*Comma-Separated Files*/ 
+. import delimited ceos.csv
+(12 vars, 177 obs)
+
+. clear
+
+. 
+. /*Space-Separated Files*/
+. import delimited CEOsSpace.txt, delimiter(space)
+(12 vars, 177 obs)
+
+. clear
+
+. 
+. /*Tab-Separated Files*/
+. import delimited ceostab.txt, delimiter(tab)
+(12 vars, 177 obs)
+
+. 
+. clear
+
+. 
+. /*Fixed Format Files (no dictionary) */
+. 
+. infix str name 1-18 str gender 19-29 salary 30-40 age 41-51 using ceos.raw
+(177 observations read)
+
+. clear
+
+. 
+. /*Fixed Format Files with a dictionary*/
+. 
+. infix using CEOs.dct, using(CEOs.raw)
+infix dictionary {
+  str name 1-18 str gender 19-29 salary 30-40 age 41-51 college 52-62 grad 63-73 c
+> omten 74-84 ceoten 85-95 sales 96-106 profits 107-117 mktval 118-128 profmarg 12
+> 9-139
+}
+(177 observations read)
+
+. 
+. clear
+
+. 
+. /*SAS XPORT Files*/
+. import sasxport ceos.xpt
+
+. 
+. set segmentsize 100m 
+
+. 
+. query memory 
+----------------------------------------------------------------------------------
+    Memory settings
+      set maxvar           2048       (not settable in this version of Stata)
+      set matsize          400        10-800; max. # vars in models
+      set niceness         5          0-10
+      set min_memory       0          0-5000g
+      set max_memory       .          100m-5000g or .
+      set segmentsize      100m       1m-32g
+
+. 
+. use ceos.dta, clear
+
+. 
+. correlate salary ceoten
+(obs=177)
+
+             |   salary   ceoten
+-------------+------------------
+      salary |   1.0000
+      ceoten |   0.1429   1.0000
+
+
+. correlate ceoten age college mktval
+(obs=177)
+
+             |   ceoten      age  college   mktval
+-------------+------------------------------------
+      ceoten |   1.0000
+         age |   0.3387   1.0000
+     college |  -0.1063  -0.1781   1.0000
+      mktval |   0.0066   0.1072  -0.0276   1.0000
+
+
+. 
+. /*Estimate a SRM by OLS*/
+. regress salary ceoten 
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(1, 175)       =      3.65
+       Model |  1241694.06         1  1241694.06   Prob > F        =    0.0577
+    Residual |  59524270.7       175   340138.69   R-squared       =    0.0204
+-------------+----------------------------------   Adj R-squared   =    0.0148
+       Total |  60765964.7       176  345261.163   Root MSE        =    583.21
+
+------------------------------------------------------------------------------
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   11.74613    6.14774     1.91   0.058     -.387127    23.87939
+       _cons |   772.4263   65.67567    11.76   0.000     642.8079    902.0446
+------------------------------------------------------------------------------
+
+. 
+. twoway (scatter salary ceoten) (lfit salary ceoten) 
+
+. 
+. log close 
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class4.log
+  log type:  text
+ closed on:  18 Feb 2018, 16:46:38
+----------------------------------------------------------------------------------

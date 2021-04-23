@@ -1,0 +1,100 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class5.log
+  log type:  text
+ opened on:  18 Feb 2018, 16:46:54
+
+. set more off 
+
+. import excel ceos.xls, sheet("Sheet1") firstrow
+
+. export excel using ceosexport.xls, firstrow(variables) replace
+file ceosexport.xls saved
+
+. clear
+
+. 
+. /*Comma-Separated Files*/ 
+. import delimited ceos.csv
+(12 vars, 177 obs)
+
+. export delimited using ceos.csv, replace
+file ceos.csv saved
+
+. clear
+
+. 
+. /*Space-Separated Files*/
+. import delimited CEOsSpace.txt, delimiter(space)
+(12 vars, 177 obs)
+
+. export delimited using ceosspace.txt, delimiter(" ") replace
+file ceosspace.txt saved
+
+. clear
+
+. 
+. /*Tab-Separated Files*/
+. import delimited ceostab.txt, delimiter(tab)
+(12 vars, 177 obs)
+
+. export delimited ceostab.txt, delimiter(tab) replace
+file ceostab.txt saved
+
+. clear
+
+. 
+. /*Fixed Format Files (no dictionary) */
+. 
+. infix str name 1-18 str gender 19-29 salary 30-40 age 41-51 using ceos.raw
+(177 observations read)
+
+. outfile using ceos.raw, noquote replace wide rjs
+
+. /*no quotes, one line however wide, right justified*/
+. clear
+
+. 
+. /*Fixed Format Files with a dictionary*/
+. infix using CEOs.dct, using(CEOs.raw)
+infix dictionary {
+  str name 1-18 str gender 19-29 salary 30-40 age 41-51 college 52-62 grad 63-73 c
+> omten 74-84 ceoten 85-95 sales 96-106 profits 107-117 mktval 118-128 profmarg 12
+> 9-139
+}
+(177 observations read)
+
+. clear
+
+. 
+. /*SAS XPORT Files*/
+. import sasxport ceos.xpt
+
+. export sasxport ceos.xpt, rename replace
+file ceos.xpt saved
+
+. clear
+
+. 
+. pwd
+/Users/mafton/Documents/School/Econ 644
+
+. 
+. cd "/Users/mafton/Documents/School/Econ 644/nonstatafiles"
+/Users/mafton/Documents/School/Econ 644/NonStataFiles
+
+. 
+. pwd
+/Users/mafton/Documents/School/Econ 644/NonStataFiles
+
+. 
+. cd "/Users/mafton/Documents/School/Econ 644"
+/Users/mafton/Documents/School/Econ 644
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class5.log
+  log type:  text
+ closed on:  18 Feb 2018, 16:46:54
+----------------------------------------------------------------------------------

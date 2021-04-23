@@ -1,0 +1,101 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/Class1.log
+  log type:  text
+ opened on:  25 Feb 2018, 15:49:29
+
+. use ceos.dta, clear
+
+. set more off 
+
+. 
+. describe
+
+Contains data from ceos.dta
+  obs:           177                          
+ vars:            12                          3 Feb 2016 17:43
+ size:         7,080                          (_dta has notes)
+----------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+----------------------------------------------------------------------------------
+name            str18   %18s                  CEO name
+gender          str1    %9s                   CEO gender
+salary          int     %9.0g                 1990 compensation, $1000s
+age             byte    %9.0g                 in years
+college         byte    %9.0g                 =1 if attended college
+grad            byte    %9.0g                 =1 if attended graduate school
+comten          byte    %9.0g                 years with company
+ceoten          byte    %9.0g                 years as ceo with company
+sales           float   %9.0g                 1990 firm sales, millions
+profits         int     %9.0g                 1990 profits, millions
+mktval          float   %9.0g                 market value, end 1990, mills.
+profmarg        float   %9.0g                 profits as % of sales
+----------------------------------------------------------------------------------
+Sorted by: 
+
+. browse
+
+. 
+end of do-file
+
+. notes list _dta
+
+_dta:
+  1.  Sample of 177 CEOs of large corporations in 1990. The original purpose of
+      the dataset was to estimate the factors that influence executive
+      compensation.
+
+. histogram salary bin(25) frequency addlabel
+factor variables and time-series operators not allowed
+r(101);
+
+. histogram salary, bin(25) frequency addlabel
+(bin=25, start=100, width=207.96)
+
+. 
+. graph save Graph "/Users/mafton/Documents/School/Econ 644/class1histogram1.gph"
+(file /Users/mafton/Documents/School/Econ 644/class1histogram1.gph saved)
+
+. graph save Graph "/Users/mafton/Documents/School/Econ 644/class1histogram1.gph",
+>  replace
+(file /Users/mafton/Documents/School/Econ 644/class1histogram1.gph saved)
+
+. 
+. histogram salary, bin(25) frequency addlabel
+(bin=25, start=100, width=207.96)
+
+. graph save Graph "/Users/mafton/Documents/School/Econ 644/class1histogram2.gph"
+(file /Users/mafton/Documents/School/Econ 644/class1histogram2.gph saved)
+
+. graph hbox salary
+
+. graph save Graph "/Users/mafton/Documents/School/Econ 644/class1hbox1.gph"
+(file /Users/mafton/Documents/School/Econ 644/class1hbox1.gph saved)
+
+. list salary if salary >=2000
+
+     +--------+
+     | salary |
+     |--------|
+ 44. |   2021 |
+ 60. |   2199 |
+ 74. |   2792 |
+ 77. |   2265 |
+103. |   5299 |
+     |--------|
+135. |   2102 |
+176. |   2220 |
+     +--------+
+
+. edit
+
+. replace salary = 529 in 103
+(1 real change made)
+
+. log close
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/Class1.log
+  log type:  text
+ closed on:  25 Feb 2018, 15:55:34
+----------------------------------------------------------------------------------

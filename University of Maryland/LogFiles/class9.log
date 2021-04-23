@@ -1,0 +1,344 @@
+----------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class9.log
+  log type:  text
+ opened on:  19 Feb 2018, 10:55:41
+
+. set more off
+
+. use ceosalary.dta
+
+. /*Detecting HTRSK by computing conditional variances in sample*/
+. /*Recode Ceoten into a dummy variable*/
+. egen float loyal = cut(ceoten), group(2) icodes
+
+. 
+. /*Compute variance in salary, by loyalty*/
+. tabstat salary, statistics(var) by(loyal)
+
+Summary for variables: salary
+     by categories of: loyal 
+
+   loyal |  variance
+---------+----------
+       0 |  167972.1
+       1 |  491985.1
+---------+----------
+   Total |  345261.2
+--------------------
+
+. 
+. /*Create a squared term for ceoten*/
+. generate ceotensq = ceoten^2
+
+. 
+. /*Estimate a quadratic model for salary-ceoten*/
+. regress salary ceoten ceotensq mktval
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(3, 173)       =     15.83
+       Model |  13086189.2         3  4362063.08   Prob > F        =    0.0000
+    Residual |  47679775.5       173  275605.639   R-squared       =    0.2154
+-------------+----------------------------------   Adj R-squared   =    0.2017
+       Total |  60765964.7       176  345261.163   Root MSE        =    524.98
+
+------------------------------------------------------------------------------
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   47.47244   14.90585     3.18   0.002     18.05171    76.89318
+    ceotensq |  -1.302377   .5014544    -2.60   0.010    -2.292133   -.3126203
+      mktval |   .0371405    .006143     6.05   0.000     .0250156    .0492654
+       _cons |   503.1456    82.4074     6.11   0.000     340.4922     665.799
+------------------------------------------------------------------------------
+
+. 
+. /*Save the residuals*/
+. predict uhat, residuals
+
+. 
+. /*residuals mean, by loyalty*/
+. tabstat uhat, statistics(mean) by(loyal)
+
+Summary for variables: uhat
+     by categories of: loyal 
+
+   loyal |      mean
+---------+----------
+       0 | -12.51668
+       1 |  11.82895
+---------+----------
+   Total |  2.88e-07
+--------------------
+
+. 
+. /*MOre loyal CEOs have higher variance and larger residuals on average*/
+. 
+. /*Residuals vs Predictor plot*/
+. rvpplot ceoten, mcolor(black) msymbol(smcircle_hollow)
+
+. graph save Graph "/Users/mafton/Documents/School/Econ 644/class 9 graph.gph", re
+> place
+(file /Users/mafton/Documents/School/Econ 644/class 9 graph.gph saved)
+
+. /*Beusch Pagen test for HTSK in STATA*/
+. regress salary ceoten ceotensq mktval
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(3, 173)       =     15.83
+       Model |  13086189.2         3  4362063.08   Prob > F        =    0.0000
+    Residual |  47679775.5       173  275605.639   R-squared       =    0.2154
+-------------+----------------------------------   Adj R-squared   =    0.2017
+       Total |  60765964.7       176  345261.163   Root MSE        =    524.98
+
+------------------------------------------------------------------------------
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   47.47244   14.90585     3.18   0.002     18.05171    76.89318
+    ceotensq |  -1.302377   .5014544    -2.60   0.010    -2.292133   -.3126203
+      mktval |   .0371405    .006143     6.05   0.000     .0250156    .0492654
+       _cons |   503.1456    82.4074     6.11   0.000     340.4922     665.799
+------------------------------------------------------------------------------
+
+. estat hettest
+
+Breusch-Pagan / Cook-Weisberg test for heteroskedasticity 
+         Ho: Constant variance
+         Variables: fitted values of salary
+
+         chi2(1)      =     7.03
+         Prob > chi2  =   0.0080
+
+. 
+. /*or using double hashtag*/
+. 
+. regress salary c.ceoten##c.ceoten mktval
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(3, 173)       =     15.83
+       Model |  13086189.2         3  4362063.08   Prob > F        =    0.0000
+    Residual |  47679775.5       173  275605.639   R-squared       =    0.2154
+-------------+----------------------------------   Adj R-squared   =    0.2017
+       Total |  60765964.7       176  345261.163   Root MSE        =    524.98
+
+------------------------------------------------------------------------------
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   47.47244   14.90585     3.18   0.002     18.05171    76.89318
+             |
+    c.ceoten#|
+    c.ceoten |  -1.302377   .5014544    -2.60   0.010    -2.292133   -.3126203
+             |
+      mktval |   .0371405    .006143     6.05   0.000     .0250156    .0492654
+       _cons |   503.1456    82.4074     6.11   0.000     340.4922     665.799
+------------------------------------------------------------------------------
+
+. estat hettest
+
+Breusch-Pagan / Cook-Weisberg test for heteroskedasticity 
+         Ho: Constant variance
+         Variables: fitted values of salary
+
+         chi2(1)      =     7.03
+         Prob > chi2  =   0.0080
+
+. 
+. /*Robust OLS estimation Standard Errors in STATA*/
+. regress salary ceoten ceotensq mktval, vce(robust)
+
+Linear regression                               Number of obs     =        177
+                                                F(3, 173)         =      26.38
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.2154
+                                                Root MSE          =     524.98
+
+------------------------------------------------------------------------------
+             |               Robust
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   47.47244   16.71813     2.84   0.005     14.47467    80.47022
+    ceotensq |  -1.302377   .5432792    -2.40   0.018    -2.374686   -.2300675
+      mktval |   .0371405   .0048736     7.62   0.000     .0275211    .0467599
+       _cons |   503.1456   57.98585     8.68   0.000     388.6948    617.5964
+------------------------------------------------------------------------------
+
+. 
+. /*WLS in STATA the hard way*/
+. 
+. generate tsalary=salary/sqrt(ceoten)
+(5 missing values generated)
+
+. generate tceoten=ceoten/sqrt(ceoten)
+(5 missing values generated)
+
+. generate tceotensq=ceotensq/sqrt(ceoten)
+(5 missing values generated)
+
+. generate tmktval=mktval/sqrt(ceoten)
+(5 missing values generated)
+
+. generate tcons=1/sqrt(ceoten)
+(5 missing values generated)
+
+. 
+. regress tsalary tceoten tceotensq tmktval tcons, noconstant
+
+      Source |       SS           df       MS      Number of obs   =       172
+-------------+----------------------------------   F(4, 168)       =    195.70
+       Model |  30672134.3         4  7668033.58   Prob > F        =    0.0000
+    Residual |  6582606.71       168  39182.1828   R-squared       =    0.8233
+-------------+----------------------------------   Adj R-squared   =    0.8191
+       Total |    37254741       172  216597.331   Root MSE        =    197.94
+
+------------------------------------------------------------------------------
+     tsalary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     tceoten |   62.74912   15.59385     4.02   0.000     31.96397    93.53427
+   tceotensq |  -1.855077   .7180196    -2.58   0.011     -3.27258    -.437573
+     tmktval |   .0368225   .0044891     8.20   0.000     .0279603    .0456848
+       tcons |   445.7198   52.27027     8.53   0.000     342.5286     548.911
+------------------------------------------------------------------------------
+
+. 
+. /*WLS in STATA the easy way*/
+. 
+. regress salary ceoten ceotensq mktval [aweight=1/ceoten]
+(sum of wgt is 46.99791505201722)
+
+      Source |       SS           df       MS      Number of obs   =       172
+-------------+----------------------------------   F(3, 168)       =     28.38
+       Model |  12209685.5         3  4069895.16   Prob > F        =    0.0000
+    Residual |  24090607.5       168  143396.473   R-squared       =    0.3364
+-------------+----------------------------------   Adj R-squared   =    0.3245
+       Total |    36300293       171  212282.415   Root MSE        =    378.68
+
+------------------------------------------------------------------------------
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   62.74912   15.59385     4.02   0.000     31.96397    93.53427
+    ceotensq |  -1.855077   .7180196    -2.58   0.011     -3.27258    -.437573
+      mktval |   .0368225   .0044891     8.20   0.000     .0279603    .0456848
+       _cons |   445.7198   52.27027     8.53   0.000     342.5286     548.911
+------------------------------------------------------------------------------
+
+. 
+. /*Robust WLS to do valid inference when based on incorrect form of htsk */
+. regress salary ceoten ceotensq mktval [aweight=1/ceoten], vce(robust)
+(sum of wgt is 46.99791505201722)
+
+Linear regression                               Number of obs     =        172
+                                                F(3, 168)         =      29.46
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3364
+                                                Root MSE          =     378.68
+
+------------------------------------------------------------------------------
+             |               Robust
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   62.74912   15.57544     4.03   0.000     32.00032    93.49792
+    ceotensq |  -1.855077    .567594    -3.27   0.001    -2.975612   -.7345411
+      mktval |   .0368225   .0052342     7.03   0.000     .0264892    .0471558
+       _cons |   445.7198   52.29145     8.52   0.000     342.4868    548.9528
+------------------------------------------------------------------------------
+
+. 
+. /*FGLS in STATA*/
+. regress salary ceoten ceotensq mktval
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(3, 173)       =     15.83
+       Model |  13086189.2         3  4362063.08   Prob > F        =    0.0000
+    Residual |  47679775.5       173  275605.639   R-squared       =    0.2154
+-------------+----------------------------------   Adj R-squared   =    0.2017
+       Total |  60765964.7       176  345261.163   Root MSE        =    524.98
+
+------------------------------------------------------------------------------
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   47.47244   14.90585     3.18   0.002     18.05171    76.89318
+    ceotensq |  -1.302377   .5014544    -2.60   0.010    -2.292133   -.3126203
+      mktval |   .0371405    .006143     6.05   0.000     .0250156    .0492654
+       _cons |   503.1456    82.4074     6.11   0.000     340.4922     665.799
+------------------------------------------------------------------------------
+
+. 
+. /*Save the residual*/
+. predict uhatf, residual 
+
+. 
+. /*Square and log residuals*/
+. generate log2= log(uhatf^2) 
+
+. 
+. /*regress logs of the residuals squared against variables*/
+. regress log2 ceoten ceotensq mktval
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(3, 173)       =      3.49
+       Model |  43.7948759         3   14.598292   Prob > F        =    0.0169
+    Residual |  722.697801       173  4.17744394   R-squared       =    0.0571
+-------------+----------------------------------   Adj R-squared   =    0.0408
+       Total |  766.492677       176  4.35507203   Root MSE        =    2.0439
+
+------------------------------------------------------------------------------
+        log2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   .1261516   .0580321     2.17   0.031     .0116096    .2406936
+    ceotensq |  -.0025371   .0019523    -1.30   0.195    -.0063905    .0013162
+      mktval |   .0000338   .0000239     1.41   0.159    -.0000134     .000081
+       _cons |   9.964333   .3208319    31.06   0.000     9.331084    10.59758
+------------------------------------------------------------------------------
+
+. 
+. /*Save the fitted values*/
+. predict log2hat
+(option xb assumed; fitted values)
+
+. 
+. /*Exponentiate the fitted values*/
+. generate hhat=exp(log2hat)
+
+. 
+. /*Estimate the original model using weights*/
+. regress salary ceoten ceotensq mktval [aweight = 1/hhat]
+(sum of wgt is .0040341049907276)
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(3, 173)       =     17.18
+       Model |  10098182.4         3   3366060.8   Prob > F        =    0.0000
+    Residual |  33901412.5       173  195961.922   R-squared       =    0.2295
+-------------+----------------------------------   Adj R-squared   =    0.2161
+       Total |  43999594.8       176  249997.698   Root MSE        =    442.68
+
+------------------------------------------------------------------------------
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   51.68315   13.69745     3.77   0.000     24.64752    78.71878
+    ceotensq |   -1.32608   .4961635    -2.67   0.008    -2.305394   -.3467671
+      mktval |   .0452137   .0076021     5.95   0.000      .030209    .0602185
+       _cons |   451.9852   62.97424     7.18   0.000     327.6885     576.282
+------------------------------------------------------------------------------
+
+. 
+. regress salary ceoten
+
+      Source |       SS           df       MS      Number of obs   =       177
+-------------+----------------------------------   F(1, 175)       =      3.65
+       Model |  1241694.06         1  1241694.06   Prob > F        =    0.0577
+    Residual |  59524270.7       175   340138.69   R-squared       =    0.0204
+-------------+----------------------------------   Adj R-squared   =    0.0148
+       Total |  60765964.7       176  345261.163   Root MSE        =    583.21
+
+------------------------------------------------------------------------------
+      salary |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      ceoten |   11.74613    6.14774     1.91   0.058     -.387127    23.87939
+       _cons |   772.4263   65.67567    11.76   0.000     642.8079    902.0446
+------------------------------------------------------------------------------
+
+. log close
+      name:  <unnamed>
+       log:  /Users/mafton/Documents/School/Econ 644/class9.log
+  log type:  text
+ closed on:  19 Feb 2018, 10:55:43
+----------------------------------------------------------------------------------
