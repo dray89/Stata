@@ -1,0 +1,2 @@
+do mkwwsmini
+do anwwsmini

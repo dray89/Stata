@@ -1,0 +1,11 @@
+begin load.pkg
+
+d Package
+d Load Programs
+d Distribution-Date: 6/2/19
+
+f load.ado
+f load.do
+f load.sthlp
+
+end load.pkg
