@@ -1,0 +1,12 @@
+
+begin stata.toc
+OFF (to make site unavailable temporarily)
+
+
+l PERSONAL C:\ado\personal [PERSONAL DIRECTORY]
+
+. . .
+
+p load_programs.pkg [load project specific programs]
+
+end stata.toc
