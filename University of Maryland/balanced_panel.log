@@ -28,10 +28,6 @@
 . **** OLS had the highest average probability of htsk
 . **** No difference in average probability of htsk between FE and FE_CL models
 . **** FE with year dummies have larger average errors than continuous year variable
-. 
-. load
-loaded LM_program.do
-loaded stderr_prog.do
 
 . 
 . xtset stateid year 
