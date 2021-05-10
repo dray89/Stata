@@ -1,10 +1,6 @@
 # Stata
 Sample Stata Files
 
-Templates
-
-Collection of reusable dofile templates
-
 unbalanced_panel.log
 
 Income_Democracy.dta: The effect of democracy on income
