@@ -44,7 +44,7 @@ gen newvar = (${incomplete}< 1) if ${incomplete}!=0
 **** Rectangularize Dataset
 ********************************************************************************
 
-fillin ${indvar} ${indvar2}
+fillin ${indvar} ${incomplete}
 
 **** If applicable:
-replace ${incomplete} = 0 if _fillin
+replace ${indvar2} = 0 if _fillin

@@ -1,7 +1,0 @@
-
-begin stata.toc
-
-l C:\ado\personal
-p load.pkg
-
-end stata.toc

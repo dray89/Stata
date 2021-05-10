@@ -5,11 +5,6 @@
  opened on:  26 Jul 2019, 19:56:05
 
 . 
-. load
-loaded LM_program.do
-loaded stderr_prog.do
-
-. 
 . use "C:\Users\rayde\Downloads\h196dat\cleaned_data.dta", clear
 
 . 

@@ -28,15 +28,27 @@ local model3 = " "
 local model4 = " "
 local model5 = " "
 
-
 ********************************************************************************
 * Fixed Effects 
 ********************************************************************************
+local replace "replace"
 forval mod = 1/5 {
             cap drop fe*
             eststo fe_`mod': xtreg ${dep} `model`mod'', fe
             predict fe`mod', resid
             stderr fe`mod'
+
+             }
+			 
+********************************************************************************
+* Fixed Effects with Cluster Robust Standard Errors
+********************************************************************************
+
+forval mod = 1/5 {
+            cap drop fe*_cl
+            eststo fe_`mod'_cl: xtreg ${dep} `model`mod'', fe vce(cluster stateid)
+            predict fe`mod'_cl, resid
+            stderr fe`mod'_cl
 
              }
   
@@ -101,7 +113,7 @@ forval mod = 1/10 {
 
 stderr fe`mod' fe`mod'_cl  re`mod' ols`mod'
 
-matrix define stderr`mod' = (fe`mod', fe`mod'_cl,  re`mod' ,ols`mod' )
+matrix define stderr`mod' = (fe`mod', fe`mod'_cl,  re`mod' , ols`mod' )
 
 }
 

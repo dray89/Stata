@@ -46,7 +46,7 @@
 . /*ii. Next, calculate the diﬀerence between NJ and PA of the time diﬀerences 
 > you just computed. */
 . 
-. scalar didwage =wagediffnj - wagediffpa
+. scalar didwage = wagediffnj - wagediffpa
 
 . di didwage
 .504007
