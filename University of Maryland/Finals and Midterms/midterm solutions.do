@@ -48,20 +48,4 @@ ivreg2 y (x=z);
 hausman iv_reg ols_reg;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 cap log close;
